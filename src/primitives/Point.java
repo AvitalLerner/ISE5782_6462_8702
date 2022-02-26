@@ -4,7 +4,7 @@ public class Point {
     final Double3 xyz;
 
     public Point(Double x, Double y, Double z) {
-        xyz= new Double3(x, y, z)
+        xyz= new Double3(x, y, z);
     }
     public Vector subtract(Point other){
         Double3 cordinates=new Double3(
@@ -18,6 +18,7 @@ public class Point {
         double x = xyz.d1 + vector.xyz.d1;
         double y = xyz.d2 + vector.xyz.d2;
         double z = xyz.d3 + vector.xyz.d3;
+        return new Point(x,y,z);
     }
 
     @Override

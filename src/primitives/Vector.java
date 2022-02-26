@@ -3,8 +3,8 @@ package primitives;
 public class Vector extends Point {
 
     public Vector(double d1, double d2, double d3) {
-        super(X,Y,Z);
-        if(isZero(x)&&isZero(y)&&isZero(z)){
+        super(d1,d2,d3);
+        if(isZero(d1)&&isZero(d2)&&isZero(d3)){
             throw new IllegalArgumentException("ZERO vector is not allowed");
         }
 
