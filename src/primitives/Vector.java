@@ -4,7 +4,7 @@ public class Vector extends Point {
 
     public Vector(double d1, double d2, double d3) {
         super(d1,d2,d3);
-        if(isZero(d1)&&isZero(d2)&&isZero(d3)){
+        if(Double3.ZERO.equals(new Double3(d1,d2,d3))){
             throw new IllegalArgumentException("ZERO vector is not allowed");
         }
 
@@ -46,31 +46,29 @@ public class Vector extends Point {
         double v2 = v.xyz.d2;
         double v3 = v.xyz.d3;
 
-        return new Vector(
-                (u2 * v3 - u3 * v2, u1 * v3 - u3 * v1,                u1*v2-u2*v1)
-                );
+        return new Vector(u2 * v3 - u3 * v2, u1 * v3 - u3 * v1,u1*v2-u2*v1);
     }
 
     public Vector scale(double scaleFactor){
-        if(isZero(scaleFactor))
+        if(scaleFactor==0)
         {
-            throw  new IllegalArgumentException("scale resulting by 0 not valid ")
+            throw  new IllegalArgumentException("scale resulting by 0 not valid ");
 
         }
-        return new Vector()
         Double3 coordinate = new Double3(xyz.d1/scaleFactor, xyz.d2/scaleFactor,xyz.d3/scaleFactor);
+        return new Vector(coordinate.d1, coordinate.d2,coordinate.d3);
     }
     public Vector add(Vector vector)
     {
         Double3 coordinate = new Double3( xyz.d1 + vector.xyz.d1, xyz.d2 + vector.xyz.d2, xyz.d3 + vector.xyz.d3);
         if(Double3.ZERO.equals(coordinate)){
-            throw new
+            throw new IllegalArgumentException("add resulting by 0 not valid");
         }
+        return new Vector(coordinate.d1, coordinate.d2,coordinate.d3);
     }
 
     public Vector normalize() {
         double len=length();
         return this.scale(1d/len);
-
     }
 }
