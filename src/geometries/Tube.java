@@ -1,6 +1,9 @@
-package primitives;
+package geometries;
 
 import geometries.Geometry;
+import primitives.Point;
+import primitives.Ray;
+import primitives.Vector;
 
 public class Tube implements Geometry {
     Ray axisRay;
