@@ -9,9 +9,15 @@ public class Vector extends Point {
         }
 
     }
-
+    public Vector(Double3 newD){
+        super(newD);
+        if(Double3.ZERO.equals(new Double3(newD.d1, newD.d2, newD.d3))){
+            throw new IllegalArgumentException("ZERO vector is not allowed");
+        }
+    }
     public double lengthSquared() {
-        return xyz.d1* xyz.d1 + xyz.d2* xyz.d2 + xyz.d3* xyz.d3;
+        xyz.product(xyz);
+        return xyz.d1 +xyz.d2 + xyz.d3;
     }
 
     public double length() {
