@@ -33,6 +33,11 @@ class Double3 {
 		this.d3 = d3;
 	}
 
+	/**
+	 *
+	 * @param obj
+	 * @return
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
