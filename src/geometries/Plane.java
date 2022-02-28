@@ -12,7 +12,7 @@ public class Plane implements Geometry  {
     }
     public Plane(Point p1,Vector normal1){
         this.xyz=p1;
-        this.normal=normal1;
+        this.normal=normal1.normalize();
     }
     @Override
     public Vector getNormal(Point p1) {
