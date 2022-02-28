@@ -9,6 +9,11 @@ public class Tube implements Geometry {
     Ray axisRay;
     Double Radius;
 
+    /**
+     * constructor get axis and radius.
+     * @param axis
+     * @param radius
+     */
     public Tube(Ray axis, Double radius)
     {
         axisRay = axis;
@@ -31,6 +36,11 @@ public class Tube implements Geometry {
                 '}';
     }
 
+    /**
+     * calculate the normal
+     * @param p1
+     * @return now this return NULL
+     */
     @Override
     public Vector getNormal(Point p1) {
         return null;

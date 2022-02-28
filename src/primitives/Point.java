@@ -6,7 +6,7 @@ public class Point {
     public Point(Double x, Double y, Double z) {
         xyz= new Double3(x, y, z);
     }
-    public  Point(Double3 newD){
+    public Point(Double3 newD){
         xyz=new Double3(newD.d1, newD.d2, newD.d3);
     }
     public Vector subtract(Point other){
