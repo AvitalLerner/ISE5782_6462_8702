@@ -36,7 +36,7 @@ class Double3 {
 	/**
 	 *
 	 * @param obj
-	 * @return
+	 * @return true if the double3 object is the same as the one given
 	 */
 	@Override
 	public boolean equals(Object obj) {

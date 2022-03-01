@@ -4,6 +4,11 @@ public class Ray {
     Point p0;
     Vector dir;
 
+    /**
+     *constructor
+     * @param p
+     * @param vec
+     */
     Ray(Point p, Vector vec){
         this.dir = vec.normalize();
         this.p0=p;
