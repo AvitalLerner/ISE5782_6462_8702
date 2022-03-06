@@ -31,8 +31,8 @@ public class Vector extends Point {
      * @return squared vector length
      */
     public double lengthSquared() {
-        xyz.product(xyz);
-        return xyz.d1 +xyz.d2 + xyz.d3;
+        Double3 newp=xyz.product(xyz);
+        return newp.d1 +newp.d2 + newp.d3;
     }
 
     /**
@@ -76,7 +76,7 @@ public class Vector extends Point {
         double v2 = v.xyz.d2;
         double v3 = v.xyz.d3;
 
-        return new Vector(u2 * v3 - u3 * v2, u1 * v3 - u3 * v1,u1*v2-u2*v1);
+        return new Vector(u2 * v3 - u3 * v2,u3*v1-u1*v3,u1*v2-u2*v1);
     }
 
     /**
@@ -114,6 +114,6 @@ public class Vector extends Point {
      */
     public Vector normalize() {
         double len=length();
-        return this.scale(1d/len);
+        return new Vector(xyz.reduce(len));
     }
 }

@@ -9,7 +9,7 @@ public class Point {
      * @param y
      * @param z
      */
-    public Point(Double x, Double y, Double z) {
+    public Point(double x, double y, double z) {
         xyz= new Double3(x, y, z);
     }
 
@@ -28,12 +28,7 @@ public class Point {
      * @return the new vector
      */
     public Vector subtract(Point other){
-        Double3 cordinates=new Double3(
-                xyz.d1-other.xyz.d1,
-                xyz.d2-other.xyz.d2,
-                xyz.d3-other.xyz.d3
-        );
-        return new Vector(cordinates.d1,cordinates.d2,cordinates.d3);
+       return new Vector(xyz.subtract(other.xyz));
     }
 
     /**
@@ -42,10 +37,7 @@ public class Point {
      * @return new point
      */
     public Point add(Vector vector) {
-        double x = xyz.d1 + vector.xyz.d1;
-        double y = xyz.d2 + vector.xyz.d2;
-        double z = xyz.d3 + vector.xyz.d3;
-        return new Point(x,y,z);
+        return new Point(xyz.add(vector.xyz));
     }
 
     @Override
@@ -53,6 +45,18 @@ public class Point {
         return "Point{" +
                 "xyz=" + xyz +
                 '}';
+    }
+    /**
+     *
+     * @param o
+     * @return true if the double3 object is the same as the one given
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Point point = (Point) o;
+        return xyz.equals(point.xyz);
     }
 
     /**
