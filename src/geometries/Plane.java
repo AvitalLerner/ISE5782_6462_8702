@@ -15,7 +15,7 @@ public class Plane implements Geometry  {
      * @param p3
      */
     public Plane(Point p1, Point p2, Point p3){
-        this._q0=p1;
+        _q0=p1;
 //        //TODO check direction of vectors
 //        Vector U = p1.subtract(p2);
 //        Vector V = p3.subtract(p2);
@@ -26,7 +26,7 @@ public class Plane implements Geometry  {
         Vector N = U.crossProduct(V);
 
         //right hand rule
-        this._normal =N.normalize();
+        _normal =N.normalize();
     }
 
     /**

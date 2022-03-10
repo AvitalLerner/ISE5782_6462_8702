@@ -14,7 +14,7 @@ public class Tube implements Geometry {
      * @param axis
      * @param radius
      */
-    public Tube(Ray axis, Double radius)
+    public Tube(Ray axis, double radius)
     {
         axisRay = axis;
         Radius=radius;
@@ -43,6 +43,9 @@ public class Tube implements Geometry {
      */
     @Override
     public Vector getNormal(Point p1) {
-        return null;
+        Vector vector= new Vector(p1._xyz);
+        double dotProduct=axisRay.getDir().dotProduct(p1.subtract(axisRay.getP0()));
+        Point o=axisRay.getP0().add(axisRay.getDir().crossProduct(new Vector(dotProduct,dotProduct,dotProduct)));
+        return p1.subtract(o).normalize();
     }
 }

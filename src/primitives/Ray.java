@@ -9,7 +9,7 @@ public class Ray {
      * @param p
      * @param vec
      */
-    Ray(Point p, Vector vec){
+    public Ray(Point p, Vector vec){
         this.dir = vec.normalize();
         this.p0=p;
     }

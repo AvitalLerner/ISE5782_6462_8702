@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class VectorTest {
 
     @Test
-    void testConstructorZero(){
+    public void testConstructorZero(){
         assertThrows(
                 IllegalArgumentException.class,
                 () -> {new Vector(0,0,0);},
@@ -16,30 +16,30 @@ class VectorTest {
         }
 
     @Test
-    void testLengthSquared() {
+    public void testLengthSquared() {
     }
 
     @Test
-    void testLength() {
+    public void testLength() {
     }
 
     @Test
-    void testDotProduct() {
+    public void testDotProduct() {
     }
 
     @Test
-    void testCrossProduct() {
+    public void testCrossProduct() {
     }
 
     @Test
-    void testScale() {
+    public void testScale() {
     }
 
     @Test
-    void testAdd() {
+    public void testAdd() {
     }
 
     @Test
-    void testNormalize() {
+    public void testNormalize() {
     }
 }
