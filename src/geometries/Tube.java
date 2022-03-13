@@ -5,6 +5,9 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
+import static primitives.Util.alignZero;
+import static primitives.Util.isZero;
+
 public class Tube implements Geometry {
     Ray axisRay;
     Double Radius;
@@ -43,9 +46,15 @@ public class Tube implements Geometry {
      */
     @Override
     public Vector getNormal(Point p1) {
-        Vector vector= new Vector(p1._xyz);
-        double dotProduct=axisRay.getDir().dotProduct(p1.subtract(axisRay.getP0()));
-        Point o=axisRay.getP0().add(axisRay.getDir().crossProduct(new Vector(dotProduct,dotProduct,dotProduct)));
-        return p1.subtract(o).normalize();
+        Vector vector=axisRay.getDir();
+        Point p0=axisRay.getP0();
+        Vector p0_p1=p1.subtract(p0);
+        double s = alignZero(vector.dotProduct(p0_p1));
+        if(isZero(s)){
+            return p0_p1.normalize();
+        }
+        Point o=p0.add(vector.scale(s));
+        Vector n=p1.subtract(o).normalize();
+        return n;
     }
 }

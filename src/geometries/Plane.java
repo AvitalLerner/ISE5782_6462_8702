@@ -27,6 +27,7 @@ public class Plane implements Geometry  {
 
         //right hand rule
         _normal =N.normalize();
+
     }
 
     /**

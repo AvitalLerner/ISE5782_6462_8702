@@ -6,10 +6,13 @@ import primitives.Vector;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Test class for{@link Plane}
+ */
 class PlaneTest {
 
     /**
-     * inherited
+     * Test method for{@link Plane#getNormal(Point)}
      */
     @Test
     public void testTestGetNormal() {
