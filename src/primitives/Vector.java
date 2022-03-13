@@ -27,6 +27,17 @@ public class Vector extends Point {
     }
 
     /**
+     * @param o object
+     * @return if o equal to the vector
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Vector vector = (Vector) o;
+        return Vector.super.equals(vector);
+    }
+    /**
      * calculates the length of the squared vector
      * @return squared vector length
      */

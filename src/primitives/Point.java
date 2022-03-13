@@ -1,7 +1,7 @@
 package primitives;
 
 public class Point {
-    final Double3 _xyz;
+    public final Double3 _xyz;
 
     /**
      * primary constructor receives 3 parameters
