@@ -6,6 +6,9 @@ import static java.lang.System.out;
 import static org.junit.jupiter.api.Assertions.*;
 import static primitives.Util.isZero;
 
+/**
+ * Test class for{@link Vector}
+ */
 class VectorTest {
     Vector v1=new Vector(1,2,3);
     Vector v2=new Vector(-2,-4,-6);
@@ -90,6 +93,12 @@ class VectorTest {
      */
     @Test
     public void testNormalize() {
-
+        Vector vector=v1.normalize();
+        assertEquals(1,vector.length(),"ERROR: the normalized vector is not a unit vector");
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> { v1.crossProduct(vector);},
+                "ERROR: the normalized vector is not parallel to the original one");
+        assertTrue(v1.dotProduct(vector)<0,"ERROR: the normalized vector is opposite to the original one");
     }
 }
