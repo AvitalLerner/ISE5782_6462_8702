@@ -21,4 +21,9 @@ class PlaneTest {
         assertEquals(new Vector(sqrtVec,sqrtVec,sqrtVec),
                 plane.getNormal(new Point(0,1,0)),"incorrect normal to plane");
     }
+
+    @Test
+    void testFindIntersections() {
+        // take from Eliezer
+    }
 }

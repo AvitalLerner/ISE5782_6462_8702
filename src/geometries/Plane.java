@@ -6,6 +6,9 @@ import primitives.Vector;
 
 import java.util.List;
 
+import static primitives.Util.alignZero;
+import static primitives.Util.isZero;
+
 /**
  * class for a 3D plane
  */
@@ -74,6 +77,27 @@ public class Plane implements Geometry  {
 
     @Override
     public List<Point> findIntersections(Ray ray) {
+        Point P0=ray.getP0();
+        Vector v=ray.getDir();
+        Vector n= _normal;
 
+        double nv=n.dotProduct(v);
+        // if ray parallel to plane : no intersection points
+        if(isZero(nv)){
+            return null;
+        }
+        Vector P0_O= P0.subtract(_q0);
+        double t=alignZero(n.dotProduct(P0_O)/nv);
+        // origin of ray lay on the plain
+        if (isZero(t)){
+            return null;
+        }
+
+        //if t<0 the direction of the ray points in the direction
+        if(t>0){
+            Point P=P0.add(v.scale(t));
+            return List.of(P);
+        }
+        return null;
     }
 }

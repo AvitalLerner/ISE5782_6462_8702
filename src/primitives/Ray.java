@@ -1,5 +1,7 @@
 package primitives;
 
+import static primitives.Util.isZero;
+
 public class Ray {
     Point _p0;
     Vector _dir;
@@ -28,5 +30,11 @@ public class Ray {
 
     public Vector getDir() {
         return _dir;
+    }
+    public Point getPoint(double t){
+        if(isZero(t)){
+            return _p0;
+        }
+        return _p0.add(_dir.scale(t));
     }
 }
