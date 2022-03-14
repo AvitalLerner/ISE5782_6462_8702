@@ -1,6 +1,5 @@
 package geometries;
 
-import geometries.Geometry;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
@@ -9,8 +8,8 @@ import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
 public class Tube implements Geometry {
-    Ray axisRay;
-    Double Radius;
+    Ray _axisRay;
+    Double _radius;
 
     /**
      * constructor get axis and radius.
@@ -19,23 +18,23 @@ public class Tube implements Geometry {
      */
     public Tube(Ray axis, double radius)
     {
-        axisRay = axis;
-        Radius=radius;
+        _axisRay = axis;
+        _radius =radius;
     }
 
     public Ray getAxisRay() {
-        return axisRay;
+        return _axisRay;
     }
 
     public Double getRadius() {
-        return Radius;
+        return _radius;
     }
 
     @Override
     public String toString() {
         return "Tube{" +
-                "axisRay=" + axisRay +
-                ", Radius=" + Radius +
+                "axisRay=" + _axisRay +
+                ", Radius=" + _radius +
                 '}';
     }
 
@@ -46,8 +45,8 @@ public class Tube implements Geometry {
      */
     @Override
     public Vector getNormal(Point p1) {
-        Vector vector=axisRay.getDir();
-        Point p0=axisRay.getP0();
+        Vector vector= _axisRay.getDir();
+        Point p0= _axisRay.getP0();
         Vector p0_p1=p1.subtract(p0);
         double s = alignZero(vector.dotProduct(p0_p1));
         if(isZero(s)){

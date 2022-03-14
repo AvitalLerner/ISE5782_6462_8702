@@ -1,8 +1,8 @@
 package primitives;
 
 public class Ray {
-    Point p0;
-    Vector dir;
+    Point _p0;
+    Vector _dir;
 
     /**
      *constructor
@@ -10,23 +10,23 @@ public class Ray {
      * @param vec
      */
     public Ray(Point p, Vector vec){
-        this.dir = vec.normalize();
-        this.p0=p;
+        this._dir = vec.normalize();
+        this._p0 =p;
     }
 
     @Override
     public String toString() {
         return "Ray{" +
-                "p0=" + p0 +
-                ", dir=" + dir +
+                "p0=" + _p0 +
+                ", dir=" + _dir +
                 '}';
     }
 
     public Point getP0() {
-        return p0;
+        return _p0;
     }
 
     public Vector getDir() {
-        return dir;
+        return _dir;
     }
 }

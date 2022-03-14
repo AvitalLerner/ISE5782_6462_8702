@@ -18,7 +18,7 @@ public class Triangle extends Polygon{
     public String toString() {
         return "Triangle{" +
                 "vertices=" + vertices +
-                ", plane=" + plane +
+                ", plane=" + _plane +
                 '}';
     }
 }
