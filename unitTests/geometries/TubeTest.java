@@ -14,9 +14,12 @@ class TubeTest {
      */
     @Test
     void testGetNormal() {
-      Tube tube=new Tube(new Ray(new Point(1,0,0),new Vector(0,1,0)),1);
-      Vector normal=tube.getNormal(new Point(2,0.5,0)).normalize();
-      double dotProduct= normal.dotProduct(tube.getAxisRay().getDir());
+        // ============ Equivalence Partitions Tests ==============
+        Tube tube = new Tube(new Ray(new Point(0, 0, 1), new Vector(0, -1, 0)),1.0);
+
+        Vector normal = tube.getNormal(new Point(0, 0.5, 2)).normalize();
+
+        double dotProduct = normal.dotProduct(tube.getAxisRay().getDir());
       assertEquals(0,dotProduct,"normal is not orthogonal to the tube");
 
       boolean normal1=new Vector(1,0,0).equals(normal);

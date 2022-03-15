@@ -1,13 +1,17 @@
 package geometries;
 
-import geometries.Geometry;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.List;
+
+import static primitives.Util.alignZero;
+import static primitives.Util.isZero;
+
 public class Tube implements Geometry {
-    Ray axisRay;
-    Double Radius;
+    Ray _axisRay;
+    Double _radius;
 
     /**
      * constructor get axis and radius.
@@ -16,23 +20,23 @@ public class Tube implements Geometry {
      */
     public Tube(Ray axis, double radius)
     {
-        axisRay = axis;
-        Radius=radius;
+        _axisRay = axis;
+        _radius =radius;
     }
 
     public Ray getAxisRay() {
-        return axisRay;
+        return _axisRay;
     }
 
     public Double getRadius() {
-        return Radius;
+        return _radius;
     }
 
     @Override
     public String toString() {
         return "Tube{" +
-                "axisRay=" + axisRay +
-                ", Radius=" + Radius +
+                "axisRay=" + _axisRay +
+                ", Radius=" + _radius +
                 '}';
     }
 
@@ -43,9 +47,20 @@ public class Tube implements Geometry {
      */
     @Override
     public Vector getNormal(Point p1) {
-        Vector vector= new Vector(p1._xyz);
-        double dotProduct=axisRay.getDir().dotProduct(p1.subtract(axisRay.getP0()));
-        Point o=axisRay.getP0().add(axisRay.getDir().crossProduct(new Vector(dotProduct,dotProduct,dotProduct)));
-        return p1.subtract(o).normalize();
+        Vector vector= _axisRay.getDir();
+        Point p0= _axisRay.getP0();
+        Vector p0_p1=p1.subtract(p0);
+        double s = alignZero(vector.dotProduct(p0_p1));
+        if(isZero(s)){
+            return p0_p1.normalize();
+        }
+        Point o=p0.add(vector.scale(s));
+        Vector n=p1.subtract(o).normalize();
+        return n;
+    }
+
+    @Override
+    public List<Point> findIntersections(Ray ray) {
+        return null;
     }
 }

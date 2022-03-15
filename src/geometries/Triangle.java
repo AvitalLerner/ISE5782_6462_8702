@@ -1,8 +1,11 @@
 package geometries;
 
 import primitives.Point;
+import primitives.Ray;
 
-public class Triangle extends Polygon{
+import java.util.List;
+
+public class Triangle extends Polygon implements Geometry{
     /**
      * constructor get 3 point of the triangle
      *
@@ -18,7 +21,11 @@ public class Triangle extends Polygon{
     public String toString() {
         return "Triangle{" +
                 "vertices=" + vertices +
-                ", plane=" + plane +
+                ", plane=" + _plane +
                 '}';
+    }
+    @Override
+    public List<Point> findIntersections(Ray ray) {
+        return null;
     }
 }

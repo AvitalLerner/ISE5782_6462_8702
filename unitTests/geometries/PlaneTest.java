@@ -6,10 +6,13 @@ import primitives.Vector;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Test class for{@link Plane}
+ */
 class PlaneTest {
 
     /**
-     * inherited
+     * Test method for{@link Plane#getNormal(Point)}
      */
     @Test
     public void testTestGetNormal() {
@@ -17,5 +20,10 @@ class PlaneTest {
         double sqrtVec=Math.sqrt(1d/3);
         assertEquals(new Vector(sqrtVec,sqrtVec,sqrtVec),
                 plane.getNormal(new Point(0,1,0)),"incorrect normal to plane");
+    }
+
+    @Test
+    void testFindIntersections() {
+        // take from Eliezer
     }
 }

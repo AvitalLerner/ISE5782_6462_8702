@@ -86,4 +86,26 @@ public class Point {
     public double distance(Point p) {
         return Math.sqrt(distanceSquared(p));
     }
+
+    /**
+     * getter for coordinate X
+     * @return coordinate X
+     */
+    public double getX() {
+        return _xyz._d1;
+    }
+    /**
+     * getter for coordinate Y
+     * @return coordinate Y
+     */
+    public double getY() {
+        return _xyz._d2;
+    }
+    /**
+     * getter for coordinate Z
+     * @return coordinate Z
+     */
+    public double getZ() {
+        return _xyz._d3;
+    }
 }
