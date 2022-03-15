@@ -19,7 +19,7 @@ public class Geometries implements Intersectable{
      */
    public Geometries(Intersectable...intersectables){
        _intersectables=new LinkedList<>();
-       Collections.addAll(_intersectables,intersectables)
+       Collections.addAll(_intersectables,intersectables);
    }
 
     /**
