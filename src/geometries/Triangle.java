@@ -24,8 +24,14 @@ public class Triangle extends Polygon implements Geometry{
                 ", plane=" + _plane +
                 '}';
     }
+
+    /**
+     *
+     * @param ray Ray pointing towards the graphic object
+     * @return intersection of the triangle
+     */
     @Override
     public List<Point> findIntersections(Ray ray) {
-        return null;
+        return super.findIntersections(ray);
     }
 }
