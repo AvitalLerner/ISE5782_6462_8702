@@ -17,7 +17,7 @@ public class Vector extends Point {
 
     /**
      * constructor receives Double3 object
-     * @param newD
+     * @param newD is a point for describing the vector
      */
     public Vector(Double3 newD){
         super(newD);
@@ -92,8 +92,8 @@ public class Vector extends Point {
 
     /**
      * multiplies the vector by a scalar
-     * @param scaleFactor
-     * @return new vector oldvector*scalar
+     * @param scaleFactor number to multiply the vector by it
+     * @return new vector oldVector*scalar
      */
     public Vector scale(double scaleFactor){
         if(scaleFactor==0)
@@ -107,7 +107,7 @@ public class Vector extends Point {
 
     /**
      * adds two vectors old and new
-     * @param vector
+     * @param vector to add for this vector
      * @return new vector old+new
      */
     public Vector add(Vector vector)

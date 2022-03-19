@@ -75,6 +75,8 @@ class VectorTest {
                 IllegalArgumentException.class,
                 () -> {v1.scale(0);},
                 "ERROR: scale(0) not valid and does not throw an exception ");
+
+        assertEquals(new Point(2,0,0),(new Vector(1,0,0)).scale(2),"ERROR: scale() result is incorrect");
     }
 
     /**

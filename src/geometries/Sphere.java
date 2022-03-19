@@ -63,8 +63,10 @@ public class Sphere implements Geometry {
       Point P2;
 
       if(t1>0&&t2>0){
-          P1=ray.getPoint(t1);
-          P2=ray.getPoint(t2);
+          P1=p0.add(v.scale(t1));
+          P2=p0.add(v.scale(t2));
+         // P1=ray.getPoint(t1);
+         // P2=ray.getPoint(t2);
           return List.of(P1,P2);
       }
       if(t1>0){
