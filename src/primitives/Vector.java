@@ -3,9 +3,9 @@ package primitives;
 public class Vector extends Point {
     /**
      * constructor receives 3 double values
-     * @param d1
-     * @param d2
-     * @param d3
+     * @param d1 first parameter of the vector
+     * @param d2 second parameter of the vector
+     * @param d3 third parameter of the vector
      */
     public Vector(double d1, double d2, double d3) {
         super(d1,d2,d3);
@@ -101,7 +101,7 @@ public class Vector extends Point {
             throw  new IllegalArgumentException("scale resulting by 0 not valid ");
 
         }
-        Double3 coordinate = new Double3(_xyz._d1 /scaleFactor, _xyz._d2 /scaleFactor, _xyz._d3 /scaleFactor);
+        Double3 coordinate = new Double3(_xyz._d1 *scaleFactor, _xyz._d2 *scaleFactor, _xyz._d3 *scaleFactor);
         return new Vector(coordinate._d1, coordinate._d2,coordinate._d3);
     }
 
