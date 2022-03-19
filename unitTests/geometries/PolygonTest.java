@@ -74,9 +74,11 @@ class PolygonTest {
         assertEquals(new Vector(sqrt3, sqrt3, sqrt3), pl.getNormal(new Point(0, 0, 1)), "Bad normal to triangle");
     }
 
+    /**
+     * Test method for
+     */
     @Test
-    void findIntersections() {
-
+    void testFindIntersections() {
 
     }
 }

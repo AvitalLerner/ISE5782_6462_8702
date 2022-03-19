@@ -86,7 +86,10 @@ public class Plane implements Geometry  {
         if(isZero(nv)){
             return null;
         }
-        Vector P0_O= P0.subtract(_q0);
+        if(_q0.equals(P0)){
+            return null;
+        }
+        Vector P0_O= _q0.subtract(P0);
         double t=alignZero(n.dotProduct(P0_O)/nv);
         // origin of ray lay on the plain
         if (isZero(t)){
@@ -95,7 +98,7 @@ public class Plane implements Geometry  {
 
         //if t<0 the direction of the ray points in the direction
         if(t>0){
-            Point P=P0.add(v.scale(t));
+            Point P=ray.getPoint(t);
             return List.of(P);
         }
         return null;
