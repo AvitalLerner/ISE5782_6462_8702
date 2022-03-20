@@ -24,7 +24,9 @@ class TriangleTest {
                 "incorrect normal to triangle");
     }
 
-
+    /**
+     * Test method for{@link Triangle#findIntersections(Ray)}
+     */
     @Test
     void findIntersections() {
 

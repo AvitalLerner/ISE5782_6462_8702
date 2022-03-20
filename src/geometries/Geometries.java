@@ -25,7 +25,7 @@ public class Geometries implements Intersectable{
     /**
      *
      * @param ray Ray pointing towards the graphic object
-     * @return
+     * @return intersection of the items
      */
     @Override
     public List<Point> findIntersections(Ray ray) {
@@ -42,10 +42,20 @@ public class Geometries implements Intersectable{
         return result;
     }
 
-    public Geometries(){
+    /**
+     * constructor
+     */
+    public Geometries()
+    {
        _intersectables=new LinkedList<>();
    }
-    public void add(Intersectable..._intersectable){
+
+    /**
+     * add shape to collection
+     * @param _intersectable intersectable to add to the collection
+     */
+    public void add(Intersectable..._intersectable)
+    {
         Collections.addAll(_intersectables,_intersectable);
     }
 }

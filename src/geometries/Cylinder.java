@@ -21,10 +21,18 @@ public class Cylinder extends Tube {
       this._height =h;
     }
 
+    /**
+     *
+     * @return height
+     */
     public double getHeight() {
         return _height;
     }
 
+    /**
+     *
+     * @return string of the data of cylinder
+     */
     @Override
     public String toString() {
         return "Cylinder{" +
@@ -32,6 +40,11 @@ public class Cylinder extends Tube {
                 '}';
     }
 
+    /**
+     * calculate the normal from point on the cylinder
+     * @param p1 point on the cylinder
+     * @return normal
+     */
     @Override
     public Vector getNormal(Point p1) {
         Point p0= _axisRay.getP0();
