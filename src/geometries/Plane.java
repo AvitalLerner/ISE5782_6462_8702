@@ -41,8 +41,8 @@ public class Plane implements Geometry  {
 
     /**
      * constructor get point and normal
-     * @param p1
-     * @param normal
+     * @param p1- point in the plane
+     * @param normal- normal of the plane
      */
     public Plane(Point p1,Vector normal){
         _q0=p1;
@@ -60,8 +60,8 @@ public class Plane implements Geometry  {
     }
 
     /**
-     * getter for narmal vector
-     * @return
+     * getter for normal vector
+     * @return normal
      */
     public Vector getNormal() {
         return _normal;
@@ -75,6 +75,11 @@ public class Plane implements Geometry  {
         return _q0;
     }
 
+    /**
+     *
+     * @param ray Ray pointing towards the graphic object
+     * @return intersections between the ray and the plane
+     */
     @Override
     public List<Point> findIntersections(Ray ray) {
         Point P0=ray.getP0();

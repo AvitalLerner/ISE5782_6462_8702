@@ -32,9 +32,11 @@ class GeometriesTest {
         listOfObjects.add(sphere,plane);
         assertNull(listOfObjects.findIntersections(new Ray(new Point(-1,-1,-1),
                 new Vector(-3,-3,-3))),"no intersection supposed to be");
+
         //TC13: only one object intersects
         assertEquals(List.of(new Point(1,1,0)),listOfObjects.findIntersections(new Ray(new Point(0.5,0.5,0),new Vector(0.5,0.5,0))),"one point of intersection only with sphere");
 
         //TC14: not all objects intersect with ray
+
     }
 }

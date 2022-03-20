@@ -35,7 +35,7 @@ class Double3 {
 
 	/**
 	 *
-	 * @param obj
+	 * @param obj object can be double3
 	 * @return true if the double3 object is the same as the one given
 	 */
 	@Override
@@ -50,11 +50,19 @@ class Double3 {
 		return isZero(_d1 - other._d1) && isZero(_d2 - other._d2) && isZero(_d3 - other._d3);
 	}
 
+	/**
+	 *
+	 * @return code of the double in hash tables
+	 */
 	@Override
 	public int hashCode() {
 		return (int) Math.round(_d1 + _d2 + _d3);
 	}
 
+	/**
+	 *
+	 * @return string of the data of double
+	 */
 	@Override
 	public String toString() {
 		return "(" + _d1 + "," + _d2 + "," + _d3 + ")";
@@ -112,6 +120,4 @@ class Double3 {
 	 * @return result of product
 	 */
 	Double3 product(Double3 rhs) {return new Double3(_d1 * rhs._d1, _d2 * rhs._d2, _d3 * rhs._d3);}
-
-
 }

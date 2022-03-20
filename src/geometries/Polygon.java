@@ -86,8 +86,8 @@ public class Polygon implements Geometry {
 
 	/**
 	 * implementing {@link Geometry#getNormal(Point)}
-	 * @param point
-	 * @return
+	 * @param point point to calculate the normal
+	 * @return normal
 	 */
 	@Override
 	public Vector getNormal(Point point) {
@@ -98,7 +98,7 @@ public class Polygon implements Geometry {
 	/**
 	 *
 	 * @param ray Ray pointing towards the graphic object
-	 * @return the
+	 * @return the intersection between ray and polygon
 	 */
 	@Override
 	public List<Point> findIntersections(Ray ray) {
