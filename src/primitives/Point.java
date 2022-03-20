@@ -6,9 +6,9 @@ public class Point {
     /**
      * primary constructor receives 3 parameters
      *
-     * @param x
-     * @param y
-     * @param z
+     * @param x first parameter of point
+     * @param y second  parameter of point
+     * @param z third  parameter of point
      */
     public Point(double x, double y, double z) {
         _xyz = new Double3(x, y, z);

@@ -19,9 +19,9 @@ public class Plane implements Geometry  {
     /**
      * constructor get
      * 3 parameters
-     * @param p1
-     * @param p2
-     * @param p3
+     * @param p1 first point in the plane
+     * @param p2 second point in the plane
+     * @param p3 third point in the plane
      */
     public Plane(Point p1, Point p2, Point p3){
         _q0=p1;
