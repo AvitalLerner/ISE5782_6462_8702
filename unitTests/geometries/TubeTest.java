@@ -27,4 +27,12 @@ class TubeTest {
       assertTrue(normal1||normal2,"incorrect normal");
 
      }
+
+    /**
+     * Test method for {@link Tube#findIntersections(Ray)}
+     */
+    @Test
+    void testFindIntersections() {
+
+    }
 }
