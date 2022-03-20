@@ -16,8 +16,7 @@ public class Point {
 
     /**
      * constructor receives Double3 object
-     *
-     * @param xyz
+     * @param xyz data of the point
      */
     public Point(Double3 xyz) {
         _xyz = xyz;

@@ -15,8 +15,8 @@ public class Tube implements Geometry {
 
     /**
      * constructor get axis and radius.
-     * @param axis
-     * @param radius
+     * @param axis central axis of the tube
+     * @param radius the of the tube
      */
     public Tube(Ray axis, double radius)
     {
@@ -24,14 +24,26 @@ public class Tube implements Geometry {
         _radius =radius;
     }
 
+    /**
+     *
+     * @return axis
+     */
     public Ray getAxisRay() {
         return _axisRay;
     }
 
+    /**
+     *
+     * @return radius
+     */
     public Double getRadius() {
         return _radius;
     }
 
+    /**
+     *
+     * @return string of the data of the tube
+     */
     @Override
     public String toString() {
         return "Tube{" +
@@ -41,8 +53,8 @@ public class Tube implements Geometry {
     }
 
     /**
-     * calculate the normal
-     * @param p1
+     * calculate the normal of p1
+     * @param p1 point to calculate the normal
      * @return now this return NULL
      */
     @Override
@@ -59,6 +71,11 @@ public class Tube implements Geometry {
         return n;
     }
 
+    /**
+     *
+     * @param ray Ray pointing towards the graphic object
+     * @return intersection between tube and ray
+     */
     @Override
     public List<Point> findIntersections(Ray ray) {
         return null;

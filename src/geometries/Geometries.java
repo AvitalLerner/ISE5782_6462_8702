@@ -52,10 +52,12 @@ public class Geometries implements Intersectable{
 
     /**
      * add shape to collection
-     * @param _intersectable intersectable to add to the collection
+     * @param _intersectable Intersectable to add to the collection
      */
     public void add(Intersectable..._intersectable)
     {
         Collections.addAll(_intersectables,_intersectable);
     }
+
+
 }

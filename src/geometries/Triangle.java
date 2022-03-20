@@ -28,7 +28,7 @@ public class Triangle extends Polygon implements Geometry{
     /**
      *
      * @param ray Ray pointing towards the graphic object
-     * @return intersection of the triangle
+     * @return intersection between the triangle and the ray
      */
     @Override
     public List<Point> findIntersections(Ray ray) {
