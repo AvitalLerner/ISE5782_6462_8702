@@ -11,6 +11,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GeometriesTest {
 
+    /**
+     * Test method for{@link Geometry#findIntersections(Ray)}
+     */
     @Test
     void testFindIntersections() {
         Geometries listOfObjects=new Geometries();

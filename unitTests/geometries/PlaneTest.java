@@ -25,6 +25,9 @@ class PlaneTest {
                 plane.getNormal(new Point(0,1,0)),"incorrect normal to plane");
     }
 
+    /**
+     * Test method for{@link Plane#findIntersections(Ray)}
+     */
     @Test
     void testFindIntersections() {
         Plane pl = new Plane(new Point(0, 0, 1), new Vector(1, 1, 1));

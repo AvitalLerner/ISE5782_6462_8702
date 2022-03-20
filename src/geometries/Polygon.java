@@ -110,8 +110,8 @@ public class Polygon implements Geometry {
 		Point P0 =ray.getP0();
 		Vector v= ray.getDir();
 
-		Point edge1=vertices.get(0);
-		Point edge2=vertices.get(1);
+		Point edge1=vertices.get(1);
+		Point edge2=vertices.get(0);
 
 		Vector v1 = edge1.subtract(P0);
 		Vector v2 = edge2.subtract(P0);
@@ -121,10 +121,11 @@ public class Polygon implements Geometry {
 
 		boolean side1 = engle>0;
 
-		for(int i=vertices.size()-1;i>0;i--)
+		for(int i= vertices.size()-1;i>0;i--)
 		{
 			v1=v2;
 			v2=vertices.get(i).subtract(P0);
+
 
 			engle=alignZero(v.dotProduct(v1.crossProduct(v2)));
 			if(isZero(engle))
