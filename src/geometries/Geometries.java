@@ -37,7 +37,7 @@ public class Geometries implements Intersectable{
                    result=new LinkedList<>();
                }
                result.addAll(itemPointsList);
-         }
+           }
        }
         return result;
     }
