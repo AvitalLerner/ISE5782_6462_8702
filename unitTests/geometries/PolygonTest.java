@@ -87,20 +87,20 @@ class PolygonTest {
 
         // ============ Equivalence Partitions Tests ==============
         // TC01: Inside polygon
-        ray = new Ray(new Point(-1,-1,-1), new Vector(1,1.5,1.5));
+        ray = new Ray(new Point(-1,-1,-2), new Vector(1,1.5,2.5));
         assertEquals(List.of(new Point(0,0.5,0.5)),poly.findIntersections(ray),
                 "findIntersection to point inside the polygon incorrect");
 
         // TC02: Against edge
-        ray= new Ray(new Point(-1,-1,-1),new Vector(1,2,2));
-        assertEquals(List.of(new Point(0,1,-1)),pl.findIntersections(ray),
+        ray= new Ray(new Point(-1,-1,-1),new Vector(1,0,1.5));
+        assertEquals(List.of(new Point(0,-1,0.5)),pl.findIntersections(ray),
                 "intersection of point against edge with plane incorrect");
         assertNull(poly.findIntersections(ray),
                 "findIntersections of point against edge of the polygon is incorrect");
 
         // TC03: Against vertex
-        ray= new Ray(new Point(-2,-2,-2),new Vector(2,3,2.5));
-        assertEquals(List.of(new Point(0,-1,0.5)),pl.findIntersections(ray),
+        ray= new Ray(new Point(-2,-2,-2),new Vector(2,3,1));
+        assertEquals(List.of(new Point(0,1,-1)),pl.findIntersections(ray),
                 "intersection of point against vertex with plane incorrect");
         assertNull(poly.findIntersections(ray),
                 "findIntersections of point against vertex is incorrect");
@@ -114,15 +114,15 @@ class PolygonTest {
                 "findIntersections of point in vertex is incorrect");
 
         // TC12: On edge
-        ray= new Ray(new Point(-1,-1,-1),new Vector(1,1.5,1.5));
+        ray= new Ray(new Point(-1,-1,-1),new Vector(1,1.5,1));
         assertEquals(List.of(new Point(0,0.5,0)),pl.findIntersections(ray),
                 "intersection of point on edge with plane incorrect");
         assertNull(poly.findIntersections(ray),
                 "findIntersections of point on edge is incorrect");
 
         // TC13: On edge continuation
-        ray= new Ray(new Point(-2,-2,-2),new Vector(1,1,1));
-        assertEquals(List.of(new Point(-1,-1,-1)),pl.findIntersections(ray),
+        ray= new Ray(new Point(-2,-2,-2),new Vector(2,2,1));
+        assertEquals(List.of(new Point(0,0,-1)),pl.findIntersections(ray),
                 "intersection of point on edge continuation with plane incorrect");
         assertNull(poly.findIntersections(ray),
                 "findIntersections of point on edge continuation is incorrect");
