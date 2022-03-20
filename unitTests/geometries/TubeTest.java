@@ -22,8 +22,8 @@ class TubeTest {
         double dotProduct = normal.dotProduct(tube.getAxisRay().getDir());
       assertEquals(0,dotProduct,"normal is not orthogonal to the tube");
 
-      boolean normal1=new Vector(1,0,0).equals(normal);
-      boolean normal2=new Vector(-1,0,0).equals(normal);
+      boolean normal1=new Vector(0,0,1).equals(normal);
+      boolean normal2=new Vector(0,0,-1).equals(normal);
       assertTrue(normal1||normal2,"incorrect normal");
 
      }
