@@ -26,7 +26,7 @@ public class Point {
      * gets a new point and creates a vector
      * from the point we have to the new one
      *
-     * @param other
+     * @param other point to do yhe calculation
      * @return the new vector
      */
     public Vector subtract(Point other) {
@@ -35,21 +35,24 @@ public class Point {
 
     /**
      * adds a new vector to the point
-     *
-     * @param vector
+     * @param vector to add to the point
      * @return new point
      */
     public Point add(Vector vector) {
         return new Point(_xyz.add(vector._xyz));
     }
 
+    /**
+     *
+     * @return string with the data of the point
+     */
     @Override
     public String toString() {
         return "Point: " + _xyz;
     }
 
     /**
-     * @param o
+     * @param o object to check if is equal to this
      * @return true if the double3 object is the same as the one given
      */
     @Override
@@ -63,7 +66,7 @@ public class Point {
     /**
      * gets a new point and calculates the squared distance
      *
-     * @param newP
+     * @param newP point to calculate  the distance
      * @return distance squared
      */
     public double distanceSquared(Point newP) {
@@ -79,7 +82,7 @@ public class Point {
     /**
      * calculates the distance between new point to old
      *
-     * @param p
+     * @param p point to calculate  the distance
      * @return distance
      */
     public double distance(Point p) {

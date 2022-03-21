@@ -55,9 +55,8 @@ public class Vector extends Point {
     }
 
     /**
-     *
      *calculates the dot product between new vector and old
-     * @param vector
+     * @param vector to calculate the dot product
      * @return scalar
      */
     public double dotProduct(Vector vector) {
@@ -75,7 +74,7 @@ public class Vector extends Point {
 
     /**
      * calculates cross product of new vector and old
-     * @param v
+     * @param v vector to calculate the cross product
      * @return cross product new vector
      */
     public Vector crossProduct(Vector v) {

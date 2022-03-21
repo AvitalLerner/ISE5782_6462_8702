@@ -8,14 +8,17 @@ public class Ray {
 
     /**
      *constructor
-     * @param p
-     * @param vec
+     * @param p point of starting the ray
+     * @param vec vector of the ray
      */
     public Ray(Point p, Vector vec){
         this._dir = vec.normalize();
         this._p0 =p;
     }
 
+    /**
+     * @return string with the data of ray
+     */
     @Override
     public String toString() {
         return "Ray{" +
@@ -24,13 +27,27 @@ public class Ray {
                 '}';
     }
 
+    /**
+     *
+     * @return P0
+     */
     public Point getP0() {
         return _p0;
     }
 
+    /**
+     *
+     * @return the vector of the ray
+     */
     public Vector getDir() {
         return _dir;
     }
+
+    /**
+     * calculate point with distance t from P0
+     * @param t number to calculate the point
+     * @return new point
+     */
     public Point getPoint(double t){
         if(isZero(t)){
             return _p0;
