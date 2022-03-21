@@ -42,9 +42,9 @@ class GeometriesTest {
                 new Point(1,0,0)),listOfObjects.findIntersections(new Ray(new Point(2,0,0),new Vector(-2,0,0))),"no");
 
         //TC15: all objects intersect with ray
-        Geometries newListOfObjects=new Geometries(new Sphere(new Point(0,0,0),1),new Plane(new Point(0, 0, 0), new Point(0, 0, 2), new Point(2, 0, 0)),new Triangle(new Point(0,0,0), new Point(0,1,0), new Point(0,0,1)));
-        assertEquals(List.of(new Point(0,0,1),new Point(0,0,1),new Point(0,0,1)),
-                newListOfObjects.findIntersections(new Ray(new Point(0,-2,1), new Vector(0,2,0))));
+        Geometries newListOfObjects=new Geometries(new Sphere(new Point(0,0,0),1),new Plane(new Point(0, 0, 0), new Point(0, 0, 4), new Point(4, 0, 0)),new Triangle(new Point(1,0,-1), new Point(-1,0,-1), new Point(0,0,2)));
+        assertEquals(List.of(new Point(0,-1,0),new Point(0,1,0),new Point(0,0,0),new Point(0,0,0)),
+                newListOfObjects.findIntersections(new Ray(new Point(0,-3,0), new Vector(0,3,0))));
 
     }
 }
