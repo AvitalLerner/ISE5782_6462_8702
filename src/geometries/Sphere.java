@@ -23,7 +23,6 @@ public class Sphere implements Geometry {
     }
 
     /**
-     *
      * @return string of the data of the sphere
      */
     @Override
@@ -35,7 +34,6 @@ public class Sphere implements Geometry {
     }
 
     /**
-     *
      * @return center
      */
     public Point getCenter() {
@@ -43,7 +41,6 @@ public class Sphere implements Geometry {
     }
 
     /**
-     *
      * @return radius
      */
     public double getRadius() {
@@ -51,7 +48,6 @@ public class Sphere implements Geometry {
     }
 
     /**
-     *
      * @param p1 point to calculate the normal
      * @return normal
      */
@@ -62,7 +58,6 @@ public class Sphere implements Geometry {
     }
 
     /**
-     *
      * @param ray Ray pointing towards the graphic object
      * @return intersection between the ray and the sphere
      */

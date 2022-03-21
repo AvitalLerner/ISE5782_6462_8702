@@ -24,7 +24,6 @@ public class Cylinder extends Tube {
     }
 
     /**
-     *
      * @return height
      */
     public double getHeight() {
@@ -32,7 +31,6 @@ public class Cylinder extends Tube {
     }
 
     /**
-     *
      * @return string of the data of cylinder
      */
     @Override
@@ -62,5 +60,9 @@ public class Cylinder extends Tube {
         }
         p0=p0.add(vector.scale(s));
         return  p1.subtract(p0).normalize();
+    }
+
+    public List<Point> findIntersections(Ray ray) {
+        return null;
     }
 }
