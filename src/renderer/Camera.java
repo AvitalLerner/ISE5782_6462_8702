@@ -51,17 +51,17 @@ public class Camera {
         if (isZero(xJ) && isZero(yI)) {
             return new Ray(_p0, pIJ.subtract(_p0));
         }
+        else {
+            if (isZero(xJ))
+                pIJ = pIJ.add(_vUp.scale(yI));
 
-        if (isZero(xJ))
-            pIJ = pIJ.add(_vUp.scale(yI));
-
-        if (isZero(yI))
-            pIJ = pIJ.add(_vRight.scale(xJ));
+            if (isZero(yI))
+                pIJ = pIJ.add(_vRight.scale(xJ));
 
 
-        if(!isZero(yI)&&!isZero(xJ))
-            pIJ = pIJ.add(_vUp.scale(yI)).add(_vRight.scale(xJ));
-
+            if (!isZero(yI) && !isZero(xJ))
+                pIJ = pIJ.add(_vUp.scale(yI)).add(_vRight.scale(xJ));
+        }
 
         return new Ray(_p0, pIJ.subtract(_p0));
 
