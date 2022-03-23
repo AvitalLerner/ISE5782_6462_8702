@@ -16,7 +16,7 @@ public class Camera {
     private double _width;
     private double _height;
 
-    public Camera(Point p0, Vector vUp, Vector vTo) {
+    public Camera(Point p0, Vector vTo, Vector vUp) {
         _p0 = p0;
         if( !isZero(vUp.dotProduct(vTo))){
             throw new IllegalArgumentException("vup and vto are not orthogonal");
