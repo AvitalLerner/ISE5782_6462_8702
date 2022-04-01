@@ -5,7 +5,8 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 class CameraTest {
     static final Point ZERO_POINT = new Point(0, 0, 0);
@@ -16,22 +17,22 @@ class CameraTest {
      */
     @Test
     void testConstructRay() {
-        Camera camera = new Camera(ZERO_POINT,new Vector(0, 0, -1), new Vector(0, -1, 0)).setVPDistance(10);
+        Camera camera = new Camera(ZERO_POINT, new Vector(0, 0, -1), new Vector(0, -1, 0)).setVPDistance(10);
         String badRay = "Bad ray";
 
         // ============ Equivalence Partitions Tests ==============
         // EP01: 4X4 Inside (1,1)
-       assertEquals(new Ray(ZERO_POINT, new Vector(1, -1, -10)),
-               camera.setVPSize(8, 8).constructRayThroughPixel(4, 4, 1, 1), badRay);
+        assertEquals(new Ray(ZERO_POINT, new Vector(1, -1, -10)),
+              camera.setVPSize(8, 8).constructRayThroughPixel(4, 4, 1, 1), badRay);
 
         // =============== Boundary Values Tests ==================
         // BV01: 3X3 Center (1,1)
         assertEquals(new Ray(ZERO_POINT, new Vector(0, 0, -10)),
-                camera.setVPSize(6, 6).constructRayThroughPixel(3, 3, 1, 1), badRay);
+               camera.setVPSize(6, 6).constructRayThroughPixel(3, 3, 1, 1), badRay);
 
         // BV02: 3X3 Center of Upper Side (0,1)
-       assertEquals(new Ray(ZERO_POINT, new Vector(0, -2, -10))
-               camera.setVPSize(6, 6).constructRayThroughPixel(3, 3, 1, 0), badRay);
+        assertEquals(new Ray(ZERO_POINT, new Vector(0, -2, -10)),
+                camera.setVPSize(6, 6).constructRayThroughPixel(3, 3, 1, 0), badRay);
 
         // BV03: 3X3 Center of Left Side (1,0)
         assertEquals(new Ray(ZERO_POINT, new Vector(2, 0, -10)),
