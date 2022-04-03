@@ -21,13 +21,20 @@ class CameraRayIntersectionsIntegrationTests {
      * @param expected
      */
     private void assertCountIntersections(Camera cam, Intersectable geo, int expected) {
-        int numOfIntersections=0;
+        List<Point> allPoints=null;
         for(int i=0; i<3;i++){
             for(int j=0; j<3;j++){
                Ray ray=cam.constructRayThroughPixel(3,3,j,i);
-               numOfIntersections +=geo.findIntersections(ray).size();
+               List<Point> lst=geo.findIntersections(ray);
+               if(lst!=null){
+                   if (allPoints==null){
+                   allPoints=new LinkedList<>();
+                   }
+                   allPoints.addAll(lst);
+               }
             }
         }
+        assertEquals(expected,allPoints.size(),"num of intersection points aren't enough ");
     }
     /**
      *
@@ -38,11 +45,14 @@ class CameraRayIntersectionsIntegrationTests {
         Camera camera=new Camera(new Point(0,0,0),new Vector(0,0,-1),new Vector(0,1,0))
                 .setVPDistance(1).setVPSize(3,3);
         // TC01: Small Sphere 2 points
-        //assertCountIntersections
-
+        assertCountIntersections(camera,sphere,2);
         // TC02: Big Sphere 18 points
+        sphere=new Sphere(new Point(0,0,-2.5),2.5);
+        assertCountIntersections(camera,sphere,18);
         // TC03: Medium Sphere 10 points
         // TC04: Inside Sphere 9 points
+        sphere=new Sphere(new Point(0,0,-3),3);
+        assertCountIntersections(camera,sphere,9);
         // TC05: Beyond Sphere 0 points
 
     }
