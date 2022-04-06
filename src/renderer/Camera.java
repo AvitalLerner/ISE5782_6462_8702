@@ -7,6 +7,7 @@ import primitives.Vector;
 import static primitives.Util.isZero;
 
 public class Camera {
+
     private Point _p0;
     private Vector _vUp;
     private Vector _vTo;
@@ -18,7 +19,7 @@ public class Camera {
 
     public Camera(Point p0, Vector vTo, Vector vUp) {
         _p0 = p0;
-        if( !isZero(vUp.dotProduct(vTo))){
+        if (!isZero(vUp.dotProduct(vTo))) {
             throw new IllegalArgumentException("vup and vto are not orthogonal");
         }
         _vUp = vUp.normalize();
@@ -27,31 +28,29 @@ public class Camera {
         _vRight = _vTo.crossProduct(_vUp);
     }
 
-    public Camera setVPSize(double width, double height){
+    public Camera setVPSize(double width, double height) {
         _width = width;
         _height = height;
         return this;
     }
 
-    public Camera setVPDistance(double distance){
+    public Camera setVPDistance(double distance) {
         _distance = distance;
         return this;
     }
 
-    public Ray constructRayThroughPixel(int nX, int nY, int j, int i)
-    {
+    public Ray constructRayThroughPixel(int nX, int nY, int j, int i) {
         double Rx = _width / nX;
         double Ry = _height / nY;
 
-        double xJ = (j -(nX-1)/2d)*Rx;
-        double yI = -(i -(nY-1)/2d)*Ry;
+        double xJ = (j - (nX - 1) / 2d) * Rx;
+        double yI = -(i - (nY - 1) / 2d) * Ry;
 
-        Point pIJ=_p0.add(_vTo.scale(_distance));
+        Point pIJ = _p0.add(_vTo.scale(_distance));
 
         if (isZero(xJ) && isZero(yI)) {
             return new Ray(_p0, pIJ.subtract(_p0));
-        }
-        else {
+        } else {
             if (isZero(xJ))
                 pIJ = pIJ.add(_vUp.scale(yI));
 

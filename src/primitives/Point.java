@@ -1,6 +1,7 @@
 package primitives;
 
 public class Point {
+    public static final Point ZERO = new Point(0, 0, 0);
     public final Double3 _xyz;
 
     /**
@@ -16,6 +17,7 @@ public class Point {
 
     /**
      * constructor receives Double3 object
+     *
      * @param xyz data of the point
      */
     public Point(Double3 xyz) {
@@ -35,6 +37,7 @@ public class Point {
 
     /**
      * adds a new vector to the point
+     *
      * @param vector to add to the point
      * @return new point
      */
@@ -43,7 +46,6 @@ public class Point {
     }
 
     /**
-     *
      * @return string with the data of the point
      */
     @Override
@@ -91,20 +93,25 @@ public class Point {
 
     /**
      * getter for coordinate X
+     *
      * @return coordinate X
      */
     public double getX() {
         return _xyz._d1;
     }
+
     /**
      * getter for coordinate Y
+     *
      * @return coordinate Y
      */
     public double getY() {
         return _xyz._d2;
     }
+
     /**
      * getter for coordinate Z
+     *
      * @return coordinate Z
      */
     public double getZ() {
