@@ -17,6 +17,16 @@ public class Camera {
     private double _width;
     private double _height;
 
+    public Camera setWidth(double width) {
+        _width = width;
+        return this;
+    }
+
+    public Camera setHeight(double height) {
+        _height = height;
+        return this;
+    }
+
     public Camera(Point p0, Vector vTo, Vector vUp) {
         _p0 = p0;
         if (!isZero(vUp.dotProduct(vTo))) {
@@ -28,10 +38,9 @@ public class Camera {
         _vRight = _vTo.crossProduct(_vUp);
     }
 
-    public Camera setVPSize(double width, double height) {
+    public void setVPSize(double width, double height) {
         _width = width;
         _height = height;
-        return this;
     }
 
     public Camera setVPDistance(double distance) {
@@ -66,4 +75,5 @@ public class Camera {
 
 
     }
+
 }
