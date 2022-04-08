@@ -1,5 +1,7 @@
 package primitives;
 
+import java.util.List;
+
 import static primitives.Util.isZero;
 
 public class Ray {
@@ -54,4 +56,10 @@ public class Ray {
         }
         return _p0.add(_dir.scale(t));
     }
+
+    /*
+    public Point findClosestPoint(List<Point> allPoints) {
+    }
+    */
+
 }
