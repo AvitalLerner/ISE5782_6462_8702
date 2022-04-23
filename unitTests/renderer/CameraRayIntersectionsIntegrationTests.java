@@ -68,9 +68,10 @@ class CameraRayIntersectionsIntegrationTests {
 
         // TC01: Plane against camera 9 points
         Camera camera=new Camera(new Point(0,0,0),new Vector(0,0,-1),new Vector(0,1,0));
-        Plane plane=new Plane(new Point(0,0,-3),new Point(0,-3,-3),new Point(0,3,-3));
-        // TC02: Plane with small angle 9 points
+        Plane plane=new Plane(new Point(0,0,4),new Vector(0,0,3));
         assertCountIntersections(camera,plane,9);
+        // TC02: Plane with small angle 9 points
+
         // TC03: Plane parallel to lower rays 6 points
 
         // TC04: Beyond Plane 0 points

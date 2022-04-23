@@ -7,8 +7,8 @@ import scene.Scene;
 
 import java.util.List;
 
-public class RayTracerBasic extends RayTracer{
-    public RayTracerBasic(Scene scene) {
+public class RayTracerBase extends RayTracer{
+    public RayTracerBase(Scene scene) {
         super(scene);
     }
 

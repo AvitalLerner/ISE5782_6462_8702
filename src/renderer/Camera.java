@@ -1,5 +1,6 @@
 package renderer;
 
+import primitives.Color;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
@@ -38,9 +39,10 @@ public class Camera {
         _vRight = _vTo.crossProduct(_vUp);
     }
 
-    public void setVPSize(double width, double height) {
+    public Camera setVPSize(double width, double height) {
         _width = width;
         _height = height;
+        return this;
     }
 
     public Camera setVPDistance(double distance) {
@@ -76,4 +78,27 @@ public class Camera {
 
     }
 
+    public Camera BuilderCamera(Point p,Vector vTo, Vector vUp){
+        return null;
+    }
+    public Camera setImageWriter(ImageWriter base_render_test) {
+        return null;
+    }
+
+    public void renderImage() {
+    }
+
+    public void printGrid(int i, Color color) {
+    }
+
+    public void writeToImage() {
+    }
+
+    public Camera setRayTracer(RayTracerBase rayTracerBasic) {
+        return null;
+    }
+
+    public Camera build() {
+        return null;
+    }
 }

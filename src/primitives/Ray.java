@@ -57,6 +57,10 @@ public class Ray {
         return _p0.add(_dir.scale(t));
     }
 
+    public Point findClosestPoint(List<Point> allPoints) {
+        return null;
+    }
+
     /*
     public Point findClosestPoint(List<Point> allPoints) {
     }
