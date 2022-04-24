@@ -79,6 +79,7 @@ public class Camera {
     }
 
     public Camera BuilderCamera(Point p,Vector vTo, Vector vUp){
+
         return null;
     }
     public Camera setImageWriter(ImageWriter base_render_test) {

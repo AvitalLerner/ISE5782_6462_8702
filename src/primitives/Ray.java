@@ -60,6 +60,9 @@ public class Ray {
     public Point findClosestPoint(List<Point> allPoints) {
         double d=0;
         Point p=null;
+        if(allPoints==null)
+            return null;
+
         for (Point point : allPoints) {
            if (d==0){
                d= point.distance(_p0);
