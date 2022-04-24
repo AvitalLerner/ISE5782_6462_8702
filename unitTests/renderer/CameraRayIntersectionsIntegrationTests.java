@@ -37,8 +37,9 @@ class CameraRayIntersectionsIntegrationTests {
 
         assertEquals(expected,allPoints.size(),"num of intersection points aren't enough ");
     }
+
     /**
-     *
+     * test
      */
     @Test
     public void cameraRaySphereIntegration() {
@@ -74,11 +75,14 @@ class CameraRayIntersectionsIntegrationTests {
         Plane plane=new Plane(new Point(0,0,-4),new Vector(0,0,3));
         assertCountIntersections(camera,plane,9);
         // TC02: Plane with small angle 9 points
-
+        plane=new Plane(new Point(0,2,-1),new Vector(0,0.5,-1));
+        assertCountIntersections(camera,plane,9);
         // TC03: Plane parallel to lower rays 6 points
         plane=new Plane(new Point(0,0,-4),new Point(0,1,-1),new Point(1,0,-4));
         assertCountIntersections(camera,plane,6);
         // TC04: Beyond Plane 0 points
+        plane=new Plane(new Point(0,0,1),new Vector(0,0,4));
+        assertCountIntersections(camera,plane,0);
     }
 
     /**
