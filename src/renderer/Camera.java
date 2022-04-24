@@ -19,7 +19,7 @@ public class Camera {
     private double _height;
 
     private ImageWriter _writer;
-
+    private  RayTracerBase _tracerBase;
     public Camera setWriter(ImageWriter writer) {
         _writer = writer;
         return this;
@@ -30,7 +30,7 @@ public class Camera {
         return this;
     }
 
-    private  RayTracerBase _tracerBase;
+
 
     public Camera setWidth(double width) {
         _width = width;
@@ -102,9 +102,26 @@ public class Camera {
 
     public void renderImage() {
          if(_p0==null||_vUp==null|| _vTo==null|| _vRight==null||
-                _distance==0.0 || _width==0.0|| _height==0.0){
-             throw new Exception("MissingResourcesException")
+                _distance==0.0 || _width==0.0|| _height==0.0) {
+            // throw new Exception("MissingResourcesException")
+
          }
+        int nX = 800;
+        int nY = 500;
+
+        int interval = 50; // 800/50 == 16  500/50 == 10
+
+        Color redColor = new Color(255d,0,0d);
+
+        ImageWriter imageWriter = new ImageWriter("YellowSubmarine",nX,nY);
+        for (int i = 0; i < nX; i++) {
+            for (int j = 0; j < nY; j++) {
+                if(i % interval == 0 || j % interval == 0) {
+                    imageWriter.writePixel(i, j, redColor);
+                }
+            }
+        }
+        imageWriter.writeToImage();
     }
 
     public void printGrid(int i, Color color) {
@@ -112,7 +129,9 @@ public class Camera {
     }
 
     public void writeToImage() {
-
+      if (_writer==null){
+          //throw new Exception("MissingResourcesException");
+      }
     }
 
     public Camera setRayTracer(RayTracerBase rayTracerBasic) {
