@@ -18,6 +18,20 @@ public class Camera {
     private double _width;
     private double _height;
 
+    private ImageWriter _writer;
+
+    public Camera setWriter(ImageWriter writer) {
+        _writer = writer;
+        return this;
+    }
+
+    public Camera setTracerBase(RayTracerBase tracerBase) {
+        _tracerBase = tracerBase;
+        return this;
+    }
+
+    private  RayTracerBase _tracerBase;
+
     public Camera setWidth(double width) {
         _width = width;
         return this;
@@ -83,23 +97,28 @@ public class Camera {
         return null;
     }
     public Camera setImageWriter(ImageWriter base_render_test) {
-        return null;
+        return this;
     }
 
     public void renderImage() {
+         if(_p0==null||_vUp==null|| _vTo==null|| _vRight==null||
+                _distance==0.0 || _width==0.0|| _height==0.0){
+             throw new Exception("MissingResourcesException")
+         }
     }
 
     public void printGrid(int i, Color color) {
     }
 
     public void writeToImage() {
+
     }
 
     public Camera setRayTracer(RayTracerBase rayTracerBasic) {
-        return null;
+        return this;
     }
 
     public Camera build() {
-        return null;
+        return this;
     }
 }
