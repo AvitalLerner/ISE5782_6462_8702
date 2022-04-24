@@ -90,6 +90,7 @@ public class Camera {
     }
 
     public void printGrid(int i, Color color) {
+
     }
 
     public void writeToImage() {
