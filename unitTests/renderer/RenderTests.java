@@ -54,16 +54,16 @@ public class RenderTests {
         // enter XML file name and parse from XML file into scene object
         // ...
 
-     //Camera camera = new Camera.BuilderCamera(Point.ZERO, new Vector(0, 0, -1), new Vector(0, 1, 0)) //
-             //   .setDistance(100) //
-              //  .setViewPlaneWidth(500)
-                //.setViewPlaneHeight(500)
-                //.setImageWriter(new ImageWriter("xml render test", 1000, 1000))
-             //   .setRayTracer(new RayTracerBase(scene))
-             //   .build();
+     Camera camera = new Camera (Point.ZERO, new Vector(0, 0, -1), new Vector(0, 1, 0)) //
+               .setVPDistance(100) //
+                .setWidth(500)
+                .setHeight(500)
+                .setImageWriter(new ImageWriter("xml render test", 1000, 1000))
+                .setRayTracer(new RayTracerBase(scene))
+               .build();
 
-       // camera.renderImage();
-       // camera.printGrid(100, new Color(java.awt.Color.YELLOW));
-      //  camera.writeToImage();
+       camera.renderImage();
+        camera.printGrid(100, new Color(java.awt.Color.YELLOW));
+        camera.writeToImage();
     }
 }
