@@ -58,12 +58,21 @@ public class Ray {
     }
 
     public Point findClosestPoint(List<Point> allPoints) {
-        return null;
+        double d=0;
+        Point p=null;
+        for (Point point : allPoints) {
+           if (d==0){
+               d= point.distance(_p0);
+               p=point;
+           }
+           double dCompare= point.distance(_p0);
+           if (dCompare<d){
+             p=point;
+           }
+        }
+        return p;
     }
 
-    /*
-    public Point findClosestPoint(List<Point> allPoints) {
-    }
-    */
+
 
 }
