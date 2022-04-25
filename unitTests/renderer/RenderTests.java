@@ -37,7 +37,7 @@ public class RenderTests {
                 .setHeight(500)
                 .setWidth(500) //
                 .setImageWriter(new ImageWriter("base render test", 1000, 1000))
-                .setRayTracer(new RayTracerBase(scene))
+                .setRayTracer(new RayTracerBasic(scene))
                 .build();
 
         camera.renderImage();
@@ -59,7 +59,7 @@ public class RenderTests {
                 .setWidth(500)
                 .setHeight(500)
                 .setImageWriter(new ImageWriter("xml render test", 1000, 1000))
-                .setRayTracer(new RayTracerBase(scene))
+                .setRayTracer(new RayTracerBasic(scene))
                .build();
 
        camera.renderImage();
