@@ -5,7 +5,7 @@ import primitives.Ray;
 
 import java.util.List;
 
-public class Triangle extends Polygon implements Geometry{
+public class Triangle extends Polygon{
     /**
      * constructor get 3 point of the triangle
      *
