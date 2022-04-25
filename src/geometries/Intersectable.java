@@ -20,6 +20,14 @@ public abstract class Intersectable {
 
     /**
      *
+     * @param r
+     * @return
+     */
+    public List<GeoPoint> findGeoIntersection(Ray r){
+
+    }
+    /**
+     *
      */
     public static class GeoPoint {
         public  Geometry geometry;
@@ -42,6 +50,7 @@ public abstract class Intersectable {
                     ", point=" + point +
                     '}';
         }
+
     }
 
 }
