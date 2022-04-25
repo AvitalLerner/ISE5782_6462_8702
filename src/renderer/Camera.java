@@ -5,6 +5,8 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.List;
+
 import static primitives.Util.isZero;
 
 public class Camera {
@@ -19,13 +21,14 @@ public class Camera {
     private double _height;
 
     private ImageWriter _writer;
-    private  RayTracerBase _tracerBase;
+    private RayTracer _tracerBase;
+
     public Camera setWriter(ImageWriter writer) {
         _writer = writer;
         return this;
     }
 
-    public Camera setTracerBase(RayTracerBase tracerBase) {
+    public Camera setRayTracer(RayTracerBasic tracerBase) {
         _tracerBase = tracerBase;
         return this;
     }
@@ -96,7 +99,8 @@ public class Camera {
 
         return null;
     }
-    public Camera setImageWriter(ImageWriter base_render_test) {
+    public Camera setImageWriter(ImageWriter imageWriter) {
+        _writer= imageWriter;
         return this;
     }
 
@@ -106,36 +110,31 @@ public class Camera {
             // throw new Exception("MissingResourcesException")
 
          }
-        int nX = 800;
-        int nY = 500;
-
         int interval = 50; // 800/50 == 16  500/50 == 10
 
-        Color redColor = new Color(255d,0,0d);
 
-        ImageWriter imageWriter = new ImageWriter("YellowSubmarine",nX,nY);
-        for (int i = 0; i < nX; i++) {
-            for (int j = 0; j < nY; j++) {
-                if(i % interval == 0 || j % interval == 0) {
-                    imageWriter.writePixel(i, j, redColor);
-                }
+        int Ny = _writer.getNy();
+        int Nx = _writer.getNx();
+
+        for (int i = 0; i < Ny; i++) {
+            for (int j = 0; j < Nx; j++) {
+                castRay(Ny,Nx,i,j);
             }
         }
-        imageWriter.writeToImage();
+        }
+
+    private void castRay(int ny, int nx, int i, int j) {
+        Ray ray = constructRayThroughPixel(nx,ny,j,i);
+        Color pixelColor = _tracerBase.traceRay(ray);
+        _writer.writePixel(j,i,pixelColor);
     }
 
-    public void printGrid(int i, Color color) {
-
+    public void printGrid(int interval, Color color) {
+        _writer.printGrid(interval,color);
     }
 
     public void writeToImage() {
-      if (_writer==null){
-          //throw new Exception("MissingResourcesException");
-      }
-    }
-
-    public Camera setRayTracer(RayTracerBase rayTracerBasic) {
-        return this;
+      _writer.writeToImage();
     }
 
     public Camera build() {
