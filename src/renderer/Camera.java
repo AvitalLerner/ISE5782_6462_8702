@@ -110,7 +110,6 @@ public class Camera {
             // throw new Exception("MissingResourcesException")
 
          }
-
         int interval = 50; // 800/50 == 16  500/50 == 10
 
 
@@ -119,9 +118,9 @@ public class Camera {
 
         for (int i = 0; i < Ny; i++) {
             for (int j = 0; j < Nx; j++) {
-                   castRay(Ny,Nx,i,j);
-                }
+                castRay(Ny,Nx,i,j);
             }
+        }
         }
 
     private void castRay(int ny, int nx, int i, int j) {
