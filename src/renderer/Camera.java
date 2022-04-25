@@ -28,6 +28,11 @@ public class Camera {
         return this;
     }
 
+    /**
+     *
+     * @param tracerBase
+     * @return
+     */
     public Camera setRayTracer(RayTracerBasic tracerBase) {
         _tracerBase = tracerBase;
         return this;

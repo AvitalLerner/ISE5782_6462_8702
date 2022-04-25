@@ -30,7 +30,6 @@ public class Ray {
     }
 
     /**
-     *
      * @return P0
      */
     public Point getP0() {
