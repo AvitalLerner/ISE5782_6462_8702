@@ -24,8 +24,11 @@ public abstract class Intersectable {
      * @return
      */
     public List<GeoPoint> findGeoIntersection(Ray r){
-
+      return findGeoIntersectionsHelper(r);
     }
+
+    protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray r);
+
     /**
      *
      */

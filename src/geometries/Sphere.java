@@ -101,4 +101,9 @@ public class Sphere extends Geometry {
         }
         return null;
     }
+
+    @Override
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray r) {
+        return null;
+    }
 }
