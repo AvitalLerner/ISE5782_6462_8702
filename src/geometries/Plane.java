@@ -80,34 +80,7 @@ public class Plane extends Geometry {
      * @param ray Ray pointing towards the graphic object
      * @return intersections between the ray and the plane
      */
-    @Override
-    public List<Point> findIntersections(Ray ray) {
-        Point P0=ray.getP0();
-        Vector v=ray.getDir();
-        Vector n= _normal;
 
-        double nv=n.dotProduct(v);
-        // if ray parallel to plane : no intersection points
-        if(isZero(nv)){
-            return null;
-        }
-        if(_q0.equals(P0)){
-            return null;
-        }
-        Vector P0_O= _q0.subtract(P0);
-        double t=alignZero(n.dotProduct(P0_O)/nv);
-        // origin of ray lay on the plain
-        if (isZero(t)){
-            return null;
-        }
-
-        //if t<0 the direction of the ray points in the direction
-        if(t>0){
-            Point P=ray.getPoint(t);
-            return List.of(P);
-        }
-        return null;
-    }
 
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray r) {

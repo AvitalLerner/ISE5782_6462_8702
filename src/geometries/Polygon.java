@@ -95,49 +95,7 @@ public class Polygon extends Geometry {
 	}
 
 
-	/**
-	 *
-	 * @param ray Ray pointing towards the graphic object
-	 * @return the intersection between ray and polygon
-	 */
-	@Override
-	public List<Point> findIntersections(Ray ray) {
 
-		List<Point> result=_plane.findIntersections(ray);
-		if(result==null)
-			return null;
-
-		Point P0 =ray.getP0();
-		Vector v= ray.getDir();
-
-		Point edge1=vertices.get(1);
-		Point edge2=vertices.get(0);
-
-		Vector v1 = edge1.subtract(P0);
-		Vector v2 = edge2.subtract(P0);
-		double engle = alignZero(v.dotProduct(v1.crossProduct(v2)));
-		if(isZero(engle))
-			return null;
-
-		boolean side1 = engle>0;
-
-		for(int i= vertices.size()-1;i>0;i--)
-		{
-			v1=v2;
-			v2=vertices.get(i).subtract(P0);
-
-
-			engle=alignZero(v.dotProduct(v1.crossProduct(v2)));
-			if(isZero(engle))
-				return null;
-
-			boolean side2 = engle>0;
-			if(side1!=side2)
-				return null;
-		}
-		return result;
-
-	}
 
 	@Override
 	protected List<GeoPoint> findGeoIntersectionsHelper(Ray r) {

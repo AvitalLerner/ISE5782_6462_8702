@@ -25,13 +25,5 @@ public class Triangle extends Polygon{
                 '}';
     }
 
-    /**
-     *
-     * @param ray Ray pointing towards the graphic object
-     * @return intersection between the triangle and the ray
-     */
-    @Override
-    public List<Point> findIntersections(Ray ray) {
-        return super.findIntersections(ray);
-    }
+
 }
