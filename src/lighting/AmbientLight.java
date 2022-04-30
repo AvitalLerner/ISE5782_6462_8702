@@ -15,14 +15,15 @@ public class AmbientLight extends Light {
      * @param Ka attenuation factor
      */
     public AmbientLight(Color Ia , Double3 Ka){
-       Light(Ka.product(Ia));
+       super(Ia.scale(Ka));
     }
 
     /**
      * default constructor setting ambientLight to Black
      */
-    public void AmbientLight(){
-        AmbientLight(Color.BLACK,);
+    public AmbientLight(){
+        super(Color.BLACK);
     }
+
 
 }
