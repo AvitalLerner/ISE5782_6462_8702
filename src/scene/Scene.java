@@ -13,40 +13,30 @@ import java.util.List;
  *  using Builder Pattern
  */
 public class Scene {
-
-    private final String name;
-    private final Color background;
-    private final AmbientLight ambientLight;
-    private final Geometries geometries;
+    public String name;
+    public Color background;
+    public AmbientLight _ambientLight;
+    public Geometries geometries;
 
     public Scene setLights(List<LightSource> lights) {
         this.lights = lights;
         return this ;
     }
 
-    List<LightSource> lights=new LinkedList<>();
-    private Scene(SceneBuilder builder){
+    public List<LightSource> lights=new LinkedList<>();
+    public Scene(SceneBuilder builder){
         name = builder.name;
         background = builder.background;
-        ambientLight = builder.ambientLight;
+        _ambientLight = builder.ambientLight;
         geometries = builder.geometries;
     }
 
-    public String getName() {
-        return name;
+    public Scene setAmbientLight(AmbientLight ambientLight) {
+        _ambientLight=ambientLight;
+        return this;
     }
 
-    public Color getBackground() {
-        return background;
-    }
 
-    public AmbientLight getAmbientLight() {
-        return ambientLight;
-    }
-
-    public Geometries getGeometries() {
-        return geometries;
-    }
 
     public static class SceneBuilder {
 

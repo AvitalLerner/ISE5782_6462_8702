@@ -22,7 +22,7 @@ public class RenderTests {
      */
     @Test
     public void basicRenderTwoColorTest() {
-        Scene scene = new Scene("Test scene")//
+        Scene scene = new Scene(new Scene.SceneBuilder("Test scene"))//
                 .setAmbientLight(new AmbientLight(new Color(255, 191, 191), //
                         new Double3(1, 1, 1))) //
                 .setBackground(new Color(75, 127, 90));
@@ -52,7 +52,7 @@ public class RenderTests {
      */
     @Test
     public void basicRenderMultiColorTest() {
-        Scene scene = new Scene("Test scene")//
+        Scene scene = new Scene(new Scene.SceneBuilder("Test scene"))//
                 .setAmbientLight(new AmbientLight(new Color(WHITE), new Double3(0.2))); //
 
         scene.geometries.add( //
@@ -83,7 +83,7 @@ public class RenderTests {
      */
     @Test
     public void basicRenderXml() {
-        Scene scene = new Scene("XML Test scene");
+        Scene scene = new Scene(new Scene.SceneBuilder("XML Test scene"));
         // enter XML file name and parse from XML file into scene object
         // ...
 
