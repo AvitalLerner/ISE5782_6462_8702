@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class Scene {
     public String name;
-    public Color background;
+    public Color _background;
     public AmbientLight _ambientLight;
     public Geometries geometries;
 
@@ -26,7 +26,7 @@ public class Scene {
     public List<LightSource> lights=new LinkedList<>();
     public Scene(SceneBuilder builder){
         name = builder.name;
-        background = builder.background;
+        _background = builder.background;
         _ambientLight = builder.ambientLight;
         geometries = builder.geometries;
     }
@@ -35,7 +35,10 @@ public class Scene {
         _ambientLight=ambientLight;
         return this;
     }
-
+    public Scene setBackground(Color background) {
+        _background=background;
+        return this;
+    }
 
 
     public static class SceneBuilder {

@@ -109,7 +109,7 @@ public class Camera {
         return this;
     }
 
-    public void renderImage() {
+    public Camera renderImage() {
          if(_p0==null||_vUp==null|| _vTo==null|| _vRight==null||
                 _distance==0.0 || _width==0.0|| _height==0.0) {
             // throw new Exception("MissingResourcesException")
@@ -126,6 +126,7 @@ public class Camera {
                 castRay(Ny,Nx,i,j);
             }
         }
+        return this;
         }
 
     private void castRay(int ny, int nx, int i, int j) {

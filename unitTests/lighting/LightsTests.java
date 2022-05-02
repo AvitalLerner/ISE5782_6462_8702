@@ -1,4 +1,4 @@
-package unittests.renderer;
+package lighting;
 
 import org.junit.jupiter.api.Test;
 
@@ -108,7 +108,7 @@ public class LightsTests {
     @Test
     public void trianglesPoint() {
         scene2.geometries.add(triangle1, triangle2);
-        scene2.lights.add(new PointLight(trCL, trPL).setkL(0.001).setKq(0.0002));
+        scene2.lights.add(new PointLight(trCL, trPL).setkL(0.001).setkQ(0.0002));
 
         ImageWriter imageWriter = new ImageWriter("lightTrianglesPoint", 500, 500);
         camera2.setImageWriter(imageWriter) //
@@ -139,7 +139,9 @@ public class LightsTests {
     public void sphereSpotSharp() {
         scene1.geometries.add(sphere);
         scene1.lights
-                .add(new SpotLight(spCL, spPL, new Vector(1, 1, -0.5)).setNarrowBeam(10).setKl(0.001).setKq(0.00004));
+                .add(new SpotLight(spCL, spPL, new Vector(1, 1, -0.5))//
+                        // .setNarrowBeam(10)
+                        .setkL(0.001).setkQ(0.00004));
 
         ImageWriter imageWriter = new ImageWriter("lightSphereSpotSharp", 500, 500);
         camera1.setImageWriter(imageWriter) //
@@ -154,7 +156,9 @@ public class LightsTests {
     @Test
     public void trianglesSpotSharp() {
         scene2.geometries.add(triangle1, triangle2);
-        scene2.lights.add(new SpotLight(trCL, trPL, trDL).setNarrowBeam(10).setKl(0.001).setKq(0.00004));
+        scene2.lights.add(new SpotLight(trCL, trPL, trDL)//
+                // .setNarrowBeam(10)
+                .setkL(0.001).setkL(0.00004));
 
         ImageWriter imageWriter = new ImageWriter("lightTrianglesSpotSharp", 500, 500);
         camera2.setImageWriter(imageWriter) //
