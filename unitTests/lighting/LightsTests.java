@@ -15,8 +15,8 @@ import static java.awt.Color.*;
  * @author Dan
  */
 public class LightsTests {
-    private Scene scene1 = new Scene("Test scene");
-    private Scene scene2 = new Scene("Test scene") //
+    private Scene scene1 = new Scene(new Scene.SceneBuilder("Test scene"));
+    private Scene scene2 = new Scene(new Scene.SceneBuilder("Test scene")) //
             .setAmbientLight(new AmbientLight(new Color(WHITE), new Double3(0.15)));
     private Camera camera1 = new Camera(new Point(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
             .setVPSize(150, 150) //
