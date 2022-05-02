@@ -104,6 +104,7 @@ public class Color {
         if (k._d1 < 0.0 || k._d2 < 0.0 || k._d3 < 0.0)
             throw new IllegalArgumentException("Can't scale a color by a negative number");
         return new Color(rgb.product(k));
+
     }
 
     /**

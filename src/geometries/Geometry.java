@@ -16,15 +16,14 @@ public abstract class Geometry extends Intersectable {
     public abstract Vector getNormal(Point p1);
 
     /**
-     *
-     * @return
+     * getter for emission
+     * @return emission
      */
     public Color getEmission() {
         return _emission;
     }
 
     /**
-     *
      * @param emission
      * @return
      */
@@ -34,15 +33,15 @@ public abstract class Geometry extends Intersectable {
     }
 
     /**
-     *
-     * @return
+     * getter for material
+     * @return material
      */
     public Material getMaterial() {
         return _material;
     }
 
     /**
-     *
+     * settter for material
      * @param material
      */
     public Geometry setMaterial(Material material) {

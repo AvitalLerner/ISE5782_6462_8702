@@ -93,7 +93,6 @@ public class Point {
 
     /**
      * getter for coordinate X
-     *
      * @return coordinate X
      */
     public double getX() {
@@ -102,7 +101,6 @@ public class Point {
 
     /**
      * getter for coordinate Y
-     *
      * @return coordinate Y
      */
     public double getY() {
@@ -111,7 +109,6 @@ public class Point {
 
     /**
      * getter for coordinate Z
-     *
      * @return coordinate Z
      */
     public double getZ() {

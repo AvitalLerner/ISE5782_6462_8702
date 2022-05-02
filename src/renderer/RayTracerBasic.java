@@ -23,7 +23,13 @@ public class RayTracerBasic extends RayTracer{
         return result;
     }
 
+    /**
+     * calculate the color in point
+     * @param point in the scene
+     * @return the color in the point
+     */
     private Color calcColor(Point point) {
         return scene._ambientLight.getIntensity();
+
     }
 }
