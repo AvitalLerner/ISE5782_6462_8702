@@ -139,7 +139,7 @@ public class Camera {
     }
 
     public void writeToImage() {
-      _writer.writeToImage();
+     _writer.writeToImage();
     }
 
     public Camera build() {
