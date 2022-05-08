@@ -24,6 +24,7 @@ public class RayTracerBasic extends RayTracer{
     }
 
     private Color calcColor(Point point) {
+
         return scene._ambientLight.getIntensity();
     }
 }

@@ -15,7 +15,7 @@ public class Polygon extends Geometry {
 	/**
 	 * List of polygon's vertices
 	 */
-	protected List<Point> vertices;
+	protected List<Point> _vertices;
 	/**
 	 * Associated plane in which the polygon lays
 	 */
@@ -46,7 +46,7 @@ public class Polygon extends Geometry {
 	public Polygon(Point... vertices) {
 		if (vertices.length < 3)
 			throw new IllegalArgumentException("A polygon can't have less than 3 vertices");
-		this.vertices = List.of(vertices);
+		this._vertices = List.of(vertices);
 		// Generate the plane according to the first three vertices and associate the
 		// polygon with this plane.
 		// The plane holds the invariant normal (orthogonal unit) vector to the polygon
@@ -99,6 +99,27 @@ public class Polygon extends Geometry {
 
 	@Override
 	protected List<GeoPoint> findGeoIntersectionsHelper(Ray r) {
+		List<GeoPoint> planeIntersections = _plane.findGeoIntersectionsHelper(r);
+		if (planeIntersections == null) return null;
+
+		Point p0 = r.getP0();
+		Vector v = r.getDir();
+
+		Vector v1 = _vertices.get(0).subtract(p0);
+		Vector v2 = _vertices.get(1).subtract(p0);
+		Vector v3 = _vertices.get(2).subtract(p0);
+
+		double s1 = v.dotProduct(v1.crossProduct(v2));
+		if (isZero(s1)) return null;
+		double s2 = v.dotProduct(v2.crossProduct(v3));
+		if (isZero(s2)) return null;
+		double s3 = v.dotProduct(v3.crossProduct(v1));
+		if (isZero(s3)) return null;
+
+		if ((s1 > 0 && s2 > 0 && s3 > 0) || (s1 < 0 && s2 < 0 && s3 < 0)) {
+			planeIntersections.get(0).geometry = this;
+			return planeIntersections;
+		}
 		return null;
 	}
 }

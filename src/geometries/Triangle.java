@@ -1,9 +1,6 @@
 package geometries;
 
 import primitives.Point;
-import primitives.Ray;
-
-import java.util.List;
 
 public class Triangle extends Polygon{
     /**
@@ -20,7 +17,7 @@ public class Triangle extends Polygon{
     @Override
     public String toString() {
         return "Triangle{" +
-                "vertices=" + vertices +
+                "vertices=" + _vertices +
                 ", plane=" + _plane +
                 '}';
     }

@@ -84,6 +84,24 @@ public class Plane extends Geometry {
 
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray r) {
-        return null;
+        Vector vectorp0Q;
+        try {
+            vectorp0Q = this._q0.subtract(r.getP0());
+        } catch (IllegalArgumentException e) {
+            return null; // ray starts from point Q - no intersections
+        }
+
+        double nv = _normal.dotProduct(r.getDir());
+        if (isZero(nv)) { // ray is parallel to the plane - no intersections
+            return null;
+        }
+        double t = alignZero(_normal.dotProduct(vectorp0Q) / nv);
+
+        if ((t <= 0)) {
+            return null;
+        } else {
+            return List.of(new GeoPoint(this, r.getPoint(t)));
+        }
     }
+
 }
