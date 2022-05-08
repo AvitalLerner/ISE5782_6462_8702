@@ -77,7 +77,7 @@ public class Plane extends Geometry {
 
     /**
      *
-     * @param ray Ray pointing towards the graphic object
+     * @param r Ray pointing towards the graphic object
      * @return intersections between the ray and the plane
      */
 
