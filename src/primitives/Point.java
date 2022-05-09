@@ -74,9 +74,9 @@ public class Point {
     public double distanceSquared(Point newP) {
         Double3 temp = _xyz.subtract(newP._xyz);
 
-        double xx = temp._d1 * temp._d1;
-        double yy = temp._d2 * temp._d2;
-        double zz = temp._d3 * temp._d3;
+        double xx = temp.d1 * temp.d1;
+        double yy = temp.d2 * temp.d2;
+        double zz = temp.d3 * temp.d3;
 
         return (xx + yy + zz);
     }
@@ -96,7 +96,7 @@ public class Point {
      * @return coordinate X
      */
     public double getX() {
-        return _xyz._d1;
+        return _xyz.d1;
     }
 
     /**
@@ -104,7 +104,7 @@ public class Point {
      * @return coordinate Y
      */
     public double getY() {
-        return _xyz._d2;
+        return _xyz.d2;
     }
 
     /**
@@ -112,6 +112,6 @@ public class Point {
      * @return coordinate Z
      */
     public double getZ() {
-        return _xyz._d3;
+        return _xyz.d3;
     }
 }

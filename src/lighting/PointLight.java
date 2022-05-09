@@ -28,7 +28,8 @@ public class PointLight extends Light implements LightSource{
 
     @Override
     public Vector getL(Point p) {
-        return null;
+      Vector l=_position.subtract(p).normalize();
+      return l;
     }
 
     @Override
