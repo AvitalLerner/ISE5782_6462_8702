@@ -9,37 +9,29 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- *  Scene or holding all the objects involved
- *  using Builder Pattern
+ * Scene or holding all the objects involved
+ * using Builder Pattern
  */
 public class Scene {
     public String name;
     public Color _background;
     public AmbientLight _ambientLight;
     public Geometries geometries;
+    public List<LightSource> lights ;
 
-    public Scene setLights(List<LightSource> lights) {
-        this.lights = lights;
-        return this ;
-    }
 
-    public List<LightSource> lights=new LinkedList<>();
-    public Scene(SceneBuilder builder){
+    public Scene(SceneBuilder builder) {
         name = builder.name;
         _background = builder.background;
         _ambientLight = builder.ambientLight;
         geometries = builder.geometries;
+        lights= builder.lights;
     }
 
     public Scene setAmbientLight(AmbientLight ambientLight) {
-        _ambientLight=ambientLight;
+        _ambientLight = ambientLight;
         return this;
     }
-    public Scene setBackground(Color background) {
-        _background=background;
-        return this;
-    }
-
 
     public static class SceneBuilder {
 
@@ -47,8 +39,9 @@ public class Scene {
         private Color background = Color.BLACK;
         private AmbientLight ambientLight = new AmbientLight();
         private Geometries geometries = new Geometries();
+        private List<LightSource> lights = new LinkedList<>();
 
-        public SceneBuilder(String name){
+        public SceneBuilder(String name) {
             this.name = name;
         }
 
@@ -69,8 +62,13 @@ public class Scene {
             return this;
         }
 
+        public SceneBuilder setLights(List<LightSource> lights) {
+            this.lights = lights;
+            return this;
+        }
+
         // build
-        public Scene build(){
+        public Scene build() {
             Scene scene = new Scene(this);
             //....
             return scene;

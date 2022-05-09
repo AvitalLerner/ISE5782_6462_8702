@@ -1,12 +1,11 @@
-package unittests.renderer;
+package renderer;
 
-import org.junit.jupiter.api.Test;
-
-import lighting.AmbientLight;
 import geometries.*;
+import lighting.AmbientLight;
+import org.junit.jupiter.api.Test;
 import primitives.*;
-import renderer.*;
 import scene.Scene;
+
 import static java.awt.Color.*;
 
 /**
@@ -22,12 +21,14 @@ public class RenderTests {
      */
     @Test
     public void basicRenderTwoColorTest() {
-        Scene scene = new Scene(new Scene.SceneBuilder("Test scene"))//
-                .setAmbientLight(new AmbientLight(new Color(255, 191, 191), //
-                        new Double3(1, 1, 1))); //
-                //.setBackground(new Color(75, 127, 90));
+        Scene scene = new Scene.SceneBuilder("Test scene")//
+                .setAmbientLight(new AmbientLight(new Color(255, 191, 191), new Double3(1, 1, 1)))
+                .setBackground(new Color(75,127,90))
+                .build(); //
 
-        scene.geometries.add(new Sphere(new Point(0, 0, -100), 50d),
+
+        scene.geometries.add(
+                new Sphere(new Point(0, 0, -100), 50d),
                 new Triangle(new Point(-100, 0, -100), new Point(0, 100, -100), new Point(-100, 100, -100)), // up
                 // left
                 new Triangle(new Point(-100, 0, -100), new Point(0, -100, -100), new Point(-100, -100, -100)), // down
@@ -46,6 +47,7 @@ public class RenderTests {
     }
 
     // For stage 6 - please disregard in stage 5
+
     /**
      * Produce a scene with basic 3D model - including individual lights of the
      * bodies and render it into a png image with a grid

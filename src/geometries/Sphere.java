@@ -14,6 +14,7 @@ public class Sphere extends Geometry {
 
     /**
      * constructor
+     *
      * @param center- the center of the sphere
      * @param radius- the radius of the sphere
      */
@@ -54,22 +55,23 @@ public class Sphere extends Geometry {
     @Override
     public Vector getNormal(Point p1) {
 
-      return p1.subtract(_center).normalize()  ;
+        return p1.subtract(_center).normalize();
     }
 
     @Override
-    protected List<GeoPoint> findGeoIntersectionsHelper(Ray r) {
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray r, double distance) {
         Point p0 = r.getP0();
         Vector v = r.getDir();
         Vector u;
-        try {
-            u = _center.subtract(p0);   // p0 == _center
-        } catch (IllegalArgumentException e) {
+
+        if (_center.equals(p0)) {
             return List.of(new GeoPoint(this, (r.getPoint(this._radius))));
         }
+
+            u = _center.subtract(p0);   // p0 == _center
         double tm = alignZero(v.dotProduct(u));
         double d = Math.sqrt(u.lengthSquared() - tm * tm);
-        double thSqrt = alignZero(this._radius * this._radius - d*d);
+        double thSqrt = alignZero(this._radius * this._radius - d * d);
 
         double th = alignZero(Math.sqrt(thSqrt));
         if (th == 0) return null;
@@ -80,17 +82,25 @@ public class Sphere extends Geometry {
         if (t1 <= 0 && t2 <= 0) {
             return null;
         }
-        if (t1 > 0&&t2<=0) {
-                return List.of(
-                        new GeoPoint(this, (r.getPoint(t1))));
-            } else if (t2 > 0 && t1<=0) {
-                return List.of(
-                        new GeoPoint(this, (r.getPoint(t2))));
-            }
 
-        return List.of(
-                new GeoPoint(this, (r.getPoint(t1))),
-                new GeoPoint(this, (r.getPoint(t2))));
+        if (alignZero(distance - t1) > 0 && alignZero(distance - t2) > 0) {
+            return List.of(
+                    new GeoPoint(this, (r.getPoint(t1))),
+                    new GeoPoint(this, (r.getPoint(t2)))
+            );
+        }
+
+        if (t1 > 0 && alignZero(t1 - distance) < 0) {
+            return List.of(
+                    new GeoPoint(this, (r.getPoint(t1))));
+        }
+
+        if (t2 > 0 && alignZero(t2 - distance) < 0) {
+            return List.of(
+                    new GeoPoint(this, (r.getPoint(t2))));
+        }
+
+        return null;
 
     }
 }

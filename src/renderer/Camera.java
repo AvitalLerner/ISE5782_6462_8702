@@ -6,6 +6,7 @@ import primitives.Ray;
 import primitives.Vector;
 
 import java.util.List;
+import java.util.MissingResourceException;
 
 import static primitives.Util.isZero;
 
@@ -29,7 +30,6 @@ public class Camera {
     }
 
     /**
-     *
      * @param tracerBase
      * @return
      */
@@ -37,7 +37,6 @@ public class Camera {
         _tracerBase = tracerBase;
         return this;
     }
-
 
 
     public Camera setWidth(double width) {
@@ -76,71 +75,68 @@ public class Camera {
         double Rx = _width / nX;
         double Ry = _height / nY;
 
+
+        Point Pc = _p0.add(_vTo.scale(_distance));
+
+        Point pIJ = Pc;
+
         double xJ = (j - (nX - 1) / 2d) * Rx;
         double yI = -(i - (nY - 1) / 2d) * Ry;
-
-        Point pIJ = _p0.add(_vTo.scale(_distance));
 
         if (isZero(xJ) && isZero(yI)) {
             return new Ray(_p0, pIJ.subtract(_p0));
         } else {
-            if (isZero(xJ))
+            if (!isZero(xJ))
+                pIJ = pIJ.add(_vRight.scale(xJ));
+            if (!isZero(yI))
                 pIJ = pIJ.add(_vUp.scale(yI));
 
-            if (isZero(yI))
-                pIJ = pIJ.add(_vRight.scale(xJ));
-
-
-            if (!isZero(yI) && !isZero(xJ))
-                pIJ = pIJ.add(_vRight.scale(xJ)).add(_vUp.scale(yI));
         }
 
         return new Ray(_p0, pIJ.subtract(_p0));
 
-
     }
 
-    public Camera BuilderCamera(Point p,Vector vTo, Vector vUp){
+    public Camera BuilderCamera(Point p, Vector vTo, Vector vUp) {
 
         return null;
     }
+
     public Camera setImageWriter(ImageWriter imageWriter) {
-        _writer= imageWriter;
+        _writer = imageWriter;
         return this;
     }
 
     public Camera renderImage() {
-         if(_p0==null||_vUp==null|| _vTo==null|| _vRight==null||
-                _distance==0.0 || _width==0.0|| _height==0.0) {
-            // throw new Exception("MissingResourcesException")
+        if (_p0 == null || _vUp == null || _vTo == null || _vRight == null ||
+                _distance == 0.0 || _width == 0.0 || _height == 0.0) {
+            throw new MissingResourceException("melel", null, null);
 
-         }
-        int interval = 50; // 800/50 == 16  500/50 == 10
-
+        }
 
         int Ny = _writer.getNy();
         int Nx = _writer.getNx();
 
         for (int i = 0; i < Ny; i++) {
             for (int j = 0; j < Nx; j++) {
-                castRay(Ny,Nx,i,j);
+                castRay(Nx, Ny, i, j);
             }
         }
         return this;
-        }
+    }
 
-    private void castRay(int ny, int nx, int i, int j) {
-        Ray ray = constructRayThroughPixel(nx,ny,j,i);
+    private void castRay(int nx, int ny, int i, int j) {
+        Ray ray = constructRayThroughPixel(nx, ny, j, i);
         Color pixelColor = _tracerBase.traceRay(ray);
-        _writer.writePixel(j,i,pixelColor);
+        _writer.writePixel(j, i, pixelColor);
     }
 
     public void printGrid(int interval, Color color) {
-        _writer.printGrid(interval,color);
+        _writer.printGrid(interval, color);
     }
 
     public void writeToImage() {
-     _writer.writeToImage();
+        _writer.writeToImage();
     }
 
     public Camera build() {

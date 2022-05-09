@@ -7,6 +7,7 @@ import geometries.*;
 import primitives.*;
 import renderer.*;
 import scene.Scene;
+
 import static java.awt.Color.*;
 
 /**
@@ -15,9 +16,10 @@ import static java.awt.Color.*;
  * @author Dan
  */
 public class LightsTests {
-    private Scene scene1 = new Scene(new Scene.SceneBuilder("Test scene"));
-    private Scene scene2 = new Scene(new Scene.SceneBuilder("Test scene")) //
-            .setAmbientLight(new AmbientLight(new Color(WHITE), new Double3(0.15)));
+    private Scene scene1 = new Scene.SceneBuilder("Test scene").build();
+    private Scene scene2 = new Scene.SceneBuilder("Test scene") //
+            .setAmbientLight(new AmbientLight(new Color(WHITE), new Double3(0.15)))
+            .build();
     private Camera camera1 = new Camera(new Point(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
             .setVPSize(150, 150) //
             .setVPDistance(1000);
@@ -29,7 +31,7 @@ public class LightsTests {
             new Point(-110, -110, -150), // the shared left-bottom
             new Point(95, 100, -150), // the shared right-top
             new Point(110, -110, -150), // the right-bottom
-            new Point(-75, 78, 100) }; // the left-top
+            new Point(-75, 78, 100)}; // the left-top
     private Point trPL = new Point(30, 10, -100); // Triangles test Position of Light
     private Point spPL = new Point(-50, -50, 25); // Sphere test Position of Light
     private Color trCL = new Color(800, 500, 250); // Triangles test Color of Light
@@ -63,7 +65,9 @@ public class LightsTests {
     @Test
     public void spherePoint() {
         scene1.geometries.add(sphere);
-        scene1.lights.add(new PointLight(spCL, spPL).setKl(0.001).setKq(0.0002));
+        scene1.lights.add(new PointLight(spCL, spPL)
+                .setKl(0.001)
+                .setKq(0.0002));
 
         ImageWriter imageWriter = new ImageWriter("lightSpherePoint", 500, 500);
         camera1.setImageWriter(imageWriter) //

@@ -22,16 +22,31 @@ public class Geometries extends Intersectable {
        Collections.addAll(_intersectables,intersectables);
    }
 
-    /**
-     *
-     * @param ray Ray pointing towards the graphic object
-     * @return intersection of the items
-     */
+//    /**
+//     *
+//     * @param ray Ray pointing towards the graphic object
+//     * @return intersection of the items
+//     */
+//    @Override
+//    public List<Point> findIntersections(Ray ray) {
+//       List<Point> result=null;
+//       for(Intersectable item:_intersectables) {
+//           List<Point> itemPointsList=item.findIntersections(ray);
+//           if(itemPointsList!=null){
+//               if(result==null){
+//                   result=new LinkedList<>();
+//               }
+//               result.addAll(itemPointsList);
+//           }
+//       }
+//        return result;
+//    }
+
     @Override
-    public List<Point> findIntersections(Ray ray) {
-       List<Point> result=null;
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray,double distance) {
+       List<GeoPoint> result=null;
        for(Intersectable item:_intersectables) {
-           List<Point> itemPointsList=item.findIntersections(ray);
+           List<GeoPoint> itemPointsList=item.findGeoIntersections(ray,distance);
            if(itemPointsList!=null){
                if(result==null){
                    result=new LinkedList<>();
@@ -40,11 +55,6 @@ public class Geometries extends Intersectable {
            }
        }
         return result;
-    }
-
-    @Override
-    protected List<GeoPoint> findGeoIntersectionsHelper(Ray r) {
-        return null;
     }
 
     /**

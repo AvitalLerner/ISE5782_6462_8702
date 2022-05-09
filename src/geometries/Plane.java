@@ -19,12 +19,13 @@ public class Plane extends Geometry {
     /**
      * constructor get
      * 3 parameters
+     *
      * @param p1 first point in the plane
      * @param p2 second point in the plane
      * @param p3 third point in the plane
      */
-    public Plane(Point p1, Point p2, Point p3){
-        _q0=p1;
+    public Plane(Point p1, Point p2, Point p3) {
+        _q0 = p1;
 //        //TODO check direction of vectors
 //        Vector U = p1.subtract(p2);
 //        Vector V = p3.subtract(p2);
@@ -35,22 +36,24 @@ public class Plane extends Geometry {
         Vector N = U.crossProduct(V);
 
         //right hand rule
-        _normal =N.normalize();
+        _normal = N.normalize();
 
     }
 
     /**
      * constructor get point and normal
-     * @param p1- point in the plane
+     *
+     * @param p1-     point in the plane
      * @param normal- normal of the plane
      */
-    public Plane(Point p1,Vector normal){
-        _q0=p1;
-        _normal =normal.normalize();
+    public Plane(Point p1, Vector normal) {
+        _q0 = p1;
+        _normal = normal.normalize();
     }
 
     /**
      * implementing {@link Geometry#getNormal(Point)}
+     *
      * @param point reference point
      * @return normal vector to the plane
      */
@@ -61,6 +64,7 @@ public class Plane extends Geometry {
 
     /**
      * getter for normal vector
+     *
      * @return normal
      */
     public Vector getNormal() {
@@ -69,6 +73,7 @@ public class Plane extends Geometry {
 
     /**
      * getter for q0 referenced point
+     *
      * @return the referenced point of the plane
      */
     public Point getQ0() {
@@ -76,14 +81,13 @@ public class Plane extends Geometry {
     }
 
     /**
-     *
      * @param r Ray pointing towards the graphic object
      * @return intersections between the ray and the plane
      */
 
 
     @Override
-    protected List<GeoPoint> findGeoIntersectionsHelper(Ray r) {
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray r, double distance) {
         Vector vectorp0Q;
         try {
             vectorp0Q = this._q0.subtract(r.getP0());
@@ -97,7 +101,7 @@ public class Plane extends Geometry {
         }
         double t = alignZero(_normal.dotProduct(vectorp0Q) / nv);
 
-        if ((t <= 0)) {
+        if ((t <= 0 || alignZero(distance - t) < 0)) {
             return null;
         } else {
             return List.of(new GeoPoint(this, r.getPoint(t)));

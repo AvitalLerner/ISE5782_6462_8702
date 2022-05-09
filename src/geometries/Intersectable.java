@@ -13,35 +13,38 @@ public abstract class Intersectable {
     /**
      * find all intersection points {@link Point}
      * that intersect the shape from a specific Ray{@link primitives.Ray}
+     *
      * @param ray Ray pointing towards the graphic object
      * @return immutable list of intersection points
      */
-    public List<Point> findIntersections(Ray ray){
+    public List<Point> findIntersections(Ray ray) {
         var geoList = findGeoIntersection(ray);
         return geoList == null ? null
                 : geoList.stream().map(gp -> gp.point).toList();
     }
 
     /**
-     *
      * @param r
      * @return
      */
-    public List<GeoPoint> findGeoIntersection(Ray r){
-      return findGeoIntersectionsHelper(r);
+    public List<GeoPoint> findGeoIntersection(Ray r) {
+        return findGeoIntersections(r,Double.POSITIVE_INFINITY);
     }
 
-    protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray r);
+    public final List<GeoPoint> findGeoIntersections(Ray r, double distance) {
+        return findGeoIntersectionsHelper(r,distance);
+    }
+
+    protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray r,double distance);
 
     /**
      *
      */
     public static class GeoPoint {
-        public  Geometry geometry;
-        public  Point point;
+        public Geometry geometry;
+        public Point point;
 
         /**
-         *
          * @param geometry
          * @param point
          */
