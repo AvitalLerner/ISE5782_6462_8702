@@ -1,5 +1,7 @@
 package renderer;
 
+import geometries.Geometry;
+import geometries.Intersectable;
 import primitives.Color;
 import primitives.Point;
 import primitives.Ray;
@@ -29,8 +31,6 @@ public class RayTracerBasic extends RayTracer{
      * @return the color in the point
      */
     private Color calcColor(Point point) {
-
-        return scene._ambientLight.getIntensity();
-
+        return scene._ambientLight.getIntensity().add(Geometry.getEmission());
     }
 }

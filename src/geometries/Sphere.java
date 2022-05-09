@@ -68,43 +68,29 @@ public class Sphere extends Geometry {
             return List.of(new GeoPoint(this, (r.getPoint(this._radius))));
         }
         double tm = alignZero(v.dotProduct(u));
-        double d = (tm == 0) ? u.lengthSquared() : u.lengthSquared() - tm * tm;
-        double thSqrt = alignZero(this._radius * this._radius - d);
-
-        if (thSqrt <= 0) return null;
+        double d = Math.sqrt(u.lengthSquared() - tm * tm);
+        double thSqrt = alignZero(this._radius * this._radius - d*d);
 
         double th = alignZero(Math.sqrt(thSqrt));
         if (th == 0) return null;
 
-        double t1 = alignZero(tm - th);
-        double t2 = alignZero(tm + th);
-
-       // double t1dist = alignZero(maxDistance - t1);
-      //  double t2dist = alignZero(maxDistance - t2);
+        double t1 = alignZero(tm + th);
+        double t2 = alignZero(tm - th);
 
         if (t1 <= 0 && t2 <= 0) {
             return null;
         }
-
-        if (t1 > 0 && t2 > 0) {
-            if (t1dist > 0 && t2dist > 0) {
-                return List.of(
-                        new GeoPoint(this, (r.getPoint(t1))),
-                        new GeoPoint(this, (r.getPoint(t2)))); //P1 , P2
-            } else if (t1dist > 0) {
+        if (t1 > 0&&t2<=0) {
                 return List.of(
                         new GeoPoint(this, (r.getPoint(t1))));
-            } else if (t2dist > 0) {
+            } else if (t2 > 0 && t1<=0) {
                 return List.of(
                         new GeoPoint(this, (r.getPoint(t2))));
             }
-        }
 
-        if ((t1 > 0) && (t1dist > 0))
-            return List.of(new GeoPoint(this, (r.getPoint(t1))));
-        else if ((t2 > 0) && (t2dist > 0))
-            return List.of(new GeoPoint(this, (r.getPoint(t2))));
-        return null;
-    }
+        return List.of(
+                new GeoPoint(this, (r.getPoint(t1))),
+                new GeoPoint(this, (r.getPoint(t2))));
+
     }
 }
