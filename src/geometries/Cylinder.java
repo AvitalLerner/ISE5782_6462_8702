@@ -4,8 +4,6 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
-import java.util.List;
-
 import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
@@ -14,13 +12,13 @@ public class Cylinder extends Tube {
 
     /**
      * constructor to initialize the cylinder
-     *
      * @param h the high of the cylinder
      * @param r the ray of the cylinder
      */
-    public Cylinder(double h, Ray r){
+    public Cylinder(double h, Ray r)
+    {
         super(r,h);
-      this._height =h;
+        this._height =h;
     }
 
     /**
@@ -61,5 +59,4 @@ public class Cylinder extends Tube {
         p0=p0.add(vector.scale(s));
         return  p1.subtract(p0).normalize();
     }
-
 }

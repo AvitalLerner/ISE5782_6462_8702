@@ -2,7 +2,6 @@ package geometries;
 
 import primitives.Point;
 import primitives.Ray;
-
 import java.util.List;
 
 /**
@@ -10,6 +9,8 @@ import java.util.List;
  * that intersect with a specific Ray{@link primitives.Ray}
  */
 public abstract class Intersectable {
+    protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray r,double distance);
+
     /**
      * find all intersection points {@link Point}
      * that intersect the shape from a specific Ray{@link primitives.Ray}
@@ -27,32 +28,37 @@ public abstract class Intersectable {
      * @param r
      * @return
      */
-    public List<GeoPoint> findGeoIntersection(Ray r) {
+    public List<GeoPoint> findGeoIntersection(Ray r)
+    {
         return findGeoIntersections(r,Double.POSITIVE_INFINITY);
     }
 
-    public final List<GeoPoint> findGeoIntersections(Ray r, double distance) {
+    public final List<GeoPoint> findGeoIntersections(Ray r, double distance)
+    {
         return findGeoIntersectionsHelper(r,distance);
     }
 
-    protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray r,double distance);
 
     /**
-     *
+     * class GeoPoint
      */
     public static class GeoPoint {
         public Geometry geometry;
         public Point point;
 
         /**
-         * @param geometry
-         * @param point
+         * constructor get geometry and point
+         * @param geometry of the GeoPoint
+         * @param point of the GeoPoint
          */
         public GeoPoint(Geometry geometry, Point point) {
             this.geometry = geometry;
             this.point = point;
         }
 
+        /**
+         * @return string of the data of GeoPoint
+         */
         @Override
         public String toString() {
             return "GeoPoint{" +
@@ -60,7 +66,5 @@ public abstract class Intersectable {
                     ", point=" + point +
                     '}';
         }
-
     }
-
 }
