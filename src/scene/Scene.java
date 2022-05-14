@@ -20,6 +20,10 @@ public class Scene {
     public List<LightSource> lights ;
 
 
+    /**
+     * constructor
+     * @param builder an object of type SceneBuilder
+     */
     public Scene(SceneBuilder builder) {
         name = builder.name;
         _background = builder.background;
@@ -28,6 +32,11 @@ public class Scene {
         lights= builder.lights;
     }
 
+    /**
+     * setter of ambientLight
+     * @param ambientLight
+     * @return this
+     */
     public Scene setAmbientLight(AmbientLight ambientLight) {
         _ambientLight = ambientLight;
         return this;

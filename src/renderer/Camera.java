@@ -145,13 +145,13 @@ public class Camera {
 
 
     /**
-     *
+     * A function that colors the image
      * @return this
      */
     public Camera renderImage() {
         if (_p0 == null || _vUp == null || _vTo == null || _vRight == null ||
                 _distance == 0.0 || _width == 0.0 || _height == 0.0) {
-            throw new MissingResourceException("ERROR some of the parameters don't correct", null, null);
+            throw new MissingResourceException("ERROR: some of the parameters don't correct", null, null);
         }
 
         int Ny = _writer.getNy();
@@ -166,13 +166,16 @@ public class Camera {
     }
 
     /**
+     *
+     * write pixel with the true color
      * Function castRay
-     * @param nx
-     * @param ny
-     * @param i
-     * @param j
+     * @param nx num of pixels of the width of the view plane
+     * @param ny num of pixels of the height of the view plane
+     * @param j the location of the pixel on the width of the view plane
+     * @param i the location of the pixel on the height of the view plane
      */
-    private void castRay(int nx, int ny, int i, int j) {
+    private void castRay(int nx, int ny, int i, int j)
+    {
         Ray ray = constructRayThroughPixel(nx, ny, j, i);
         Color pixelColor = _tracerBase.traceRay(ray);
         _writer.writePixel(j, i, pixelColor);
