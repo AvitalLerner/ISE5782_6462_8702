@@ -8,7 +8,7 @@ import java.util.List;
  * common interface for all 3D objects
  * that intersect with a specific Ray{@link primitives.Ray}
  */
-public abstract class Intersectable {
+abstract public class Intersectable {
     protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray r,double distance);
 
     /**
@@ -18,7 +18,7 @@ public abstract class Intersectable {
      * @param ray Ray pointing towards the graphic object
      * @return immutable list of intersection points
      */
-    public List<Point> findIntersections(Ray ray) {
+    public final List<Point> findIntersections(Ray ray) {
         var geoList = findGeoIntersection(ray);
         return geoList == null ? null
                 : geoList.stream().map(gp -> gp.point).toList();
@@ -28,7 +28,7 @@ public abstract class Intersectable {
      * @param r
      * @return
      */
-    public List<GeoPoint> findGeoIntersection(Ray r)
+    public final List<GeoPoint> findGeoIntersection(Ray r)
     {
         return findGeoIntersections(r,Double.POSITIVE_INFINITY);
     }
