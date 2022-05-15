@@ -7,7 +7,7 @@ import primitives.Vector;
 
 public abstract class Geometry extends Intersectable {
     private Material _material = new Material();
-    private Color _emission = Color.BLACK;
+    protected Color _emission = Color.BLACK;
 
     /**
      * calculate the normal from the point

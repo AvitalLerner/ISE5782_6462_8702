@@ -6,7 +6,7 @@ import scene.Scene;
 
 public abstract class RayTracer {
 
-    protected final Scene scene;
+    protected Scene scene;//was final
 
     public RayTracer(Scene scene){
         this.scene = scene;

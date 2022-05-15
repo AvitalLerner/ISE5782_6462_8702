@@ -162,6 +162,7 @@ public class Camera {
                 castRay(Nx, Ny, i, j);
             }
         }
+        _writer.writeToImage();
         return this;
     }
 
@@ -189,8 +190,9 @@ public class Camera {
      * Function writeToImage produces png file of the image according to
      * pixel color matrix in the directory of the project
      */
-    public void writeToImage() {
+    public Camera writeToImage() {
         _writer.writeToImage();
+        return this;//////////////there was void
     }
 
     public Camera build() {
