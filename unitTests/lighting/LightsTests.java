@@ -92,7 +92,7 @@ public class LightsTests {
     }
 
     /**
-     * Produce a picture of a two triangles lighted by a directional light
+     * Produce a picture of two triangles lighted by a directional light
      */
     @Test
     public void trianglesDirectional() {
@@ -107,7 +107,7 @@ public class LightsTests {
     }
 
     /**
-     * Produce a picture of a two triangles lighted by a point light
+     * Produce a picture of two triangles lighted by a point light
      */
     @Test
     public void trianglesPoint() {
@@ -122,7 +122,7 @@ public class LightsTests {
     }
 
     /**
-     * Produce a picture of a two triangles lighted by a spot light
+     * Produce a picture of two triangles lighted by a spot light
      */
     @Test
     public void trianglesSpot() {

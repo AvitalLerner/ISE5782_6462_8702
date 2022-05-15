@@ -29,7 +29,6 @@ public class RayTracerBasic extends RayTracer {
 
     /**
      * calculate the color in point
-     *
      * @param geoPoint in the scene
      * @return the color in the point
      */
