@@ -1,8 +1,6 @@
 package geometries;
 
-import primitives.Point;
 import primitives.Ray;
-
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -17,10 +15,19 @@ public class Geometries extends Intersectable {
      * constructor of Geometries
      * @param intersectables array of{@link Intersectable} objects
      */
-   public Geometries(Intersectable...intersectables){
+   public Geometries(Intersectable...intersectables)
+   {
        _intersectables=new LinkedList<>();
        Collections.addAll(_intersectables,intersectables);
    }
+
+    /**
+     * constructor
+     */
+    public Geometries()
+    {
+        _intersectables=new LinkedList<>();
+    }
 
 //    /**
 //     *
@@ -42,6 +49,12 @@ public class Geometries extends Intersectable {
 //        return result;
 //    }
 
+    /**
+     *
+     * @param ray
+     * @param distance
+     * @return list of intersection groPoint
+     */
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray,double distance) {
        List<GeoPoint> result=null;
@@ -57,13 +70,6 @@ public class Geometries extends Intersectable {
         return result;
     }
 
-    /**
-     * constructor
-     */
-    public Geometries()
-    {
-       _intersectables=new LinkedList<>();
-   }
 
     /**
      * add shape to collection
@@ -73,6 +79,4 @@ public class Geometries extends Intersectable {
     {
         Collections.addAll(_intersectables,_intersectable);
     }
-
-
 }

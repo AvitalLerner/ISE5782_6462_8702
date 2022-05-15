@@ -26,18 +26,13 @@ public class Plane extends Geometry {
      */
     public Plane(Point p1, Point p2, Point p3) {
         _q0 = p1;
-//        //TODO check direction of vectors
-//        Vector U = p1.subtract(p2);
-//        Vector V = p3.subtract(p2);
+       //TODO check direction of vectors
 
         Vector U = p2.subtract(p1);
         Vector V = p3.subtract(p1);
 
         Vector N = U.crossProduct(V);
-
-        //right hand rule
         _normal = N.normalize();
-
     }
 
     /**
@@ -64,7 +59,6 @@ public class Plane extends Geometry {
 
     /**
      * getter for normal vector
-     *
      * @return normal
      */
     public Vector getNormal() {
@@ -73,7 +67,6 @@ public class Plane extends Geometry {
 
     /**
      * getter for q0 referenced point
-     *
      * @return the referenced point of the plane
      */
     public Point getQ0() {
@@ -81,11 +74,11 @@ public class Plane extends Geometry {
     }
 
     /**
+     *
      * @param r Ray pointing towards the graphic object
+     * @param distance
      * @return intersections between the ray and the plane
      */
-
-
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray r, double distance) {
         Vector vectorp0Q;
