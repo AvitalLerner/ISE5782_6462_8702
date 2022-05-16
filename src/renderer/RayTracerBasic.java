@@ -45,6 +45,15 @@ public class RayTracerBasic extends RayTracer {
                 .add(calcLocalEffects(geoPoint, ray));
     }
 
+    /**
+     * function that check if point shading by the light source
+     * and if there is something that cover the light
+     * @param light the lightSource
+     * @param l
+     * @param n
+     * @param geopoint
+     * @return
+     */
     private boolean unshaded(LightSource light, Vector l, Vector n, GeoPoint geopoint)
     {
         Vector lightDirection = l.scale(-1); // from point to light source
@@ -58,11 +67,13 @@ public class RayTracerBasic extends RayTracer {
         double lightDistance = light.getDistance(pointGeo);
         for (GeoPoint gp : intersections) {
             if (alignZero(gp.point.distance(pointGeo) - lightDistance) <= 0
-                    && gp.geometry.getMaterial().kT.equals(0) ) {
+                    && gp.geometry.getMaterial().kT.equals(0) )
+            {
                 return false;
             }
         }
-        return true;}
+        return true;
+    }
 
     private Color calcLocalEffects(GeoPoint gp, Ray ray) {
         Color color = gp.geometry.getEmission();

@@ -182,7 +182,8 @@ public class Camera {
         _writer.writePixel(j, i, pixelColor);
     }
 
-    public void printGrid(int interval, Color color) {
+    public void printGrid(int interval, Color color)
+    {
         _writer.printGrid(interval, color);
     }
 
@@ -192,7 +193,7 @@ public class Camera {
      */
     public Camera writeToImage() {
         _writer.writeToImage();
-        return this;//////////////there was void
+        return this;
     }
 
     public Camera build() {
