@@ -9,6 +9,12 @@ import java.util.List;
  * that intersect with a specific Ray{@link primitives.Ray}
  */
 abstract public class Intersectable {
+    /**
+     * find the closest intersection with the ray
+     * @param r ray
+     * @param distance
+     * @return
+     */
     protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray r,double distance);
 
     /**
@@ -67,6 +73,12 @@ abstract public class Intersectable {
                     ", point=" + point +
                     '}';
         }
+
+        /**
+         * check if object equal to this GeoPoint
+         * @param obj object
+         * @return if the object equal to this GeoPoint
+         */
         @Override
         public boolean equals(Object obj) {
             if (this == obj) return true;
