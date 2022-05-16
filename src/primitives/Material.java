@@ -35,14 +35,15 @@ public class Material {
         _kD =new Double3(kD);
         return this;
     }
-    public Material setnShininess(int nShininess) {
-        this.nShininess = nShininess;
-        return this;
-    }
     public Material setKt(double kT) {
         this.kT =new Double3(kT) ;
         return this;
     }
+    public Material setnShininess(int nShininess) {
+        this.nShininess = nShininess;
+        return this;
+    }
+
 
     public Double3 getkS() {
         return _kS;
