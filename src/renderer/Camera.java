@@ -20,7 +20,7 @@ public class Camera {
     private double _height;
 
     private ImageWriter _writer;
-    private RayTracer _tracerBase;
+    private RayTracer _rayTracer;
 
     /**
      * constructor get point and 2 vectors
@@ -92,7 +92,7 @@ public class Camera {
      * @return this
      */
     public Camera setRayTracer(RayTracerBasic tracerBase) {
-        _tracerBase = tracerBase;
+        _rayTracer = tracerBase;
         return this;
     }
 
@@ -178,7 +178,7 @@ public class Camera {
     private void castRay(int nx, int ny, int i, int j)
     {
         Ray ray = constructRayThroughPixel(nx, ny, j, i);
-        Color pixelColor = _tracerBase.traceRay(ray);
+        Color pixelColor = _rayTracer.traceRay(ray);
         _writer.writePixel(j, i, pixelColor);
     }
 

@@ -5,6 +5,7 @@ import java.util.List;
 import static primitives.Util.isZero;
 import geometries.Intersectable.GeoPoint;
 public class Ray {
+    private static final double DELTA = 0.1;
     Point _p0;
     Vector _dir;
 
@@ -16,6 +17,16 @@ public class Ray {
     public Ray(Point p, Vector vec){
         this._dir = vec.normalize();
         this._p0 =p;
+    }
+
+    public Ray(Point point, Vector direction, Vector normal) {
+        //point + normal.scale(±EPSILON)
+        _dir = direction.normalize();
+
+        double nv = normal.dotProduct(_dir);
+
+        Vector normalEpsilon = normal.scale((nv > 0 ? DELTA  : -DELTA ));
+        _p0 = point.add(normalEpsilon);
     }
 
     /**
@@ -62,22 +73,23 @@ public class Ray {
 
     }
     public GeoPoint findClosestGeoPoint(List<GeoPoint> allGeoPoints){
-        double d=0;
-        GeoPoint p=null;
-        if(allGeoPoints==null)
-            return null;
 
-        for (GeoPoint point : allGeoPoints) {
+       double d=0;
+       GeoPoint p=null;
+       if(allGeoPoints==null)
+          return null;
+
+       for (GeoPoint point : allGeoPoints) {
             if (d==0){
-                d= point.point.distance(_p0);
-                p=point;
+               d= point.point.distance(_p0);
+               p=point;
             }
-            double dCompare= point.point.distance(_p0);
-            if (dCompare<d){
-                p=point;
-            }
+           double dCompare= point.point.distance(_p0);
+           if (dCompare<d){
+               p=point;
+           }
         }
-        return p;
+       return p;
     }
 
 

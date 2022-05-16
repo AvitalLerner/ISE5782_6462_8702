@@ -44,8 +44,8 @@ abstract public class Intersectable {
      * class GeoPoint
      */
     public static class GeoPoint {
-        public Geometry geometry;
-        public Point point;
+        public  Geometry geometry;
+        public  Point point;
 
         /**
          * constructor get geometry and point
@@ -66,6 +66,13 @@ abstract public class Intersectable {
                     "geometry=" + geometry +
                     ", point=" + point +
                     '}';
+        }
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) return true;
+            if (obj == null || getClass() != obj.getClass()) return false;
+            GeoPoint geoPoint = (GeoPoint) obj;
+            return geometry.equals(geoPoint.geometry) && point.equals(geoPoint.point);
         }
     }
 }

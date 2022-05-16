@@ -4,13 +4,14 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import static primitives.Util.alignZero;
 
 public class Sphere extends Geometry {
-    Point _center;
-    double _radius;
+    final Point _center;
+    final double _radius;
 
     /**
      * constructor
@@ -69,7 +70,7 @@ public class Sphere extends Geometry {
             return List.of(new GeoPoint(this, (r.getPoint(this._radius))));
         }
 
-            u = _center.subtract(p0);   // p0 == _center
+        u = _center.subtract(p0);   // p0 == _center
         double tm = alignZero(v.dotProduct(u));
         double d = Math.sqrt(u.lengthSquared() - tm * tm);
         double thSqrt = alignZero(this._radius * this._radius - d * d);

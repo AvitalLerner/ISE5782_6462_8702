@@ -1,8 +1,20 @@
 package primitives;
 
 public class Material {
-    public Double3 _kS=new Double3(0);
-    public Double3 _kD=new Double3(0);
+    public Double3 _kS=Double3.ZERO;
+    public Double3 _kD=Double3.ZERO;
+
+    public Double3 getkT() {
+        return kT;
+    }
+
+    public Double3 kT;
+    public Double3 kR;
+
+    public int getShininess() {
+        return nShininess;
+    }
+
     public int nShininess=0;
 
     public Material setkS(Double3 kS) {
@@ -26,5 +38,13 @@ public class Material {
     public Material setnShininess(int nShininess) {
         this.nShininess = nShininess;
         return this;
+    }
+    public Material setKt(double kT) {
+        this.kT =new Double3(kT) ;
+        return this;
+    }
+
+    public Double3 getkS() {
+        return _kS;
     }
 }
