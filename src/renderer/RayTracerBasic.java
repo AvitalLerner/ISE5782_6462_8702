@@ -105,6 +105,16 @@ public class RayTracerBasic extends RayTracer {
         }
         return color;
     }
+
+    /**
+     *
+     * @param material
+     * @param n
+     * @param l
+     * @param nl
+     * @param v
+     * @return
+     */
     private Double3 calcSpecular(Material material,Vector n,Vector l,double nl,Vector v) {
         // nl is the dot product among the vector from the specular light to the point and the normal vector of the point
         //nl must not be zero
@@ -116,8 +126,15 @@ public class RayTracerBasic extends RayTracer {
         if (vr >= 0) {
             return ZERO; // view from direction opposite to r vector
         }
-        return material.getkS().scale(Math.pow(-1d * vr,material.getShininess()));}
+        return material.getkS().scale(Math.pow(-1d * vr,material.getShininess()));
+    }
 
+    /**
+     *
+     * @param material
+     * @param nl
+     * @return
+     */
     private Double3 calcDiffusive(Material material,double nl) {
         double abs_nl = Math.abs(nl);
         return  material._kD.scale(abs_nl);
