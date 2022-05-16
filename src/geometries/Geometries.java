@@ -51,6 +51,7 @@ public class Geometries extends Intersectable {
 
     /**
      *
+     * find the intersection of GeoPoint with ray "r"
      * @param ray
      * @param distance
      * @return list of intersection groPoint
