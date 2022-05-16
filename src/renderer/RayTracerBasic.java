@@ -141,6 +141,12 @@ public class RayTracerBasic extends RayTracer {
     }
 
 
+    /**
+     *
+     * @param intersection
+     * @param ray
+     * @return
+     */
     private Color calcGlobalEffects(GeoPoint intersection, Ray ray) {
         Color color = Color.BLACK;
         Ray reflectedRay = constructReflectedRay(n, intersection.point, ray);
