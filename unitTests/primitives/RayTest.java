@@ -2,10 +2,7 @@ package primitives;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 import static org.junit.jupiter.api.Assertions.*;
 
