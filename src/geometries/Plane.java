@@ -26,7 +26,7 @@ public class Plane extends Geometry {
      */
     public Plane(Point p1, Point p2, Point p3) {
         _q0 = p1;
-       //TODO check direction of vectors
+        //TODO check direction of vectors
 
         Vector U = p2.subtract(p1);
         Vector V = p3.subtract(p1);
