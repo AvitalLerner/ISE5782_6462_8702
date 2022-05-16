@@ -25,7 +25,7 @@ class SphereTest {
      */
     @Test
     void testFindIntersections() {
-        Sphere sphere = new Sphere( new Point (1, 0, 0),1d);
+        Sphere sphere = new Sphere( new Point(1, 0, 0),1d);
 
         // ============ Equivalence Partitions Tests ==============
         // TC_1: Ray's line is outside the sphere (0 points)

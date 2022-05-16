@@ -8,8 +8,14 @@ public class Material {
         return kT;
     }
 
-    public Double3 kT;
-    public Double3 kR;
+    public Double3 kT=Double3.ZERO;
+
+    public Material setkR(Double3 kR) {
+        this.kR = kR;
+        return this;
+    }
+
+    public Double3 kR=Double3.ZERO;
 
     public int getShininess() {
         return nShininess;
@@ -35,7 +41,7 @@ public class Material {
         _kD =new Double3(kD);
         return this;
     }
-    public Material setKt(double kT) {
+    public Material setkT(double kT) {
         this.kT =new Double3(kT) ;
         return this;
     }

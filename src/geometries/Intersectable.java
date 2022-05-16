@@ -45,7 +45,7 @@ abstract public class Intersectable {
      */
     public static class GeoPoint {
         public  Geometry geometry;
-        public  Point point;
+        public Point point;
 
         /**
          * constructor get geometry and point

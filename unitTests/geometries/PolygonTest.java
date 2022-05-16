@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class PolygonTest {
 
     /**
-     * Test method for {@link geometries.Polygon#Polygon(primitives.Point...)}.
+     * Test method for {@link geometries.Polygon#Polygon(Point...)}.
      */
     @Test
     public void testConstructor() {
@@ -65,7 +65,7 @@ class PolygonTest {
     }
 
     /**
-     * Test method for {@link geometries.Polygon#getNormal(primitives.Point)}.
+     * Test method for {@link geometries.Polygon#getNormal(Point)}.
      */
     @Test
     public void testGetNormal() {
