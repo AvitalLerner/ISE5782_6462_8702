@@ -154,12 +154,12 @@ public class RayTracerBasic extends RayTracer {
 
         GeoPoint reflectedPoint = findClosestIntersection(reflectedRay);
         if (…)
-            color = color.add(calcColor(reflectedPoint, reflectedRay)
+        color = color.add(calcColor(reflectedPoint, reflectedRay)
                 .scale(intersection.geometry.getMaterial().kR));
         Ray refractedRay = constructRefractedRay(intersection.point, ray);
         GeoPoint refractedPoint = findClosestIntersection(refractedRay);
         if (…)
-            color = color.add(calcColor(refractedPoint, refractedRay)
+        color = color.add(calcColor(refractedPoint, refractedRay)
                 .scale(intersection.geometry.getMaterial().kT));
         return color;
     }
