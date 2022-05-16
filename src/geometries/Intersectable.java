@@ -25,8 +25,9 @@ abstract public class Intersectable {
     }
 
     /**
-     * @param r
-     * @return
+     * find the intersection of GeoPoint with ray "r"
+     * @param r ray
+     * @return list of GeoPoint intersection
      */
     public final List<GeoPoint> findGeoIntersection(Ray r)
     {

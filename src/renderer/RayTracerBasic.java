@@ -19,6 +19,11 @@ public class RayTracerBasic extends RayTracer {
         super(scene);
     }
 
+    /**
+     *
+     * @param ray
+     * @return
+     */
     @Override
     public Color traceRay(Ray ray) {
         Color result = scene._background;
