@@ -22,7 +22,7 @@ public class RayTracerBasic extends RayTracer {
     }
 
     /**
-     *
+     * calculate the color
      * @param ray
      * @return
      */
