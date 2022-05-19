@@ -59,22 +59,12 @@ public class RayTracerBasic extends RayTracer {
     private boolean unshaded(LightSource light, Vector l, Vector n, GeoPoint geopoint)
     {
         Vector lightDirection = l.scale(-1); // from point to light source
-        Point pointGeo = geopoint.point;
-        Ray lightRay = new Ray(pointGeo, lightDirection, n);
-
-        List<GeoPoint> intersections = scene.geometries.findGeoIntersection(lightRay);
-        if (intersections == null) {
-            return true;
-        }
-        double lightDistance = light.getDistance(pointGeo);
-        for (GeoPoint gp : intersections) {
-            if (alignZero(gp.point.distance(pointGeo) - lightDistance) <= 0
-                    && gp.geometry.getMaterial().kT.equals(0) )
-            {
-                return false;
-            }
-        }
-        return true;
+        double nl=n.dotProduct(lightDirection);
+        Point geoPoint = geopoint.point;
+        Ray lightRay = new Ray(geoPoint, lightDirection, n);
+        double distance=light.getDistance(geoPoint);
+        List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay,distance);
+        return intersections==null;
     }
 
     /**
