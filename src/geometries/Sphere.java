@@ -55,10 +55,15 @@ public class Sphere extends Geometry {
      */
     @Override
     public Vector getNormal(Point p1) {
-
         return p1.subtract(_center).normalize();
     }
 
+    /**
+     * find the intersection of GeoPoint with ray "r"
+     * @param r ray
+     * @param distance
+     * @return
+     */
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray r, double distance) {
         Point p0 = r.getP0();

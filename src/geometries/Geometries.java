@@ -11,6 +11,12 @@ import java.util.List;
 public class Geometries extends Intersectable {
    private List<Intersectable> _intersectables=null;
 
+
+    /**
+     * constructor
+     */
+    public Geometries() {_intersectables=new LinkedList<>();}
+
     /**
      * constructor of Geometries
      * @param intersectables array of{@link Intersectable} objects
@@ -20,14 +26,6 @@ public class Geometries extends Intersectable {
        _intersectables=new LinkedList<>();
        Collections.addAll(_intersectables,intersectables);
    }
-
-    /**
-     * constructor
-     */
-    public Geometries()
-    {
-        _intersectables=new LinkedList<>();
-    }
 
 //    /**
 //     *

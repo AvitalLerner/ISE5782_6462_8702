@@ -132,7 +132,6 @@ public class Color {
 
 	/**
 	 * Scale the color by (1 / reduction factor)
-	 * 
 	 * @param k reduction factor
 	 * @return new Color object which is the result of the operation
 	 */
@@ -142,6 +141,9 @@ public class Color {
 		return new Color(rgb.d1 / k.d1, rgb.d2 / k.d2, rgb.d3 / k.d3);
 	}
 
+	/**
+	 * @return string of the data of the class
+	 */
 	@Override
 	public String toString() {
 		return "rgb:" + rgb;

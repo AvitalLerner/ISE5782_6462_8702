@@ -21,6 +21,12 @@ public class Ray {
         this._p0 =p;
     }
 
+    /**
+     * constructor get 2 vectors and calculate the dot product of them
+     * @param point of the start of the ray
+     * @param direction first vector
+     * @param normal second vector
+     */
     public Ray(Point point, Vector direction, Vector normal) {
         //point + normal.scale(±EPSILON)
         _dir = direction.normalize();
@@ -50,7 +56,6 @@ public class Ray {
     }
 
     /**
-     *
      * @return the vector of the ray
      */
     public Vector getDir() {
@@ -69,11 +74,22 @@ public class Ray {
         return _p0.add(_dir.scale(t));
     }
 
+    /**
+     * find the closest Point to Ray origin
+     * @param points intersections point list
+     * @return the closest point of the start of ray
+     */
     public Point findClosestPoint(List<Point> points) {
         return points == null || points.isEmpty() ? null
                 : findClosestGeoPoint(points.stream().map(p -> new Intersectable.GeoPoint(null, p)).toList()).point;
 
     }
+
+    /**
+     * find the closest GeoPoint to Ray origin
+     * @param allGeoPoints list of all intersections GeoPoint
+     * @return the closest GeoPoint of the start of ray
+     */
     public Intersectable.GeoPoint findClosestGeoPoint(List<Intersectable.GeoPoint> allGeoPoints){
 
        double d=0;
@@ -93,6 +109,4 @@ public class Ray {
         }
        return p;
     }
-
-
 }

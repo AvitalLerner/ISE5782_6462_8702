@@ -17,8 +17,7 @@ public class Plane extends Geometry {
     private final Vector _normal;
 
     /**
-     * constructor get
-     * 3 parameters
+     * constructor get 3 points
      *
      * @param p1 first point in the plane
      * @param p2 second point in the plane
@@ -74,7 +73,6 @@ public class Plane extends Geometry {
     }
 
     /**
-     *
      * @param r Ray pointing towards the graphic object
      * @param distance
      * @return intersections between the ray and the plane

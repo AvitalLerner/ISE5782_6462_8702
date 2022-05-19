@@ -25,7 +25,6 @@ public class Tube extends Geometry {
     }
 
     /**
-     *
      * @return axis
      */
     public Ray getAxisRay() {
@@ -33,7 +32,6 @@ public class Tube extends Geometry {
     }
 
     /**
-     *
      * @return radius
      */
     public Double getRadius() {
@@ -41,7 +39,6 @@ public class Tube extends Geometry {
     }
 
     /**
-     *
      * @return string of the data of the tube
      */
     @Override
@@ -71,7 +68,12 @@ public class Tube extends Geometry {
         return n;
     }
 
-
+    /**
+     * find the intersection of GeoPoint with ray "r"
+     * @param r ray
+     * @param distance
+     * @return
+     */
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray r, double distance) {
         return null;
