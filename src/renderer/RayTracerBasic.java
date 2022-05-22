@@ -1,7 +1,5 @@
 package renderer;
 
-import geometries.Geometry;
-import geometries.Intersectable;
 import geometries.Intersectable.GeoPoint;
 import lighting.LightSource;
 import primitives.*;
@@ -116,7 +114,7 @@ public class RayTracerBasic extends RayTracer {
         if (vr >= 0) {
             return ZERO; // view from direction opposite to r vector
         }
-        return material.getkS().scale(Math.pow(-1d * vr,material.getShininess()));
+        return material.get_kS().scale(Math.pow(-1d * vr,material.getShininess()));
     }
 
     /**
@@ -154,17 +152,17 @@ public class RayTracerBasic extends RayTracer {
         GeoPoint reflectedPoint = findClosestIntersection(reflectedRay);
     //    if ()
         color = color.add(calcColor(reflectedPoint, reflectedRay)
-                .scale(intersection.geometry.getMaterial().kR));
-        Ray refractedRay = constructRefractedRay(intersection.point, ray);
+                .scale(intersection.geometry.getMaterial()._kR));
+        Ray refractedRay = constructRefractedRay(intersection.point, ray,n);
         GeoPoint refractedPoint = findClosestIntersection(refractedRay);
        // if (…)
         color = color.add(calcColor(refractedPoint, refractedRay)
-                .scale(intersection.geometry.getMaterial().kT));
+                .scale(intersection.geometry.getMaterial()._kT));
         return color;
     }
 
-    private Ray constructRefractedRay(Point point, Ray ray) {
-        return null;
+    private Ray constructRefractedRay(Point point, Ray ray,Vector v) {
+        return new Ray(point,ray.getDir(),v);
     }
 
     private GeoPoint findClosestIntersection(Ray reflectedRay) {

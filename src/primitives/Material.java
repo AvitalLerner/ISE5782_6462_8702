@@ -3,55 +3,54 @@ package primitives;
 public class Material {
     public Double3 _kS=Double3.ZERO;
     public Double3 _kD=Double3.ZERO;
+    public Double3 _kT =Double3.ZERO; // Promotes transparency
+    public Double3 _kR =Double3.ZERO; // Promotes reflection
+    public int nShininess=0;
+
 
     public Double3 getkT() {
-        return kT;
+        return _kT;
     }
-
-    public Double3 kT=Double3.ZERO;
 
     public Material setkR(Double3 kR) {
-        this.kR = kR;
+        this._kR = kR;
         return this;
     }
-
-    public Double3 kR=Double3.ZERO;
 
     public int getShininess() {
         return nShininess;
     }
 
-    public int nShininess=0;
 
-    public Material setkS(Double3 kS) {
+    public Material set_kS(Double3 kS) {
         _kS = kS;
         return this;
     }
 
-    public Material setkD(Double3 kD) {
+    public Material set_kD(Double3 kD) {
         _kD = kD;
         return this;
     }
-    public Material setkS(double kS) {
+    public Material set_kS(double kS) {
         _kS=new Double3(kS);
         return this;
     }
 
-    public Material setkD(double kD) {
+    public Material set_kD(double kD) {
         _kD =new Double3(kD);
         return this;
     }
-    public Material setkT(double kT) {
-        this.kT =new Double3(kT) ;
+    public Material set_kT(double kT) {
+        this._kT =new Double3(kT) ;
         return this;
     }
-    public Material setnShininess(int nShininess) {
+    public Material setShininess(int nShininess) {
         this.nShininess = nShininess;
         return this;
     }
 
 
-    public Double3 getkS() {
+    public Double3 get_kS() {
         return _kS;
     }
 }
