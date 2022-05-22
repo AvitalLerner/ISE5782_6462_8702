@@ -13,10 +13,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class CameraRayIntersectionsIntegrationTests {
 
     /**
-     *      * Test helper function to count the intersections and compare with expected value
-     * @param cam
+     * Test helper function to count the intersections and compare with expected value
+     * @param cam camera
      * @param geo
-     * @param expected
+     * @param expected number
      */
     private void assertCountIntersections(Camera cam, Intersectable geo, int expected) {
         List<Point> allPoints=null;
@@ -34,7 +34,8 @@ class CameraRayIntersectionsIntegrationTests {
         }
         if(allPoints==null) {
             return;
-        }else{
+        }
+        else{
         assertEquals(expected,allPoints.size(),"num of intersection points aren't enough ");}
     }
 
@@ -96,6 +97,7 @@ class CameraRayIntersectionsIntegrationTests {
                 .setVPDistance(1).setVPSize(3,3);
         Triangle triangle=new Triangle(new Point(0,1,-2),new Point(1,-1,-2),new Point(-1,-1,-2));
         assertCountIntersections(camera,triangle,1);
+
         // TC02: Medium triangle 2 points
         triangle=new Triangle(new Point(0,20,-2),new Point(1,-1,-2),new Point(-1,-1,-2));
         assertCountIntersections(camera,triangle,2);

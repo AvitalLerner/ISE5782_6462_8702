@@ -12,6 +12,7 @@ import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
 public class RayTracerBasic extends RayTracer {
+    private static final double EPS = 0.1;
     private static final double DELTA = 0.1;
     private static final int MAX_CALC_COLOR_LEVEL = 10;
     private static final double MIN_CALC_COLOR_K = 0.001;
@@ -58,10 +59,17 @@ public class RayTracerBasic extends RayTracer {
     {
         Vector lightDirection = l.scale(-1); // from point to light source
         double nl=n.dotProduct(lightDirection);
-        Point geoPoint = geopoint.point;
-        Ray lightRay = new Ray(geoPoint, lightDirection, n);
-        double distance=light.getDistance(geoPoint);
-        List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay,distance);
+        Vector epsVector;
+        if(nl>0) {
+            epsVector = n.scale(EPS);
+        }
+        else
+            epsVector = n.scale(-EPS);
+
+        Point geoPoint = geopoint.point.add(epsVector);
+        Ray lightRay = new Ray(geoPoint, lightDirection);
+        //double distance=light.getDistance(geoPoint);
+        List<GeoPoint> intersections = scene.geometries.findGeoIntersection(lightRay);
         return intersections==null;
     }
 

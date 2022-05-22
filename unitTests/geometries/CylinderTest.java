@@ -12,6 +12,10 @@ import static org.junit.jupiter.api.Assertions.*;
 class CylinderTest {
     Cylinder _cylinder = new Cylinder(1,new Ray(new Point(0, 0, 1), new Vector(0, -1, 0)));
     Vector normal=_cylinder.getNormal(new Point(0, 0.5, 2)).normalize();
+
+    /**
+     * Test method for{@link Cylinder#getNormal(Point)}
+     */
     @Test
     void testGetNormal() {
         double dotProduct = normal.dotProduct(_cylinder.getAxisRay().getDir());
@@ -22,14 +26,18 @@ class CylinderTest {
         assertTrue(normal1||normal2,"incorrect normal");
     }
 
+    /**
+     * Test method for{@link Cylinder#findIntersections(Ray)}
+     */
     @Test
     void testFindIntersections() {
       Cylinder cylinder1=new Cylinder(1,new Ray(new Point(1, 0, 0), new Vector(0, 1, 0)));
       Cylinder cylinder2=new Cylinder(1,new Ray(new Point(1, 1, 1), new Vector(0, 0, 1)));
+
         // ============ Equivalence Partitions Tests ==============
         // TC01: Ray's line is outside the cylinder
         assertNull(cylinder1.findIntersections(new Ray(new Point(1, 1, 2), new Vector(1, 1, 0))),
-                "there aren't supposed to be intersections");
+              "there aren't supposed to be intersections");
 
         //// TC02: Ray's crosses the cylinder
         List<Point> result =cylinder2.findIntersections(new Ray(new Point(0, 0, 0), new Vector(2, 1, 1)));
