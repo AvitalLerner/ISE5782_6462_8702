@@ -7,6 +7,7 @@ import scene.Scene;
 
 import java.util.List;
 
+import static primitives.Double3.ONE;
 import static primitives.Double3.ZERO;
 import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
@@ -77,9 +78,20 @@ public class RayTracerBasic extends RayTracer {
 
         Point geoPoint = geopoint.point.add(epsVector);
         Ray lightRay = new Ray(geoPoint, lightDirection);
-        //double distance=light.getDistance(geoPoint);
+        double distance=light.getDistance(geoPoint);
         List<GeoPoint> intersections = scene.geometries.findGeoIntersection(lightRay);
-        return intersections==null;
+        if(intersections==null)
+            return true;
+
+        for(GeoPoint gp:intersections){
+
+            if(gp.point.distance(geopoint.point)<distance && gp.geometry.getMaterial()._kT.equals(new Double3(0.0)))
+            {
+                return false;
+            }
+
+        }
+        return true;
     }
 
     /**
@@ -112,7 +124,28 @@ public class RayTracerBasic extends RayTracer {
         return color;
     }
 
-    private double transparency(Vector l, Vector n, GeoPoint gp) {
+    private Double3 transparency(GeoPoint geoPoint, LightSource ls, Vector l, Vector n){
+        Vector lightDirection = l.scale(-1); // from point to light source
+        double nl=n.dotProduct(lightDirection);
+        Vector epsVector;
+        if(nl>0) {
+            epsVector = n.scale(EPS);
+        }
+        else
+            epsVector = n.scale(-EPS);
+
+        Point gp = geoPoint.point.add(epsVector);
+        Ray lightRay = new Ray(gp, lightDirection);
+        double distance= ls.getDistance(gp);
+        List<GeoPoint> intersections = scene.geometries.findGeoIntersection(lightRay);
+
+        Double3 ktr= Double3.ONE;
+        for(GeoPoint geoP:intersections){
+        {
+            if(geoP.point.distance(geoPoint.point)<distance)
+                ktr =  ktr.product(geoP.geometry.getMaterial()._kT);
+        }
+        return ktr;
     }
 
     /**
