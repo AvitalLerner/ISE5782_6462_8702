@@ -16,7 +16,7 @@ public class RayTracerBasic extends RayTracer {
     private static final double DELTA = 0.1;
     private static final int MAX_CALC_COLOR_LEVEL = 10;
     private static final double MIN_CALC_COLOR_K = 0.001;
-    private static final double INITIAL_K = 1.0;
+    private static final Double3 INITIAL_K = Double3.ONE;
     public RayTracerBasic(Scene scene) {
         super(scene);
     }
@@ -49,7 +49,7 @@ public class RayTracerBasic extends RayTracer {
         return calcColor(geoPoint,ray,MAX_CALC_COLOR_LEVEL,INITIAL_K);
     }
 
-    private Color calcColor(GeoPoint intersection, Ray ray,int level,double k){
+    private Color calcColor(GeoPoint intersection, Ray ray,int level,Double3 k){
         Color color = intersection.geometry.getEmission()
                 .add(calcLocalEffects(intersection, ray, k));
         return 1 == level ? color : color.add(calcGlobalEffects(intersection, ray, level, k));
@@ -113,6 +113,7 @@ public class RayTracerBasic extends RayTracer {
     }
 
     private double transparency(Vector l, Vector n, GeoPoint gp) {
+
     }
 
     /**
@@ -166,19 +167,23 @@ public class RayTracerBasic extends RayTracer {
      * @param ray
      * @return
      */
-    private Color calcGlobalEffects(GeoPoint intersection, Ray ray,int level,double k) {
+    private Color calcGlobalEffects(GeoPoint intersection, Ray ray,int level,Double3 k) {
         Color color = Color.BLACK;
         Vector n =intersection.geometry.getNormal(intersection.point);
         Ray reflectedRay = constructReflectedRay(intersection.point, ray,n);
         GeoPoint reflectedPoint = findClosestIntersection(reflectedRay);
-    //    if ()
-        color = color.add(calcColor(reflectedPoint, reflectedRay)
+        Double3 kkr=intersection.geometry.getMaterial()._kR.product(k);
+       if (!kkr.lowerThan(MIN_CALC_COLOR_K)) {
+           color = color.add(calcColor(reflectedPoint, reflectedRay,level-1,kkr)
                 .scale(intersection.geometry.getMaterial()._kR));
+       }
         Ray refractedRay = constructRefractedRay(intersection.point, ray,n);
         GeoPoint refractedPoint = findClosestIntersection(refractedRay);
-       // if (…)
-        color = color.add(calcColor(refractedPoint, refractedRay)
-                .scale(intersection.geometry.getMaterial()._kT));
+        Double3 kkt=intersection.geometry.getMaterial()._kT.product(k);
+       if (!kkt.lowerThan(MIN_CALC_COLOR_K)) {
+           color = color.add(calcColor(refractedPoint, refractedRay,level-1,kkt)
+                   .scale(intersection.geometry.getMaterial()._kT));
+       }
         return color;
     }
 
