@@ -88,7 +88,7 @@ public class RayTracerBasic extends RayTracer {
      * @param ray- ray from the camera
      * @return
      */
-    private Color calcLocalEffects(GeoPoint gp, Ray ray,double k) {
+    private Color calcLocalEffects(GeoPoint gp, Ray ray,Double3 k) {
         Color color = gp.geometry.getEmission();
         Vector v = ray.getDir ();
         Vector n = gp.geometry.getNormal(gp.point);
@@ -100,8 +100,8 @@ public class RayTracerBasic extends RayTracer {
             Vector l = lightSource.getL(gp.point);
             double nl = alignZero(n.dotProduct(l));
             if (nl * nv > 0) { // sign(nl) == sing(nv)
-                double ktr=transparency(l,n,gp);
-                if(ktr*k>MIN_CALC_COLOR_K) {
+                Double3 ktr=transparency(l,n,gp);
+                if(!ktr.product(k).lowerThan(MIN_CALC_COLOR_K)) {
                     Color iL = lightSource.getIntensity(gp.point).scale(ktr);
                     color = color.add(
                             iL.scale(calcDiffusive(material, nl)),
@@ -112,7 +112,7 @@ public class RayTracerBasic extends RayTracer {
         return color;
     }
 
-    private double transparency(Vector l, Vector n, GeoPoint gp) {
+    private Double3 transparency(Vector l, Vector n, GeoPoint gp) {
 
     }
 
