@@ -143,7 +143,9 @@ public class RayTracerBasic extends RayTracer {
         Ray lightRay = new Ray(gp, lightDirection);
         double distance= ls.getDistance(gp);
         List<GeoPoint> intersections = scene.geometries.findGeoIntersection(lightRay);
-
+        if(intersections==null){
+            return Double3.ONE;
+        }
         Double3 ktr= Double3.ONE;
         for(GeoPoint geoP:intersections) {
             {
