@@ -115,7 +115,7 @@ public class RayTracerBasic extends RayTracer {
             Vector l = lightSource.getL(gp.point);
             double nl = alignZero(n.dotProduct(l));
             if (nl * nv > 0) { // sign(nl) == sing(nv)
-                Double3 ktr=transparency(l,n,gp);
+                Double3 ktr=transparency(gp,lightSource,l,n);
                 if(!ktr.product(k).lowerThan(MIN_CALC_COLOR_K)) {
                     Color iL = lightSource.getIntensity(gp.point).scale(ktr);
                     color = color.add(
