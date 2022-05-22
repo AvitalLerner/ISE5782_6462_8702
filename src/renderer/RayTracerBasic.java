@@ -151,7 +151,7 @@ public class RayTracerBasic extends RayTracer {
                     ktr = ktr.product(geoP.geometry.getMaterial()._kT);
             }
         }
-            return ktr;
+        return ktr;
     }
 
     /**
