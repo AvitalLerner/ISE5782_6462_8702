@@ -46,7 +46,7 @@ public class RayTracerBasic extends RayTracer {
         if (geoPoint==null){
             return scene._background;
         }
-        return calcColor(geoPoint,ray,MAX_CALC_COLOR_LEVEL,INITIAL_K);
+        return calcColor(geoPoint,ray,MAX_CALC_COLOR_LEVEL,INITIAL_K).add(scene._ambientLight.getIntensity());
     }
 
     private Color calcColor(GeoPoint intersection, Ray ray,int level,Double3 k){
@@ -120,7 +120,7 @@ public class RayTracerBasic extends RayTracer {
                     Color iL = lightSource.getIntensity(gp.point).scale(ktr);
                     color = color.add(
                             iL.scale(calcDiffusive(material, nl)),
-                            iL..scale(calcSpecular(material, n, l, nl, v)));
+                            iL.scale(calcSpecular(material, n, l, nl, v)));
                 }
             }
         }
@@ -213,17 +213,36 @@ public class RayTracerBasic extends RayTracer {
         Ray reflectedRay = constructReflectedRay(intersection.point, ray,n);
         GeoPoint reflectedPoint = findClosestIntersection(reflectedRay);
         Double3 kkr=intersection.geometry.getMaterial()._kR.product(k);
+        if(isZero(alignZero(n.dotProduct(ray.getDir())))){
+            return intersection.geometry.getEmission();
+        }
        if (!kkr.lowerThan(MIN_CALC_COLOR_K)) {
-           color = color.add(calcColor(reflectedPoint, reflectedRay,level-1,kkr)
+           color = color.add(calcSecondaryRayColor(reflectedRay,level,kkr)
                 .scale(intersection.geometry.getMaterial()._kR));
        }
         Ray refractedRay = constructRefractedRay(intersection.point, ray,n);
         GeoPoint refractedPoint = findClosestIntersection(refractedRay);
         Double3 kkt=intersection.geometry.getMaterial()._kT.product(k);
        if (!kkt.lowerThan(MIN_CALC_COLOR_K)) {
-           color = color.add(calcColor(refractedPoint, refractedRay,level-1,kkt)
+           color = color.add(calcSecondaryRayColor(refractedRay,level,kkt)
                    .scale(intersection.geometry.getMaterial()._kT));
        }
+        return color;
+    }
+
+    /**
+     *
+     * @param ray
+     * @param level
+     * @param k
+     * @return
+     */
+    private Color calcSecondaryRayColor(Ray ray,int level,Double3 k){
+        GeoPoint geoPoint=findClosestIntersection(ray);
+        Color color=scene._background;
+        if(geoPoint!=null){
+            color=calcColor(geoPoint,ray,level-1,k);
+        }
         return color;
     }
 
