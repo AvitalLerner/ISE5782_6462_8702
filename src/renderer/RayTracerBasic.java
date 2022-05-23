@@ -221,17 +221,17 @@ public class RayTracerBasic extends RayTracer {
         if(isZero(alignZero(n.dotProduct(ray.getDir())))){
             return intersection.geometry.getEmission();
         }
-       if (!kkr.lowerThan(MIN_CALC_COLOR_K)) {
-           color = color.add(calcSecondaryRayColor(reflectedRay,level,kkr)
-                .scale(intersection.geometry.getMaterial()._kR));
-       }
+        if (!kkr.lowerThan(MIN_CALC_COLOR_K)) {
+            color = color.add(calcSecondaryRayColor(reflectedRay,level,kkr)
+                    .scale(intersection.geometry.getMaterial()._kR));
+        }
         Ray refractedRay = constructRefractedRay(intersection.point, ray,n);
         GeoPoint refractedPoint = findClosestIntersection(refractedRay);
         Double3 kkt=intersection.geometry.getMaterial()._kT.product(k);
-       if (!kkt.lowerThan(MIN_CALC_COLOR_K)) {
-           color = color.add(calcSecondaryRayColor(refractedRay,level,kkt)
-                   .scale(intersection.geometry.getMaterial()._kT));
-       }
+        if (!kkt.lowerThan(MIN_CALC_COLOR_K)) {
+            color = color.add(calcSecondaryRayColor(refractedRay,level,kkt)
+                    .scale(intersection.geometry.getMaterial()._kT));
+        }
         return color;
     }
 
@@ -260,6 +260,6 @@ public class RayTracerBasic extends RayTracer {
         if (intersections == null){
             return null;
         }
-       return reflectedRay.findClosestGeoPoint(intersections);
+        return reflectedRay.findClosestGeoPoint(intersections);
     }
 }
