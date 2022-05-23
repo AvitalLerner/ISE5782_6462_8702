@@ -81,7 +81,8 @@ public class Ray {
      */
     public Point findClosestPoint(List<Point> points) {
         return points == null || points.isEmpty() ? null
-                : findClosestGeoPoint(points.stream().map(p -> new Intersectable.GeoPoint(null, p)).toList()).point;
+                : findClosestGeoPoint(points.stream()
+                .map(p -> new Intersectable.GeoPoint(null, p)).toList()).point;
 
     }
 
@@ -92,21 +93,18 @@ public class Ray {
      */
     public Intersectable.GeoPoint findClosestGeoPoint(List<Intersectable.GeoPoint> allGeoPoints){
 
-       double d=0;
+       double distance=Double.POSITIVE_INFINITY;
        Intersectable.GeoPoint p=null;
        if(allGeoPoints==null)
           return null;
 
        for (Intersectable.GeoPoint point : allGeoPoints) {
-            if (d==0){
-               d= point.point.distance(_p0);
+           double dCompare= point.point.distance(_p0);
+           if (dCompare < distance){
+               distance= dCompare;
                p=point;
             }
-           double dCompare= point.point.distance(_p0);
-           if (dCompare<d){
-               p=point;
-           }
-        }
+         }
        return p;
     }
 }
