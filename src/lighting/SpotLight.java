@@ -4,9 +4,23 @@ import primitives.Color;
 import primitives.Point;
 import primitives.Vector;
 
+/**
+ * class of spotlight,
+ * the light has place in the scene, color, reduction factor of light intensity and direction
+ * the class calculate the intensity, direction and distance of the light
+ */
 public class SpotLight extends PointLight {
+    /**
+     * direction of the spotLight
+     */
     private Vector _direction;
 
+    /**
+     * constructor of spotLight
+     * @param intensity the color of the light
+     * @param position the place of the light
+     * @param direction the direction of the light
+     */
     public SpotLight(Color intensity, Point position, Vector direction) {
         super(intensity, position);
         this._direction = direction.normalize();

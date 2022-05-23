@@ -50,7 +50,14 @@ abstract public class Intersectable {
      * class GeoPoint
      */
     public static class GeoPoint {
+        /**
+         * geometry of GeoPoint
+         */
         public  Geometry geometry;
+
+        /**
+         * point of GeoPoint
+         */
         public Point point;
 
         /**

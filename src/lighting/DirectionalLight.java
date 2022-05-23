@@ -4,7 +4,14 @@ import primitives.Color;
 import primitives.Point;
 import primitives.Vector;
 
+/**
+ * class directionLight to show source light that have direction
+ * the class calculate the intensity, direction and distance of the light
+ */
 public class DirectionalLight extends Light implements LightSource{
+    /**
+     * direction of the light
+     */
     private Vector direction;
 
     /**
@@ -17,29 +24,16 @@ public class DirectionalLight extends Light implements LightSource{
         this.direction = direction.normalize();
     }
 
-    /**
-     * getter of intensity
-     * @param p
-     * @return intensity
-     */
     @Override
     public Color getIntensity(Point p) {return _intensity;}
 
-    /**
-     * getter of the direction of the light
-     * @param p
-     * @return direction
-     */
+
     @Override
     public Vector getL(Point p) {
         return direction;
     }
 
-    /**
-     * getter of the distance of the light
-     * @param p
-     * @return
-     */
+
     @Override
     public double getDistance(Point p) {
         return Double.POSITIVE_INFINITY;
