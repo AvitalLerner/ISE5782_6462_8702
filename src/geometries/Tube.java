@@ -9,6 +9,9 @@ import java.util.List;
 import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
+/**
+ * class
+ */
 public class Tube extends Geometry {
     Ray _axisRay;
     Double _radius;
