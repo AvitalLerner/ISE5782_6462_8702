@@ -135,7 +135,14 @@ public class RayTracerBasic extends RayTracer {
         return color;
     }
 
-
+    /**
+     * calculate transparency
+     * @param geoPoint
+     * @param ls
+     * @param l
+     * @param n
+     * @return
+     */
     private Double3 transparency(GeoPoint geoPoint, LightSource ls, Vector l, Vector n) {
         Vector lightDirection = l.scale(-1); // from point to light source
         Ray lightRay = new Ray(geoPoint.point, lightDirection, n);
@@ -162,6 +169,7 @@ public class RayTracerBasic extends RayTracer {
     }
 
     /**
+     * calculate specular
      * @param material
      * @param n
      * @param l
@@ -180,7 +188,7 @@ public class RayTracerBasic extends RayTracer {
         if (vr >= 0) {
             return ZERO; // view from direction opposite to r vector
         }
-        return material.getkS().scale(Math.pow(-1d * vr, material.getShininess()));
+        return material.kS.scale(Math.pow(-1d * vr, material.getShininess()));
     }
 
     /**
@@ -234,6 +242,11 @@ public class RayTracerBasic extends RayTracer {
         return new Ray(point, ray.getDir(), v);
     }
 
+    /**
+     * Calculate the GeoPoint of intersection closest to the start of the ray
+     * @param reflectedRay rat of reflection
+     * @return intersection closest to the start of the ray
+     */
     private GeoPoint findClosestIntersection(Ray reflectedRay) {
         List<GeoPoint> intersections = scene.geometries.findGeoIntersection(reflectedRay);
         if (intersections == null) {
