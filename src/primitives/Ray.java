@@ -6,9 +6,23 @@ import java.util.List;
 
 import static primitives.Util.isZero;
 
+/**
+ * class for show ray
+ */
 public class Ray {
+    /**
+     * Size of moving the start of ray of the shading rays
+     */
     private static final double DELTA = 0.1;
+
+    /**
+     * point of the start of the ray
+     */
     Point _p0;
+
+    /**
+     * vector of the direction ray
+     */
     Vector _dir;
 
     /**

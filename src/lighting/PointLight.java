@@ -2,8 +2,20 @@ package lighting;
 
 import primitives.*;
 
+/**
+ * class point light to show light source.
+ * the light has place in the scene, color and reduction factor of light intensity
+ * the class calculate the intensity, direction and distance of the light
+ */
 public class PointLight extends Light implements LightSource{
+    /**
+     * the place of the light in the scene
+     */
     private Point _position;
+
+    /**
+     *
+     */
     private Double3 _kC = Double3.ONE;
     private Double3 _kL = Double3.ZERO;
     private Double3 _kQ = Double3.ZERO;
@@ -21,11 +33,6 @@ public class PointLight extends Light implements LightSource{
         _kQ=new Double3(0);
     }
 
-    /**
-     *
-     * @param p
-     * @return
-     */
     @Override
     public Color getIntensity(Point p) {
         Color lightIntensity = getIntensity();
@@ -58,17 +65,17 @@ public class PointLight extends Light implements LightSource{
 
     /**
      * setter of kC
-     * @param kC
+     * @param kC of type double
      * @return this
      */
-    public PointLight setkC(double kC) {
+    public PointLight setKc(double kC) {
         this._kC =  new Double3(kC);
         return this;
     }
 
     /**
      * setter of kL
-     * @param kL
+     * @param kL of type double
      * @return
      */
     public PointLight setKl(double kL) {
@@ -78,7 +85,7 @@ public class PointLight extends Light implements LightSource{
 
     /**
      * setter of kQ
-     * @param kQ
+     * @param kQ of type double
      * @return
      */
     public PointLight setKq(double kQ) {
@@ -88,17 +95,17 @@ public class PointLight extends Light implements LightSource{
 
     /**
      * setter of kC
-     * @param kC
+     * @param kC of type Double3
      * @return
      */
-   public PointLight setkC(Double3 kC) {
+   public PointLight setKc(Double3 kC) {
         this._kC = kC;
         return this;
     }
 
     /**
      * setter of kL
-     * @param kL
+     * @param kL of type Double3
      * @return
      */
     public PointLight setKl(Double3 kL) {
@@ -108,7 +115,7 @@ public class PointLight extends Light implements LightSource{
 
     /**
      * setter of kQ
-     * @param kQ
+     * @param kQ of type Double3
      * @return
      */
     public PointLight setKq(Double3 kQ) {

@@ -6,6 +6,9 @@ import primitives.Point;
 import primitives.Vector;
 
 public abstract class Geometry extends Intersectable {
+    /**
+     * the material of the geometry
+     */
     private Material _material = new Material();
     protected Color _emission = Color.BLACK;
 
