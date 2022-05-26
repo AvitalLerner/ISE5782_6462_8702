@@ -4,9 +4,11 @@ import org.junit.jupiter.api.Test;
 
 import static java.awt.Color.*;
 
+import renderer.ImageWriter;
 import lighting.*;
 import geometries.*;
 import primitives.*;
+import renderer.*;
 import scene.Scene;
 
 /**
@@ -89,7 +91,7 @@ public class ShadowTests {
     }
 
     /**
-     * Produce a picture of a two triangles lighted by a spot light with a Sphere
+     * Produce a picture of two triangles lighted by a spotlight with a Sphere
      * producing a shading
      */
     @Test
@@ -103,7 +105,7 @@ public class ShadowTests {
                         .setMaterial(new Material().setKs(0.8).setShininess(60)), //
                 new Sphere(new Point(0, 0, -11), 30d) //
                         .setEmission(new Color(java.awt.Color.BLUE)) //
-                        .setMaterial(new Material().setKs(0.5).setKs(0.5).setShininess(30)) //
+                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(30)) //
         );
         scene.lights.add( //
                 new SpotLight(new Color(700, 400, 400), new Point(40, 40, 115), new Vector(-1, -1, -4)) //

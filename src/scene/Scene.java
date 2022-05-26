@@ -13,10 +13,25 @@ import java.util.List;
  * using Builder Pattern
  */
 public class Scene {
+    /**
+     * name of the scene
+     */
     public String name;
+    /**
+     * the color of the background of the scene
+     */
     public Color _background;
+    /**
+     * the _ambientLight of the scene
+     */
     public AmbientLight _ambientLight;
+    /**
+     * the geometries in the scene
+     */
     public Geometries geometries;
+    /**
+     *
+     */
     public List<LightSource> lights ;
 
 
