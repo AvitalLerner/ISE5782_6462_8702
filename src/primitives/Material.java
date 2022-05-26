@@ -15,6 +15,9 @@ public class Material {
      * Promotes reflection
      */
     public Double3 kR = Double3.ZERO;
+    /**
+     * the level of the shininess of the material
+     */
     public int nShininess = 0;
 
 
