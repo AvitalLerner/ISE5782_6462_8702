@@ -22,6 +22,7 @@ public class RayTracerBasic extends RayTracer {
 
     /**
      * constructor
+     *
      * @param scene the scene of the picture
      */
     public RayTracerBasic(Scene scene) {
@@ -91,18 +92,21 @@ public class RayTracerBasic extends RayTracer {
         Point geoPoint = geopoint.point.add(epsVector);
         Ray lightRay = new Ray(geoPoint, lightDirection);
         double distance = light.getDistance(geoPoint);
-        List<GeoPoint> intersections = scene.geometries.findGeoIntersection(lightRay);
+        List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay, distance);
+
         if (intersections == null)
             return true;
 
-        for (GeoPoint gp : intersections) {
+        intersections.removeIf(
+                (item) -> {
+                    return item.geometry.getMaterial().kT.lowerThan(MIN_CALC_COLOR_K);
+                }
+        );
 
-            if (gp.point.distance(geopoint.point) < distance && gp.geometry.getMaterial().kT.equals(new Double3(0.0))) {
-                return false;
-            }
+        if (intersections.isEmpty())
+            return true;
 
-        }
-        return true;
+        return false;
     }
 
 
@@ -139,6 +143,7 @@ public class RayTracerBasic extends RayTracer {
 
     /**
      * calculate transparency
+     *
      * @param geoPoint
      * @param ls
      * @param l
@@ -149,20 +154,27 @@ public class RayTracerBasic extends RayTracer {
         Vector lightDirection = l.scale(-1); // from point to light source
         Ray lightRay = new Ray(geoPoint.point, lightDirection, n);
         double distance = ls.getDistance(geoPoint.point);
-        List<GeoPoint> intersections = scene.geometries.findGeoIntersection(lightRay);
+
+        List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay, distance);
+
         if (intersections == null) {
             return Double3.ONE;
         }
 
-        intersections.removeIf((gp) -> {
-            double gpdistance = gp.point.distance(geoPoint.point);
-            return gpdistance > distance;
-        });
+        intersections.removeIf(
+                (item) -> {
+                    return item.geometry.getMaterial().kT.lowerThan(MIN_CALC_COLOR_K);
+                }
+        );
+
+        if (intersections.isEmpty()) {
+            return Double3.ONE;
+        }
 
         Double3 ktr = Double3.ONE;
         for (GeoPoint geoP : intersections) {
             ktr = ktr.product(geoP.geometry.getMaterial().kT);
-            if(ktr.lowerThan(MIN_CALC_COLOR_K)){
+            if (ktr.lowerThan(MIN_CALC_COLOR_K)) {
                 return Double3.ZERO;
             }
         }
@@ -172,6 +184,7 @@ public class RayTracerBasic extends RayTracer {
 
     /**
      * calculate specular
+     *
      * @param material
      * @param n
      * @param l
@@ -225,18 +238,21 @@ public class RayTracerBasic extends RayTracer {
         Vector n = intersection.geometry.getNormal(intersection.point);
         Ray reflectedRay = constructReflectedRay(intersection.point, ray, n);
         GeoPoint reflectedPoint = findClosestIntersection(reflectedRay);
+
         Double3 kkr = intersection.geometry.getMaterial().kR.product(k);
         if (!kkr.lowerThan(MIN_CALC_COLOR_K)) {
             color = color.add(calcSecondaryRayColor(reflectedRay, level, kkr)
                     .scale(intersection.geometry.getMaterial().kR));
         }
+
+        Double3 kkt = intersection.geometry.getMaterial().kT.product(k);
         Ray refractedRay = constructRefractedRay(intersection.point, ray, n);
         GeoPoint refractedPoint = findClosestIntersection(refractedRay);
-        Double3 kkt = intersection.geometry.getMaterial().kT.product(k);
         if (!kkt.lowerThan(MIN_CALC_COLOR_K)) {
             color = color.add(calcSecondaryRayColor(refractedRay, level, kkt)
                     .scale(intersection.geometry.getMaterial().kT));
         }
+
         return color;
     }
 
@@ -246,6 +262,7 @@ public class RayTracerBasic extends RayTracer {
 
     /**
      * Calculate the GeoPoint of intersection closest to the start of the ray
+     *
      * @param reflectedRay rat of reflection
      * @return intersection closest to the start of the ray
      */
