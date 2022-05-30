@@ -24,7 +24,7 @@ public class ReflectionRefractionTests {
     private Scene scene = new Scene.SceneBuilder("Test scene").build();
 
     /**
-     * Produce a picture of a sphere lighted by a spot light
+     * Produce a picture of a sphere lighted by a spotlight
      */
     @Test
     public void twoSpheres() {
@@ -35,7 +35,7 @@ public class ReflectionRefractionTests {
                 new Sphere(new Point(0, 0, -50), 50d).setEmission(new Color(BLUE)) //
                         .setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKt(0.3)),
                 new Sphere(new Point(0, 0, -50), 25d).setEmission(new Color(RED)) //
-                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(100)));
+                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(100).setKt(0.5)));
         scene.lights.add( //
                 new SpotLight(new Color(1000, 600, 0), new Point(-100, -100, 500), new Vector(-1, -1, -2)) //
                         .setKl(0.0004).setKq(0.0000006));
@@ -47,7 +47,7 @@ public class ReflectionRefractionTests {
     }
 
     /**
-     * Produce a picture of a sphere lighted by a spot light
+     * Produce a picture of a sphere lighted by a spotlight
      */
     @Test
     public void twoSpheresOnMirrors() {
@@ -58,7 +58,7 @@ public class ReflectionRefractionTests {
 
         scene.geometries.add( //
                 new Sphere(new Point(-950, -900, -1000), 400d).setEmission(new Color(0, 0, 100)) //
-                        .setMaterial(new Material().setKd(0.25).setKs(0.25).setShininess(20).setKt(0.5)),
+                        .setMaterial(new Material().setKd(0.25).setKs(0.25).setShininess(20)),
                 new Sphere(new Point(-950, -900, -1000), 200d).setEmission(new Color(100, 20, 20)) //
                         .setMaterial(new Material().setKd(0.25).setKs(0.25).setShininess(20)),
                 new Triangle(new Point(1500, -1500, -1500), new Point(-1500, 1500, -1500), new Point(670, 670, 3000)) //
@@ -80,7 +80,7 @@ public class ReflectionRefractionTests {
     }
 
     /**
-     * Produce a picture of a two triangles lighted by a spot light with a partially
+     * Produce a picture of two triangles lighted by a spotlight with a partially
      * transparent Sphere producing partial shadow
      */
     @Test
