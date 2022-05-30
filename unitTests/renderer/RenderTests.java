@@ -29,7 +29,7 @@ public class RenderTests {
 
         scene.geometries.add(
                 new Sphere(new Point(0, 0, -100), 50d),
-                new Triangle(new Point(-100, 0, -100), new Point(0, 100, -100), new Point(-100, 100, -100)), // up
+                new Triangle(new Point(-100, 0, -100), new Point(0, 100, -100), new Point(-100, 100, -100)).setEmission(new Color(BLUE)), // up
                 // left
                 new Triangle(new Point(-100, 0, -100), new Point(0, -100, -100), new Point(-100, -100, -100)), // down
                 // left
@@ -60,8 +60,8 @@ public class RenderTests {
         scene.geometries.add( //
                 new Sphere(new Point(0, 0, -100), 50),
                 // up left
-                new Triangle(new Point(-100, 0, -100), new Point(0, 100, -100), new Point(-100, 100, -100))
-                        .setEmission(new Color(GREEN)),
+                new Triangle(new Point(-100, 0, -100), new Point(0, 100, -100), new Point(-100, 100, -100)),
+                        //.setEmission(new Color(GREEN)),
                 // down left
                 new Triangle(new Point(-100, 0, -100), new Point(0, -100, -100), new Point(-100, -100, -100))
                         .setEmission(new Color(RED)),
