@@ -127,4 +127,26 @@ public class ReflectionRefractionTests {
                 .renderImage() //
                 .writeToImage();
     }
+
+    @Test
+    public void hhhh(){
+        Camera camera = new Camera(new Point(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
+                .setVPSize(150, 150)
+                .setVPDistance(1000);
+
+        scene.setAmbientLight(new AmbientLight(new Color(WHITE), new Double3(0.1)));
+
+        scene.geometries.add();
+
+        scene.lights.add();
+
+
+        ImageWriter imageWriter = new ImageWriter("", 600, 600);
+        camera.setImageWriter(imageWriter)
+                .setRayTracer(new RayTracerBasic(scene))
+                .renderImage()
+                .writeToImage();
+
+
+    }
 }
