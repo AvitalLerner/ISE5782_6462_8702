@@ -92,7 +92,7 @@ public class Plane extends Geometry {
         }
         double t = alignZero(_normal.dotProduct(vectorp0Q) / nv);
 
-        if ((t <= 0 || alignZero(distance - t) < 0)) {
+        if ((t < 0 || alignZero(distance - t) < 0)) {
             return null;
         } else {
             return List.of(new GeoPoint(this, r.getPoint(t)));

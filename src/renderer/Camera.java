@@ -182,6 +182,11 @@ public class Camera {
         _writer.writePixel(j, i, pixelColor);
     }
 
+    /**
+     * function that print grid of line in the scene
+     * @param interval the size of the grid
+     * @param color the color of the grid
+     */
     public void printGrid(int interval, Color color)
     {
         _writer.printGrid(interval, color);

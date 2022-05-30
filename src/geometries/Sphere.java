@@ -9,8 +9,8 @@ import java.util.List;
 import static primitives.Util.alignZero;
 
 public class Sphere extends Geometry {
-    final Point _center;
-    final double _radius;
+    final private Point _center;
+    final private double _radius;
 
     /**
      * constructor
@@ -71,12 +71,17 @@ public class Sphere extends Geometry {
         Vector u;
 
         if (_center.equals(p0)) {
-            return List.of(new GeoPoint(this, (r.getPoint(this._radius))));
+            if(alignZero(_radius - distance) > 0)
+                return  null;
+            return List.of(new GeoPoint(this, _center.add(v.scale(_radius))));
         }
 
         u = _center.subtract(p0);   // p0 == _center
         double tm = alignZero(v.dotProduct(u));
         double d = Math.sqrt(u.lengthSquared() - tm * tm);
+        if(d >= _radius)
+            return null;
+
         double thSqrt = alignZero(this._radius * this._radius - d * d);
 
         double th = alignZero(Math.sqrt(thSqrt));
@@ -89,7 +94,7 @@ public class Sphere extends Geometry {
             return null;
         }
 
-        if (alignZero(distance - t1) > 0 && alignZero(distance - t2) > 0) {
+        if (t1 > 0 && t2 > 0 && alignZero(distance - t1) > 0 && alignZero(distance - t2) > 0) {
             return List.of(
                     new GeoPoint(this, (r.getPoint(t1))),
                     new GeoPoint(this, (r.getPoint(t2)))
