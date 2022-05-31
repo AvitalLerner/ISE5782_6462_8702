@@ -127,4 +127,53 @@ public class ReflectionRefractionTests {
                 .renderImage() //
                 .writeToImage();
     }
+
+    @Test
+    public void hhhh(){
+//        Camera camera = new Camera(new Point(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
+//                .setVPSize(150, 150)
+//                .setVPDistance(1000);
+
+        scene.setAmbientLight(new AmbientLight(new Color(WHITE), new Double3(0.1)));
+
+//        scene.geometries.add(
+//                new Polygon()
+//        )
+
+//        scene.geometries.add(
+//                new Triangle(new Point(-100, 0, -100), new Point(0, 100, -100), new Point(-100, 100, -100))
+//                        .setEmission(new Color(GREEN))//
+//                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(60)),
+//        new Sphere(new Point(0, 0, -50), 38d)
+//                .setEmission(new Color(BLUE)) //
+//                .setMaterial(new Material()
+//                        .setKd(0.4)
+//                        .setKs(0.3)
+//                        .setShininess(100)
+//                        .setKt(0.9)),                new Triangle(new Point(1500, -1500, -1500), new Point(-1500, 1500, -1500), new Point(670, 670, 3000)) //
+//                        .setEmission(new Color(20, 20, 20)) //
+//                        .setMaterial(new Material()
+//                                .setKr(1))
+//
+//              );
+
+        scene.lights.add(new SpotLight(new Color(700, 400, 400), new Point(60, 50, 0), new Vector(0, 0, -1)) //
+                .setKl(4E-5).setKq(2E-7));
+
+
+        Camera camera = new Camera(Point.ZERO, new Vector(0, 0, -1), new Vector(0, 1, 0)) //
+                .setVPDistance(100) //
+                .setVPSize(500, 500) //
+                .setImageWriter(new ImageWriter("color render test", 1000, 1000))
+                .setRayTracer(new RayTracerBasic(scene));
+
+
+        ImageWriter imageWriter = new ImageWriter("mmmmm", 600, 600);
+        camera.setImageWriter(imageWriter)
+                .setRayTracer(new RayTracerBasic(scene))
+                .renderImage()
+                .writeToImage();
+
+
+    }
 }
