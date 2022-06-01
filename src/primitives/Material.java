@@ -5,7 +5,13 @@ package primitives;
  * the class describe Promotes transparency, Promotes reflection,
  */
 public class Material {
+    /**
+     * Promotes specular
+     */
     public Double3 kS = Double3.ZERO;
+    /**
+     * Promotes diffuse
+     */
     public Double3 kD = Double3.ZERO;
     /**
      * Promotes transparency
