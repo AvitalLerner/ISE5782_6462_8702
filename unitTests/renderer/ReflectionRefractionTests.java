@@ -54,7 +54,7 @@ public class ReflectionRefractionTests {
     }
 
     /**
-     * Produce a picture of a sphere lighted by a spot light
+     * Produce a picture of a sphere lighted by a spotlight
      */
     @Test
     public void twoSpheresOnMirrors() {
@@ -142,7 +142,7 @@ public class ReflectionRefractionTests {
 
 
         scene.geometries.add(
-                new Sphere(new Point(0, 35, -200), 34d)
+                new Sphere(new Point(0, 35, -200), 34d)//The lowest ball of the snowman
                         .setEmission(new Color(240,240,240)) //
                         .setMaterial(new Material()
                                 .setKd(0.4)
@@ -150,14 +150,14 @@ public class ReflectionRefractionTests {
                                 .setShininess(100)
                             //    .setKt(0.9)
                         ),
-                new Sphere(new Point(0, 70, -60), 22d)
+                new Sphere(new Point(0, 70, -60), 22d)//The middle ball of the snowman
                         .setEmission(new Color(30,30,30)) //
                         .setMaterial(new Material()
                                 .setKd(0.4)
                                 .setKs(0.3)
                                 .setShininess(100)
                                 .setKt(0.9)),
-                new Sphere(new Point(0, 100, -70), 15d)
+                new Sphere(new Point(0, 100, -70), 15d)//The top ball of the snowman
                         .setEmission(new Color(240,240,240)) //
                         .setMaterial(new Material()
                                 .setKd(0.4)
@@ -165,40 +165,43 @@ public class ReflectionRefractionTests {
                                 .setShininess(100)
                                 //.setKt(0.3)
                         ),
-                new Sphere(new Point(7, 90, -40), 5d)
+                new Sphere(new Point(7, 102, -40), 5d)//The right eyes of the snowman
                         .setEmission(new Color(BLACK)) //
                         .setMaterial(new Material()
                                 .setKd(0.4)
                                 .setKs(0.3)
                                 .setShininess(200)),
-                new Sphere(new Point(-7, 90, -40), 5d)
+                new Sphere(new Point(-7, 102, -40), 5d)//The left eyes of the snowman
                         .setEmission(new Color(BLACK)) //
                         .setMaterial(new Material()
                                 .setKd(0.4)
                                 .setKs(0.3)
                                 .setShininess(200)),
-                new Triangle(new Point(0, 85, 0), new Point(10, 75, 0), new Point(-5,80,0)) //
+                new Triangle(new Point(0, 97, 0), new Point(10, 87, 0), new Point(-5,92,0)) //the carrot
                         .setEmission(new Color(ORANGE)) //
                         .setMaterial(new Material()),
-//                new Polygon(new Point(-100, -75, 100), new Point(-100,-100,100),
-//                        new Point(100,-100,100),new Point(100,-75,100))
-//                        .setEmission(new Color(0,0,0))
-//                        .setMaterial(new Material()
-//                                .setKr(1)),
+                new Polygon(new Point(-100, -75, 0), new Point(-100,-100,0),
+                        new Point(100,-100,0),new Point(100,-75,0))
+                        .setEmission(new Color(188,255,87))
+                        .setMaterial(new Material()
+                                .setKr(1)),
+//                       new Sphere(new Point(0, -5, -50), 50d)
+//                        .setEmission(new Color(ORANGE).reduce(2))
+//                        .setMaterial(new Material().setKd(0.1).setKs(0.5).setShininess(200).setKt(0.3))
 
                 new Plane(new Point(0,-70,0),new Vector(0,1,0))
                         .setMaterial(new Material()
                                 .setKd(1)
                                         .setKr(0.5)
-                             //   .setKr(1))
-                        )
+                                .setKr(1))
                         .setEmission(new Color(100, 255, 255)) //
 
 
         );
 
-//             scene.lights.add(new SpotLight(new Color(700, 400, 400), new Point(60, 70, 0), new Vector(-50, 0, -1)) //
-//                .setKl(4E-5).setKq(2E-7));
+
+             scene.lights.add(new SpotLight(new Color(700, 400, 400), new Point(60, 70, 0), new Vector(-50, 0, -1)) //
+               .setKl(4E-5).setKq(2E-7));
 
 
         ImageWriter imageWriter = new ImageWriter("snowMan", 600, 600);
