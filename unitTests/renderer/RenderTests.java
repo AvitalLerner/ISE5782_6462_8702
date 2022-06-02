@@ -16,8 +16,7 @@ import static java.awt.Color.*;
 public class RenderTests {
 
     /**
-     * Produce a scene with basic 3D model and render it into a png image with a
-     * grid
+     * Produce a scene with basic 3D model and render it into a png image with a grid
      */
     @Test
     public void basicRenderTwoColorTest() {
