@@ -129,51 +129,74 @@ public class ReflectionRefractionTests {
     }
 
     @Test
-    public void hhhh(){
-//        Camera camera = new Camera(new Point(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
-//                .setVPSize(150, 150)
-//                .setVPDistance(1000);
+    public void snowMan() {
 
-        scene.setAmbientLight(new AmbientLight(new Color(WHITE), new Double3(0.1)));
+        Scene scene = new Scene.SceneBuilder("Test scene") //
+                .setAmbientLight(new AmbientLight(new Color(java.awt.Color.BLACK), new Double3(0.7)))
+                .setBackground(new Color(220, 255, 255))
+                .build();
 
-//        scene.geometries.add(
-//                new Polygon()
-//        )
+        Camera camera = new Camera(new Point(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
+                .setVPSize(200, 200) //
+                .setVPDistance(900);
 
-//        scene.geometries.add(
-//                new Triangle(new Point(-100, 0, -100), new Point(0, 100, -100), new Point(-100, 100, -100))
-//                        .setEmission(new Color(GREEN))//
-//                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(60)),
-//        new Sphere(new Point(0, 0, -50), 38d)
-//                .setEmission(new Color(BLUE)) //
-//                .setMaterial(new Material()
-//                        .setKd(0.4)
-//                        .setKs(0.3)
-//                        .setShininess(100)
-//                        .setKt(0.9)),                new Triangle(new Point(1500, -1500, -1500), new Point(-1500, 1500, -1500), new Point(670, 670, 3000)) //
-//                        .setEmission(new Color(20, 20, 20)) //
-//                        .setMaterial(new Material()
-//                                .setKr(1))
-//
-//              );
+
+        scene.geometries.add(
+                new Sphere(new Point(0, 0, -60), 38d)
+                        .setEmission(new Color(240,240,240)) //
+                        .setMaterial(new Material()
+                                .setKd(0.4)
+                                .setKs(0.3)
+                                .setShininess(100)
+                            //    .setKt(0.9)
+                        ),
+                new Sphere(new Point(0, 50, -50), 26d)
+                        .setEmission(new Color(0,0,0)) //
+                        .setMaterial(new Material()
+                                .setKd(0.4)
+                                .setKs(0.3)
+                                .setShininess(100)
+                                .setKt(0.9)),
+                new Sphere(new Point(0, 85, -60), 19d)
+                        .setEmission(new Color(240,240,240)) //
+                        .setMaterial(new Material()
+                                .setKd(0.4)
+                                .setKs(0.3)
+                                .setShininess(100)
+                                //.setKt(0.3)
+                        ),
+                new Sphere(new Point(7, 90, -40), 5d)
+                        .setEmission(new Color(BLACK)) //
+                        .setMaterial(new Material()
+                                .setKd(0.4)
+                                .setKs(0.3)
+                                .setShininess(200)),
+                new Sphere(new Point(-7, 90, -40), 5d)
+                        .setEmission(new Color(BLACK)) //
+                        .setMaterial(new Material()
+                                .setKd(0.4)
+                                .setKs(0.3)
+                                .setShininess(200)),
+                new Triangle(new Point(0, 85, 0), new Point(10, 75, 0), new Point(-5,80,0)) //
+                        .setEmission(new Color(ORANGE)) //
+                        .setMaterial(new Material()),
+                new Polygon(new Point(-100, -75, -50), new Point(-100,-100,-50),
+                        new Point(100,-100,-50),new Point(100,-75,-50))
+                        .setEmission(new Color(230,255,255))
+                        .setMaterial(new Material())
+
+
+        );
 
         scene.lights.add(new SpotLight(new Color(700, 400, 400), new Point(60, 50, 0), new Vector(0, 0, -1)) //
                 .setKl(4E-5).setKq(2E-7));
 
 
-        Camera camera = new Camera(Point.ZERO, new Vector(0, 0, -1), new Vector(0, 1, 0)) //
-                .setVPDistance(100) //
-                .setVPSize(500, 500) //
-                .setImageWriter(new ImageWriter("color render test", 1000, 1000))
-                .setRayTracer(new RayTracerBasic(scene));
-
-
-        ImageWriter imageWriter = new ImageWriter("mmmmm", 600, 600);
+        ImageWriter imageWriter = new ImageWriter("snowMan", 600, 600);
         camera.setImageWriter(imageWriter)
                 .setRayTracer(new RayTracerBasic(scene))
                 .renderImage()
                 .writeToImage();
-
-
     }
+
 }
