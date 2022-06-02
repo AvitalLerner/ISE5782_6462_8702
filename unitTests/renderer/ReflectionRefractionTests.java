@@ -142,63 +142,65 @@ public class ReflectionRefractionTests {
 
 
         scene.geometries.add(
-                new Sphere(new Point(0, 35, -200), 34d)
+                new Sphere(new Point(-40, 30, -70), 40d)
                         .setEmission(new Color(240,240,240)) //
                         .setMaterial(new Material()
-                                .setKd(0.4)
-                                .setKs(0.3)
-                                .setShininess(100)
+                                        .setKd(0.25)
+                                        .setKs(0.25)
+                                        .setShininess(20)
                             //    .setKt(0.9)
                         ),
-                new Sphere(new Point(0, 70, -60), 22d)
+                new Sphere(new Point(-40, 70, -60), 22d)
                         .setEmission(new Color(30,30,30)) //
                         .setMaterial(new Material()
-                                .setKd(0.4)
-                                .setKs(0.3)
-                                .setShininess(100)
+                                .setKd(0.25)
+                                .setKs(0.25)
+                                .setShininess(20)
                                 .setKt(0.9)),
-                new Sphere(new Point(0, 100, -70), 15d)
+                new Sphere(new Point(-40, 100, -70), 15d)
                         .setEmission(new Color(240,240,240)) //
                         .setMaterial(new Material()
-                                .setKd(0.4)
-                                .setKs(0.3)
-                                .setShininess(100)
+                                        .setKd(0.25)
+                                        .setKs(0.25)
+                                        .setShininess(20)
                                 //.setKt(0.3)
                         ),
-                new Sphere(new Point(7, 90, -40), 5d)
+                new Sphere(new Point(-45, 105, -40), 3d)
                         .setEmission(new Color(BLACK)) //
                         .setMaterial(new Material()
-                                .setKd(0.4)
-                                .setKs(0.3)
-                                .setShininess(200)),
-                new Sphere(new Point(-7, 90, -40), 5d)
+                                .setKd(0.25)
+                                .setKs(0.25)
+                                .setShininess(20)),
+                new Sphere(new Point(-35, 105, -40), 3d)
                         .setEmission(new Color(BLACK)) //
                         .setMaterial(new Material()
-                                .setKd(0.4)
-                                .setKs(0.3)
-                                .setShininess(200)),
-                new Triangle(new Point(0, 85, 0), new Point(10, 75, 0), new Point(-5,80,0)) //
+                                        .setKd(0.25)
+                                        .setKs(0.25)
+                                        .setShininess(20)),
+                new Triangle(new Point(-40, 97, 0), new Point(-40, 92, 0), new Point(-30,92,0)) //
                         .setEmission(new Color(ORANGE)) //
-                        .setMaterial(new Material()),
+                        .setMaterial(new Material()
+                                .setKd(0.25)
+                                .setKs(0.25)
+                                .setShininess(20)),
 //                new Polygon(new Point(-100, -75, 100), new Point(-100,-100,100),
 //                        new Point(100,-100,100),new Point(100,-75,100))
 //                        .setEmission(new Color(0,0,0))
 //                        .setMaterial(new Material()
 //                                .setKr(1)),
 
-                new Plane(new Point(0,-70,0),new Vector(0,1,0))
+                new Plane(new Point(10,0,0),new Vector(1,0,0))
                         .setMaterial(new Material()
-                                .setKd(1)
-                                        .setKr(0.5)
+                                        .setKr(0.9)
                              //   .setKr(1))
                         )
-                        .setEmission(new Color(100, 255, 255)) //
+                        //.setEmission(new Color(100, 255, 255)) //
 
 
         );
 
-//             scene.lights.add(new SpotLight(new Color(700, 400, 400), new Point(60, 70, 0), new Vector(-50, 0, -1)) //
-//                .setKl(4E-5).setKq(2E-7));
+             scene.lights.add(new SpotLight(new Color(700, 400, 400), new Point(200, 100, -100), new Vector(-50, 0, -1)) //
+                .setKl(4E-5).setKq(2E-7));
 
 
         ImageWriter imageWriter = new ImageWriter("snowMan", 600, 600);
