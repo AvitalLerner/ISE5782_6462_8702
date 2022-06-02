@@ -142,7 +142,7 @@ public class ReflectionRefractionTests {
 
 
         scene.geometries.add(
-                new Sphere(new Point(0, 0, -200), 38d)
+                new Sphere(new Point(0, 35, -200), 34d)
                         .setEmission(new Color(240,240,240)) //
                         .setMaterial(new Material()
                                 .setKd(0.4)
@@ -150,14 +150,14 @@ public class ReflectionRefractionTests {
                                 .setShininess(100)
                             //    .setKt(0.9)
                         ),
-                new Sphere(new Point(0, 50, -60), 26d)
-                        .setEmission(new Color(0,0,0)) //
+                new Sphere(new Point(0, 70, -60), 22d)
+                        .setEmission(new Color(30,30,30)) //
                         .setMaterial(new Material()
                                 .setKd(0.4)
                                 .setKs(0.3)
                                 .setShininess(100)
                                 .setKt(0.9)),
-                new Sphere(new Point(0, 85, -70), 19d)
+                new Sphere(new Point(0, 100, -70), 15d)
                         .setEmission(new Color(240,240,240)) //
                         .setMaterial(new Material()
                                 .setKd(0.4)
@@ -189,9 +189,11 @@ public class ReflectionRefractionTests {
                 new Plane(new Point(0,-70,0),new Vector(0,1,0))
                         .setMaterial(new Material()
                                 .setKd(1)
+                                        .setKr(0.5)
                              //   .setKr(1))
                         )
-                        .setEmission(new Color(188,255,87))
+                        .setEmission(new Color(100, 255, 255)) //
+
 
         );
 
