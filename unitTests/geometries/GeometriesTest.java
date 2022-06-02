@@ -9,6 +9,9 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Test class for {@link Geometry}
+ */
 class GeometriesTest {
 
     /**
@@ -22,6 +25,7 @@ class GeometriesTest {
         Polygon polygon=new Polygon(new Point(0,1,0),new Point(0,0,0),new Point(0,0,1),new Point(0,1,1));
         Tube tube=new Tube(new Ray(new Point(0, 0, 1), new Vector(0, -1, 0)),1.0);
         Plane plane=new Plane(new Point(0, 0, 1), new Vector(1, 1, 1));
+
         // =============== Boundary Values Tests ==================
 
         //TC11: there are no objects to intersect

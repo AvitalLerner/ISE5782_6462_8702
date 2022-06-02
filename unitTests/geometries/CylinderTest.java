@@ -9,6 +9,9 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Test class for {@link Cylinder}
+ */
 class CylinderTest {
     Cylinder _cylinder = new Cylinder(1,new Ray(new Point(0, 0, 1), new Vector(0, -1, 0)));
     Vector normal=_cylinder.getNormal(new Point(0, 0.5, 2)).normalize();
@@ -39,7 +42,7 @@ class CylinderTest {
         assertNull(cylinder1.findIntersections(new Ray(new Point(1, 1, 2), new Vector(1, 1, 0))),
               "there aren't supposed to be intersections");
 
-        //// TC02: Ray's crosses the cylinder
+        // TC02: Ray's crosses the cylinder
         List<Point> result =cylinder2.findIntersections(new Ray(new Point(0, 0, 0), new Vector(2, 1, 1)));
         assertEquals(2, result.size(),
                 "must be 2 intersections");
@@ -58,5 +61,4 @@ class CylinderTest {
                 "Intersection point calculated wrong");
 
     }
-
 }
