@@ -132,7 +132,7 @@ public class ReflectionRefractionTests {
     public void snowMan() {
 
         Scene scene = new Scene.SceneBuilder("Test scene") //
-                .setAmbientLight(new AmbientLight(new Color(java.awt.Color.BLACK), new Double3(0.7)))
+                .setAmbientLight(new AmbientLight(new Color(WHITE), new Double3(0.7)))
                 .setBackground(new Color(220, 255, 255))
                 .build();
 
@@ -142,7 +142,7 @@ public class ReflectionRefractionTests {
 
 
         scene.geometries.add(
-                new Sphere(new Point(0, 0, -60), 38d)
+                new Sphere(new Point(0, 0, -200), 38d)
                         .setEmission(new Color(240,240,240)) //
                         .setMaterial(new Material()
                                 .setKd(0.4)
@@ -150,14 +150,14 @@ public class ReflectionRefractionTests {
                                 .setShininess(100)
                             //    .setKt(0.9)
                         ),
-                new Sphere(new Point(0, 50, -50), 26d)
+                new Sphere(new Point(0, 50, -60), 26d)
                         .setEmission(new Color(0,0,0)) //
                         .setMaterial(new Material()
                                 .setKd(0.4)
                                 .setKs(0.3)
                                 .setShininess(100)
                                 .setKt(0.9)),
-                new Sphere(new Point(0, 85, -60), 19d)
+                new Sphere(new Point(0, 85, -70), 19d)
                         .setEmission(new Color(240,240,240)) //
                         .setMaterial(new Material()
                                 .setKd(0.4)
@@ -180,16 +180,23 @@ public class ReflectionRefractionTests {
                 new Triangle(new Point(0, 85, 0), new Point(10, 75, 0), new Point(-5,80,0)) //
                         .setEmission(new Color(ORANGE)) //
                         .setMaterial(new Material()),
-                new Polygon(new Point(-100, -75, -50), new Point(-100,-100,-50),
-                        new Point(100,-100,-50),new Point(100,-75,-50))
-                        .setEmission(new Color(230,255,255))
-                        .setMaterial(new Material())
+//                new Polygon(new Point(-100, -75, 100), new Point(-100,-100,100),
+//                        new Point(100,-100,100),new Point(100,-75,100))
+//                        .setEmission(new Color(0,0,0))
+//                        .setMaterial(new Material()
+//                                .setKr(1)),
 
+                new Plane(new Point(0,-70,0),new Vector(0,1,0))
+                        .setMaterial(new Material()
+                                .setKd(1)
+                             //   .setKr(1))
+                        )
+                        .setEmission(new Color(188,255,87))
 
         );
 
-        scene.lights.add(new SpotLight(new Color(700, 400, 400), new Point(60, 50, 0), new Vector(0, 0, -1)) //
-                .setKl(4E-5).setKq(2E-7));
+//             scene.lights.add(new SpotLight(new Color(700, 400, 400), new Point(60, 70, 0), new Vector(-50, 0, -1)) //
+//                .setKl(4E-5).setKq(2E-7));
 
 
         ImageWriter imageWriter = new ImageWriter("snowMan", 600, 600);
