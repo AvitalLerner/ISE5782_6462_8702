@@ -4,6 +4,8 @@ import primitives.Color;
 import primitives.Point;
 import primitives.Vector;
 
+import java.util.List;
+
 /**
  * interface of light sources of the scene
  */
@@ -28,4 +30,7 @@ public interface LightSource {
      * @return the distance
      */
     public double getDistance(Point p);
+    public List<Vector> circleBeam(Point p,double radius,int numRays);
+    
+    public String getType();
 }

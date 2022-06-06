@@ -4,11 +4,13 @@ import primitives.Color;
 import primitives.Point;
 import primitives.Vector;
 
+import java.util.List;
+
 /**
  * class directionLight to show source light that have direction
  * the class calculate the intensity, direction and distance of the light
  */
-public class DirectionalLight extends Light implements LightSource{
+public class DirectionalLight extends Light implements LightSource {
     /**
      * direction of the light
      */
@@ -37,5 +39,15 @@ public class DirectionalLight extends Light implements LightSource{
     @Override
     public double getDistance(Point p) {
         return Double.POSITIVE_INFINITY;
+    }
+
+    @Override
+    public List<Vector> circleBeam(Point p, double radius, int numRays) {
+        return List.of(this.direction.normalize());
+    }
+
+    @Override
+    public String getType() {
+        return "DirectionalLight";
     }
 }
