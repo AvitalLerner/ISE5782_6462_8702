@@ -194,12 +194,12 @@ public class Camera {
      * @param j the location of the pixel on the width of the view plane
      * @param i the location of the pixel on the height of the view plane
      */
-     private void castRay(int nx, int ny, int i, int j)
-    {
-        Ray ray = constructRayThroughPixel(nx, ny, j, i);
-        Color pixelColor = _rayTracer.traceRay(ray);
-        _writer.writePixel(j, i, pixelColor);
-    }
+ //    private void castRay(int nx, int ny, int i, int j)
+//    {
+//        Ray ray = constructRayThroughPixel(nx, ny, j, i);
+//        Color pixelColor = _rayTracer.traceRay(ray);
+//        _writer.writePixel(j, i, pixelColor);
+//    }
 
     /**
      * cast ray with super sampling 9*9 rays per pixel
@@ -208,19 +208,19 @@ public class Camera {
      * @param j the location of the pixel on the width of the view plane
      * @param i the location of the pixel on the height of the view plane
      */
-//    private void castRay(int nx, int ny, int i, int j){
-//        int bigNy = 9*ny;
-//        int bigNx = 9*nx;
-//        Color pixelColor=new Color(java.awt.Color.BLACK);
-//        for (int iColumn = i*9; iColumn < i*9+9; iColumn++) {
-//            for (int jRow = j*9; jRow < j*9+9; jRow++) {
-//                Ray ray = constructRayThroughPixel(bigNx, bigNy, jRow, iColumn);
-//                pixelColor =pixelColor.add(_rayTracer.traceRay(ray)) ;
-//            }
-//        }
-//        pixelColor=pixelColor.reduce(81);
-//        _writer.writePixel(j, i, pixelColor);
-//    }
+    private void castRay(int nx, int ny, int i, int j){
+        int bigNy = 9*ny;
+        int bigNx = 9*nx;
+        Color pixelColor=new Color(java.awt.Color.BLACK);
+        for (int iColumn = i*9; iColumn < i*9+9; iColumn++) {
+            for (int jRow = j*9; jRow < j*9+9; jRow++) {
+                Ray ray = constructRayThroughPixel(bigNx, bigNy, jRow, iColumn);
+                pixelColor =pixelColor.add(_rayTracer.traceRay(ray)) ;
+            }
+        }
+        pixelColor=pixelColor.reduce(81);
+        _writer.writePixel(j, i, pixelColor);
+    }
     /**
      * function that print grid of line in the scene
      * @param interval the size of the grid
