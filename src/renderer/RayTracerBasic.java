@@ -161,11 +161,11 @@ public class RayTracerBasic extends RayTracer {
             return Double3.ONE;
         }
 
-        intersections.removeIf(
-                (item) -> {
-                    return item.geometry.getMaterial().kT.lowerThan(MIN_CALC_COLOR_K);
-                }
-        );
+//        intersections.removeIf(
+//                (item) -> {
+//                    return item.geometry.getMaterial().kT.lowerThan(MIN_CALC_COLOR_K);
+//                }
+//        );
 
         if (intersections.isEmpty()) {
             return Double3.ONE;
