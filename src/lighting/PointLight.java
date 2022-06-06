@@ -76,7 +76,7 @@ public class PointLight extends Light implements LightSource{
     /**
      * setter of kL
      * @param kL of type double
-     * @return
+     * @return this
      */
     public PointLight setKl(double kL) {
         this._kL = new Double3(kL) ;
@@ -86,7 +86,7 @@ public class PointLight extends Light implements LightSource{
     /**
      * setter of kQ
      * @param kQ of type double
-     * @return
+     * @return this
      */
     public PointLight setKq(double kQ) {
         this._kQ =  new Double3(kQ);
@@ -96,7 +96,7 @@ public class PointLight extends Light implements LightSource{
     /**
      * setter of kC
      * @param kC of type Double3
-     * @return
+     * @return this
      */
    public PointLight setKc(Double3 kC) {
         this._kC = kC;
@@ -106,7 +106,7 @@ public class PointLight extends Light implements LightSource{
     /**
      * setter of kL
      * @param kL of type Double3
-     * @return
+     * @return this
      */
     public PointLight setKl(Double3 kL) {
         this._kL = kL;
@@ -116,7 +116,7 @@ public class PointLight extends Light implements LightSource{
     /**
      * setter of kQ
      * @param kQ of type Double3
-     * @return
+     * @return this
      */
     public PointLight setKq(Double3 kQ) {
         this._kQ = kQ;

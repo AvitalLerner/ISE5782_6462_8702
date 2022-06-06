@@ -10,13 +10,33 @@ import static primitives.Util.isZero;
 
 public class Camera {
 
+    /**
+     * the place of the camera
+     */
     private Point _p0;
+    /**
+     * vector up of the camera
+     */
     private Vector _vUp;
+    /**
+     * vector to the view plane
+     */
     private Vector _vTo;
+    /**
+     * vector right of the camera
+     */
     private Vector _vRight;
-
+    /**
+     * the distance between the camera and the view plane
+     */
     private double _distance;
+    /**
+     * the width of the view plane
+     */
     private double _width;
+    /**
+     * the height of the view plane
+     */
     private double _height;
 
     private ImageWriter _writer;
@@ -40,7 +60,7 @@ public class Camera {
 
     /**
      * setter of the distance between the camera end view plane
-     * @param distance
+     * @param distance of type double
      * @return this
      */
     public Camera setVPDistance(double distance) {
@@ -50,7 +70,7 @@ public class Camera {
 
     /**
      * setter width
-     * @param width
+     * @param width of type double
      * @return this
      */
     public Camera setWidth(double width) {
@@ -60,7 +80,7 @@ public class Camera {
 
     /**
      * setter height
-     * @param height
+     * @param height of type double
      * @return this
      */
     public Camera setHeight(double height) {
@@ -69,7 +89,7 @@ public class Camera {
     }
     /**
      * setter of writer
-     * @param writer
+     * @param writer of type ImageWriter
      * @return this
      */
     public Camera setWriter(ImageWriter writer) {
@@ -79,7 +99,7 @@ public class Camera {
 
     /**
      * setter of writer
-     * @param imageWriter
+     * @param imageWriter of type ImageWriter
      * @return this
      */
     public Camera setImageWriter(ImageWriter imageWriter) {
@@ -167,7 +187,6 @@ public class Camera {
     }
 
     /**
-     *
      * write pixel with the true color
      * Function castRay
      * @param nx num of pixels of the width of the view plane
