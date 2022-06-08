@@ -126,12 +126,8 @@ public class RayTracerBasic extends RayTracer {
         if (nv == 0)
             return color;
         Material material = gp.geometry.getMaterial();
-        List lightList=new LinkedList();
         for (LightSource lightSource : scene.lights) {
-             Vector l = lightSource.getL(gp.point);//////////////////////
-            if (lightSource.getType()=="SpotLight") {
-                CreateSpotLight(lightSource,gp.point,ray,k);
-            }
+             Vector l = lightSource.getL(gp.point);
             double nl = alignZero(n.dotProduct(l));
             if (nl * nv > 0) { // sign(nl) == sing(nv)
                 Double3 ktr = transparency(gp, lightSource, l, n);
@@ -146,10 +142,6 @@ public class RayTracerBasic extends RayTracer {
         return color;
     }
 
-    private void CreateSpotLight(LightSource lightSource, Point point, Ray ray, Double3 k) {
-        double r = lightSource.getDistance(point);
-        lightList = lightSource.circleBeam(point, );
-    }
 
     /**
      * calculate transparency

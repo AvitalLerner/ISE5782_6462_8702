@@ -10,6 +10,7 @@ import java.util.List;
  * interface of light sources of the scene
  */
 public interface LightSource {
+
     /**
      * get of the intensity of the light in point p
      * @param p point in the scene

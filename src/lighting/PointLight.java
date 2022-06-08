@@ -16,6 +16,7 @@ public class PointLight extends Light implements LightSource {
      * the place of the light in the scene
      */
     private Point _position;
+    public double _angle=180;
     /**
      *
      */

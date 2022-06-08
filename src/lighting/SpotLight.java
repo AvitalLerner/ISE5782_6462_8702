@@ -14,7 +14,6 @@ public class SpotLight extends PointLight {
      * direction of the spotLight
      */
     private Vector _direction;
-    private double _angle;
     /**
      * constructor of spotLight
      * @param intensity the color of the light
