@@ -276,4 +276,26 @@ public class RayTracerBasic extends RayTracer {
         }
         return reflectedRay.findClosestGeoPoint(intersections);
     }
+
+
+    /**
+     * change of soft shadow
+     * @param geoPoint
+     * @param lightSource the light of the scene
+     * @param n
+     * @return
+     */
+    private Double3 transparencyBeam( GeoPoint geoPoint , LightSource lightSource, Vector n) {
+        Double3 ktr;
+        List<Vector> beamL = lightSource.circleBeam(geoPoint.point, 10, 10);
+        Double3 tempKtr = Double3.ZERO;
+        for (Vector vl : beamL) {
+            Point vecToPnt= new Point(vl.getX(), vl.getY(), vl.getZ());
+            double lightDistance = geoPoint.point.distance(vecToPnt);
+            tempKtr = tempKtr.add( transparency(geoPoint,lightSource, vl, n));
+        }
+        ktr = tempKtr.reduce( beamL.size());
+
+        return ktr;
+    }
 }
