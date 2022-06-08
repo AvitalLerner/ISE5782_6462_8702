@@ -51,7 +51,7 @@ public class Geometries extends Intersectable {
 //    }
 
     /**
-     * find the intersection of GeoPoint with ray "r"
+     * find the intersection of point on geometry with ray "r"
      *
      * @param ray
      * @param distance
@@ -81,4 +81,8 @@ public class Geometries extends Intersectable {
     public void add(Intersectable... _intersectable) {
         Collections.addAll(_intersectables, _intersectable);
     }
+
+
+
+
 }
