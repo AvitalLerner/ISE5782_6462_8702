@@ -42,7 +42,7 @@ public class DirectionalLight extends Light implements LightSource {
     }
 
     @Override
-    public List<Vector> circleBeam(Point p, double radius, int numRays) {
+    public List<Vector> circleBeam(Point p, int numRays) {
         return List.of(this.direction.normalize());
     }
 
