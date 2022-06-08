@@ -130,7 +130,8 @@ public class RayTracerBasic extends RayTracer {
              Vector l = lightSource.getL(gp.point);
             double nl = alignZero(n.dotProduct(l));
             if (nl * nv > 0) { // sign(nl) == sing(nv)
-                Double3 ktr = transparency(gp, lightSource, l, n);
+                Double3 ktr=transparencyBeam(gp,lightSource,n);
+                //Double3 ktr = transparency(gp, lightSource, l, n);
                 if (!ktr.product(k).lowerThan(MIN_CALC_COLOR_K)) {
                     Color iL = lightSource.getIntensity(gp.point).scale(ktr);
                     color = color.add(
@@ -287,7 +288,7 @@ public class RayTracerBasic extends RayTracer {
      */
     private Double3 transparencyBeam( GeoPoint geoPoint , LightSource lightSource, Vector n) {
         Double3 ktr;
-        List<Vector> beamL = lightSource.circleBeam(geoPoint.point, 10, 10);
+        List<Vector> beamL = lightSource.circleBeam(geoPoint.point, 10);
         Double3 tempKtr = Double3.ZERO;
         for (Vector vl : beamL) {
             Point vecToPnt= new Point(vl.getX(), vl.getY(), vl.getZ());
