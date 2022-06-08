@@ -173,6 +173,7 @@ public class RayTracerBasic extends RayTracer {
             return Double3.ONE;
         }
 
+        //calculate ath Light intensity
         Double3 ktr = Double3.ONE;
         for (GeoPoint geoP : intersections) {
             ktr = ktr.product(geoP.geometry.getMaterial().kT);

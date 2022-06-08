@@ -7,9 +7,12 @@ import primitives.Vector;
 import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
+/**
+ * class of cylinder extends Tube. The cylinder have height
+ */
 public class Cylinder extends Tube {
     /**
-     * the
+     * the height of the cylinder
      */
     double _height;
 
@@ -25,7 +28,8 @@ public class Cylinder extends Tube {
     }
 
     /**
-     * @return height
+     * getter of _height
+     * @return _height
      */
     public double getHeight() {
         return _height;
@@ -41,11 +45,7 @@ public class Cylinder extends Tube {
                 '}';
     }
 
-    /**
-     * calculate the normal from point on the cylinder
-     * @param p1 point on the cylinder
-     * @return normal
-     */
+
     @Override
     public Vector getNormal(Point p1) {
         Point p0= _axisRay.getP0();
