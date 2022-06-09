@@ -90,7 +90,7 @@ public class Ray {
     }
 
     /**
-     * find the closest Point to Ray origin
+     * find the closest Point to ray origin
      * @param points intersections point list
      * @return the closest point of the start of ray
      */

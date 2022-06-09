@@ -144,12 +144,12 @@ public class RayTracerBasic extends RayTracer {
 
 
     /**
-     * calculate transparency
+     * Calculates the shadow on the spot and the level of shading of the shadow
      *
-     * @param geoPoint
-     * @param ls
-     * @param l
-     * @param n
+     * @param geoPoint point on the geometry
+     * @param ls the light in the scene
+     * @param l vector from the light
+     * @param n normal to geoPoint
      * @return
      */
     private Double3 transparency(GeoPoint geoPoint, LightSource ls, Vector l, Vector n) {
