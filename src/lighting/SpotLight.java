@@ -28,6 +28,7 @@ public class SpotLight extends PointLight {
     public SpotLight(Color intensity, Point position, Vector direction) {
         super(intensity, position);
         this._direction = direction.normalize();
+        this._angle=60;
     }
 
     @Override

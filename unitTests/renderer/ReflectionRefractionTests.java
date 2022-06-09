@@ -193,4 +193,45 @@ public class ReflectionRefractionTests {
                 .renderImage()
                 .writeToImage();
     }
+
+@Test
+
+    public void depthoffield() {
+    Scene scene = new Scene.SceneBuilder("Test scene") //
+            .setAmbientLight(new AmbientLight(new Color(WHITE), new Double3(0.7)))
+            .setBackground(new Color(220, 255, 255))
+            .build();
+
+    Camera camera = new Camera(new Point(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0))
+            .setVPSize(200, 200)
+            .setVPDistance(900);
+
+
+        scene.geometries.add(
+                new Sphere(new Point(-40, 70, -60), 22d)//The middle ball of the snowman
+                        .setEmission(new Color(30,30,30))
+                        .setMaterial(new Material()
+                                .setKd(0.25)
+                                .setKs(0.25)
+                                .setShininess(20)),
+                new Sphere(new Point(-40, 100, -200), 34d)//The top ball of the snowman
+                        .setEmission(new Color(240,240,240))
+                        .setMaterial(new Material()
+                                .setKd(0.25)
+                                .setKs(0.25)
+                                .setShininess(20)));
+
+
+
+
+        scene.lights.add(new SpotLight(new Color(700, 400, 400), new Point(200, 100, -100), new Vector(-50, 0, -1)) //
+            .setKl(4E-5).setKq(2E-7));
+
+
+    ImageWriter imageWriter = new ImageWriter("depth", 600, 600);
+        camera.setImageWriter(imageWriter)
+            .setRayTracer(new RayTracerBasic(scene))
+            .renderImage()
+                .writeToImage();
+}
 }
