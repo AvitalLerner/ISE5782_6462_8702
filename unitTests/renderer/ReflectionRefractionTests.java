@@ -198,8 +198,8 @@ public class ReflectionRefractionTests {
 
     public void depthoffield() {
     Scene scene = new Scene.SceneBuilder("Test scene") //
-            .setAmbientLight(new AmbientLight(new Color(WHITE), new Double3(0.7)))
-            .setBackground(new Color(220, 255, 255))
+            .setAmbientLight(new AmbientLight(new Color(black), new Double3(0.7)))
+            .setBackground(new Color(220, 220, 220))
             .build();
 
     Camera camera = new Camera(new Point(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0))
@@ -209,7 +209,7 @@ public class ReflectionRefractionTests {
 
         scene.geometries.add(
                 new Sphere(new Point(-40, 70, -60), 22d)//The middle ball of the snowman
-                        .setEmission(new Color(30,30,30))
+                        .setEmission(new Color(200,200,200))
                         .setMaterial(new Material()
                                 .setKd(0.25)
                                 .setKs(0.25)
