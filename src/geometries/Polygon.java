@@ -105,21 +105,27 @@ public class Polygon extends Geometry {
 		Point p0 = r.getP0();
 		Vector v = r.getDir();
 
-		Vector v1 = _vertices.get(0).subtract(p0);
-		Vector v2 = _vertices.get(1).subtract(p0);
-		Vector v3 = _vertices.get(2).subtract(p0);
-
+		//checking if the point inside the polygon
+		Vector v1 = _vertices.get(1).subtract(p0);
+		Vector v2 = _vertices.get(0).subtract(p0);
 		double s1 = v.dotProduct(v1.crossProduct(v2));
-		if (isZero(s1)) return null;
-		double s2 = v.dotProduct(v2.crossProduct(v3));
-		if (isZero(s2)) return null;
-		double s3 = v.dotProduct(v3.crossProduct(v1));
-		if (isZero(s3)) return null;
 
-		if ((s1 > 0 && s2 > 0 && s3 > 0) || (s1 < 0 && s2 < 0 && s3 < 0)) {
-			planeIntersections.get(0).geometry = this;
-			return planeIntersections;
+		if (isZero(s1))
+			return null;
+
+		for(int i=_vertices.size()-1;i>0;i--){
+			v1=v2;
+			v2=_vertices.get(i).subtract(p0);
+			double s2 = v.dotProduct(v1.crossProduct(v2));
+			if (isZero(s2))
+				return null;
+
+			if((s1>0&&s2<0)||(s1<0&&s2>0))
+				return null;
+			s1=s2;
 		}
-		return null;
+
+		return planeIntersections;
+
 	}
 }

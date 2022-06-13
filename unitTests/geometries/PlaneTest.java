@@ -47,7 +47,7 @@ class PlaneTest {
                 "Must not be plane intersection ray is parallel to plane");
 
         // TC12: Ray included in plane
-        assertNull(pl.findIntersections(new Ray(new Point(0, 0.5, .5), new Vector(0, 1, -1))),
+        assertNull(pl.findIntersections(new Ray(new Point(0, 0.5, 0.5), new Vector(0, 1, -1))),
                 "Must not be plane intersection ray is included in the plane ");
 
         // TC13: Orthogonal ray into plane
@@ -60,7 +60,7 @@ class PlaneTest {
                 "Must not be plane intersection");
 
         // TC15: Orthogonal ray from plane
-        assertNull(pl.findIntersections(new Ray(new Point(0, 0.5, 0.5), new Vector(1, 1, 1))),
+          assertNull(pl.findIntersections(new Ray(new Point(0, 0.5, 0.5), new Vector(1, 1, 1))),
                 "Must not be plane intersection point from plane and Orthogonal");
 
         // TC16: Ray from plane not Orthogonal or parallel

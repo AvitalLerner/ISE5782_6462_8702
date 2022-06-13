@@ -52,11 +52,6 @@ public class Tube extends Geometry {
                 '}';
     }
 
-    /**
-     * calculate the normal of p1
-     * @param p1 point to calculate the normal
-     * @return now this return NULL
-     */
     @Override
     public Vector getNormal(Point p1) {
         Vector vector= _axisRay.getDir();
@@ -71,12 +66,7 @@ public class Tube extends Geometry {
         return n;
     }
 
-    /**
-     * find the intersection of GeoPoint with ray "r"
-     * @param r ray
-     * @param distance
-     * @return
-     */
+
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray r, double distance) {
         return null;
