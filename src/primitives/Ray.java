@@ -9,6 +9,7 @@ import static primitives.Util.isZero;
 
 /**
  * class for show ray
+ * the ray have
  */
 public class Ray {
     /**
