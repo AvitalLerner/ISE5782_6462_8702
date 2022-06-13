@@ -1,9 +1,14 @@
 package renderer;
 
+import geometries.Intersectable;
+import geometries.Plane;
+import geometries.Polygon;
 import primitives.Color;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
+
+import java.util.List;
 import java.util.MissingResourceException;
 import static primitives.Util.isZero;
 
@@ -41,6 +46,7 @@ public class Camera {
 
     private ImageWriter _writer;
     private RayTracer _rayTracer;
+    private Aperture _aperture;
 
     /**
      * constructor get point and 2 vectors
@@ -56,6 +62,24 @@ public class Camera {
         _vUp = vUp.normalize();
         _vTo = vTo.normalize();
         _vRight = _vTo.crossProduct(_vUp);
+    }
+
+    public Camera(Point p0, Vector vTo, Vector vUp,Point focalPoint) {
+        _p0 = p0;
+        if (!isZero(vUp.dotProduct(vTo))) {
+            throw new IllegalArgumentException("vup and vto are not orthogonal");
+        }
+        _vUp = vUp.normalize();
+        _vTo = vTo.normalize();
+        _vRight = _vTo.crossProduct(_vUp);
+        setAperture(focalPoint);
+    }
+
+    private void setAperture(Point focal) {
+        double width=_width/2;
+        double height=_height/2;
+        double distance=_distance/(2/3);
+       this._aperture=new Aperture(distance,width,height,focal);
     }
 
     /**
@@ -127,8 +151,24 @@ public class Camera {
         _height = height;
         return this;
     }
-
-
+    public Ray constructRayThroughAperture(Ray ray){
+        Point focalPoint=_aperture._focalPoint;
+        Ray newRay=new Ray(new Point(0,0,0),new Vector(1,0,0));
+        Polygon focalPlane=new Polygon(new Point(focalPoint.getX()-(_width/2),focalPoint.getY()+(_height/2),focalPoint.getZ()-_aperture._distanceFromCamera),
+                new Point(focalPoint.getX()+(_width/2),focalPoint.getY()+(_height/2),focalPoint.getZ()-_aperture._distanceFromCamera),
+                new Point(focalPoint.getX()+(_width/2),focalPoint.getY()-(_height/2),focalPoint.getZ()-_aperture._distanceFromCamera),
+                new Point(focalPoint.getX()-(_width/2),focalPoint.getY()-(_height/2),focalPoint.getZ()-_aperture._distanceFromCamera));
+        List<Intersectable.GeoPoint> intersection= focalPlane.findGeoIntersection(ray);
+        if (intersection==null){
+            return ray;
+        }
+        for(Intersectable.GeoPoint geo:intersection){
+            newRay=new Ray(focalPoint,focalPoint.subtract(geo.point));
+        }
+        //לבדוק האם הקרניים עוברות דרך הריבוע שניצור של הפוקל פליין אם לא עובר אז להחזיר רגיל ואם כן לעשות את השינויים הנצרכים
+        // הפוקל פוינט נמצאת על הפליין
+        return newRay;
+    }
     /**
      * calculate the ray between the camera and pixel
      * @param nX num of pixels of the width of the view plane
@@ -214,7 +254,8 @@ public class Camera {
         Color pixelColor=new Color(java.awt.Color.BLACK);
         for (int iColumn = i*9; iColumn < i*9+9; iColumn++) {
             for (int jRow = j*9; jRow < j*9+9; jRow++) {
-                Ray ray = constructRayThroughPixel(bigNx, bigNy, jRow, iColumn);
+                Ray ray = constructRayThroughPixel(bigNx, bigNy, jRow, iColumn);// לא דרך הוי פליין אלה דרך הצמצם
+                ray=constructRayThroughAperture(ray);// sending to check if it goes through focal plane
                 pixelColor =pixelColor.add(_rayTracer.traceRay(ray)) ;
             }
         }
@@ -242,5 +283,27 @@ public class Camera {
 
     public Camera build() {
         return this;
+    }
+
+    private class Aperture{
+        private double _distanceFromCamera;
+        /**
+         * the width of the Aperture
+         */
+        private double _width;
+        /**
+         * the height of the Aperture
+         */
+        private double _height;
+
+        private Point _focalPoint;
+
+        public Aperture(double distance,double width,double height,Point focalPoint){
+            this._distanceFromCamera=distance;
+            this._height=height;
+            this._width=width;
+            this._focalPoint=focalPoint;// ברירת מחדל לפוקל פוינט
+
+        }
     }
 }
