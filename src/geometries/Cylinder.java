@@ -8,7 +8,8 @@ import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
 /**
- * class of cylinder extends Tube. The cylinder have height
+ * class of cylinder extends Tube.
+ * The cylinder have height
  */
 public class Cylinder extends Tube {
     /**
@@ -21,9 +22,9 @@ public class Cylinder extends Tube {
      * @param h the high of the cylinder
      * @param r the ray of the cylinder
      */
-    public Cylinder(double h, Ray r)
+    public Cylinder(double h, Ray ray,double radius )
     {
-        super(r,h);
+        super(ray,radius);
         this._height =h;
     }
 
@@ -53,7 +54,8 @@ public class Cylinder extends Tube {
         double s;
         try {
             s=alignZero(p1.subtract(p0).dotProduct(vector));
-        }catch(IllegalArgumentException e){
+        }
+        catch(IllegalArgumentException e){
             return vector;
         }
         if(s==0||isZero(_height -s)){
