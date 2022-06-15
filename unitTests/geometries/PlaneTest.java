@@ -60,12 +60,12 @@ class PlaneTest {
                 "Must not be plane intersection");
 
         // TC15: Orthogonal ray from plane
-      //      assertNull(pl.findIntersections(new Ray(new Point(0, 0.5, 0.5), new Vector(1, 1, 1))),
-        //        "Must not be plane intersection point from plane and Orthogonal");
+            assertNull(pl.findIntersections(new Ray(new Point(0, 0.5, 0.5), new Vector(1, 1, 1))),
+               "Must not be plane intersection point from plane and Orthogonal");
 
         // TC16: Ray from plane not Orthogonal or parallel
-      //  assertNull(pl.findIntersections(new Ray(new Point(0, 0.5, 0.5), new Vector(1, 1, 0))),
-        //        "Must not be plane intersection ray from plane");
+        assertNull(pl.findIntersections(new Ray(new Point(0, 0.5, 0.5), new Vector(1, 1, 0))),
+                "Must not be plane intersection ray from plane");
 
         // TC17: Ray from plane's Q point
         assertNull(pl.findIntersections(new Ray(new Point(0, 0, 1), new Vector(1, 1, 0))),
