@@ -38,7 +38,8 @@ class GeometriesTest {
                 new Vector(-3,-3,-3))),"no intersection supposed to be");
 
         //TC13: only one object intersects
-        assertEquals(List.of(new Point(1,1,0)),listOfObjects.findIntersections(new Ray(new Point(0.5,0.5,0),new Vector(0.5,0.5,0))),"one point of intersection only with sphere");
+        assertEquals(List.of(new Point(0,0,0)),listOfObjects.findIntersections(new Ray(new Point(0.5,0,0),new Vector(-1,0,0))),
+                "one point of intersection only with sphere");
 
         //TC14: not all objects intersect with ray
         listOfObjects.add(tr);
@@ -47,7 +48,7 @@ class GeometriesTest {
 
         //TC15: all objects intersect with ray
         Geometries newListOfObjects=new Geometries(new Sphere(new Point(0,0,0),1),new Plane(new Point(0, 0, 0), new Point(0, 0, 4), new Point(4, 0, 0)),new Triangle(new Point(1,0,-1), new Point(-1,0,-1), new Point(0,0,2)));
-        assertEquals(List.of(new Point(0,-1,0),new Point(0,1,0),new Point(0,0,0),new Point(0,0,0)),
+        assertEquals(List.of(new Point(0,1,0),new Point(0,-1,0),new Point(0,0,0),new Point(0,0,0)),
                 newListOfObjects.findIntersections(new Ray(new Point(0,-3,0), new Vector(0,3,0))));
 
     }
