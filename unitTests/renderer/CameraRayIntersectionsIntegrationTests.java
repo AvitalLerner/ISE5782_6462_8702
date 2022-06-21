@@ -14,9 +14,9 @@ class CameraRayIntersectionsIntegrationTests {
 
     /**
      * Test helper function to count the intersections and compare with expected value
-     * @param cam camera
-     * @param geo
-     * @param expected number
+     * @param cam camera for the test
+     * @param geo 3D body to test the integration of the camera with
+     * @param expected number amount of intersections
      */
     private void assertCountIntersections(Camera cam, Intersectable geo, int expected) {
         List<Point> allPoints=null;
@@ -36,14 +36,17 @@ class CameraRayIntersectionsIntegrationTests {
             return;
         }
         else{
-        assertEquals(expected,allPoints.size(),"num of intersection points aren't enough ");}
+        assertEquals(expected,allPoints.size(),
+                "num of intersection points aren't enough ");}
     }
 
     /**
-     * test
+     * Integration tests of Camera Ray construction with Ray-Sphere intersections
      */
     @Test
     public void cameraRaySphereIntegration() {
+        // ============ Equivalence Partitions Tests ==============
+
         Sphere sphere=new Sphere(new Point(0,0,-3),1);
         Camera camera=new Camera(new Point(0,0,0),new Vector(0,0,-1),new Vector(0,1,0))
                 .setVPDistance(1).setVPSize(3,3);
@@ -68,8 +71,12 @@ class CameraRayIntersectionsIntegrationTests {
 
     }
 
+    /**
+     * Integration tests of Camera Ray construction with Ray-Plane intersections
+     */
     @Test
     public void cameraRayPlaneIntegration() {
+        // ============ Equivalence Partitions Tests ==============
 
         // TC01: Plane against camera 9 points
         Camera camera=new Camera(new Point(0,0,0),new Vector(0,0,-1),new Vector(0,1,0)).setVPDistance(1).setVPSize(3,3);
@@ -87,10 +94,11 @@ class CameraRayIntersectionsIntegrationTests {
     }
 
     /**
-     *
+     * Integration tests of Camera Ray construction with Ray-Triangle intersections
      */
     @Test
     public void cameraRayTriangleIntegration() {
+        // ============ Equivalence Partitions Tests ==============
 
         // TC01: Small triangle 1 point
         Camera camera=new Camera(new Point(0,0,0),new Vector(0,0,-1),new Vector(0,1,0))

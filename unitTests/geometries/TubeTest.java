@@ -21,8 +21,10 @@ class TubeTest {
         Tube tube = new Tube(new Ray(new Point(0, 0, 1), new Vector(0, -1, 0)),1.0);
         Vector normal = tube.getNormal(new Point(0, 0.5, 2)).normalize();
         double dotProduct = normal.dotProduct(tube.getAxisRay().getDir());
+        //TC01: normal orthogonal to the tube
         assertEquals(0,dotProduct,"normal is not orthogonal to the tube");
 
+        //check that the normal is right
         boolean normal1=new Vector(0,0,1).equals(normal);
         boolean normal2=new Vector(0,0,-1).equals(normal);
         assertTrue(normal1||normal2,"incorrect normal");
@@ -31,6 +33,7 @@ class TubeTest {
 
     /**
      * Test method for {@link Tube#findIntersections(Ray)}
+     * bonus
      */
     @Test
     void testFindIntersections() {

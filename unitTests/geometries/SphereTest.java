@@ -19,6 +19,8 @@ class SphereTest {
      */
     @Test
     void testGetNormal() {
+        // ============ Equivalence Partitions Tests ==============
+        // TC01: There is a simple single test here
      Sphere sphere= new Sphere(new Point(1,0,0),1);
      assertEquals(new Vector(1,0,0),sphere.getNormal(new Point(2,0,0)));
     }
@@ -60,7 +62,7 @@ class SphereTest {
 
         // **** Group: Ray's line goes through the center
         // TC13: Ray starts before the sphere (2 points)
-       assertEquals(List.of(new Point(0,0,0),new Point(2,0,0)),
+       assertEquals(List.of(new Point(2,0,0),new Point(0,0,0)),
                 sphere.findIntersections(new Ray(new Point(-1,0,0),new Vector(1,0,0))),"Line through O, ray crosses sphere");
         // TC14: Ray starts at sphere and goes inside (1 points)
         assertEquals(List.of(new Point(2,0,0)),

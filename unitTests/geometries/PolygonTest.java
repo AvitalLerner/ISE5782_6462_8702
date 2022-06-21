@@ -77,7 +77,7 @@ class PolygonTest {
     }
 
     /**
-     * Test method for
+     * Test method for {@link geometries.Polygon#findIntersections(Ray)}.
      */
     @Test
     void testFindIntersections() {

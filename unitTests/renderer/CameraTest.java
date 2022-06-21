@@ -7,7 +7,9 @@ import primitives.Vector;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
+/**
+ * Test class for {@link Camera}
+ */
 class CameraTest {
     static final Point ZERO_POINT = new Point(0, 0, 0);
 

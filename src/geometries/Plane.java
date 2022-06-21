@@ -13,7 +13,13 @@ import static primitives.Util.isZero;
  * class for a 3D plane
  */
 public class Plane extends Geometry {
+    /**
+     * point in the plane
+     */
     private final Point _q0;
+    /**
+     * normal orthogonal the plane
+     */
     private final Vector _normal;
 
     /**
@@ -92,7 +98,7 @@ public class Plane extends Geometry {
         }
         double t = alignZero(_normal.dotProduct(vectorp0Q) / nv);
 
-        if ((t < 0 || alignZero(distance - t) < 0)) {
+        if ((t <= 0 || alignZero(distance - t) <= 0)) {
             return null;
         } else {
             return List.of(new GeoPoint(this, r.getPoint(t)));

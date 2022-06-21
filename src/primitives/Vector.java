@@ -26,10 +26,7 @@ public class Vector extends Point {
         }
     }
 
-    /**
-     * @param o object
-     * @return if o equal to the vector
-     */
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
