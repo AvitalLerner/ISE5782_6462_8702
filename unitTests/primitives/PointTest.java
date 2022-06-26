@@ -17,7 +17,8 @@ class PointTest {
     void testSubtract() {
         // ============ Equivalence Partitions Tests ==============
         // TC01: There is a simple single test here
-        assertEquals(new Vector(1,1,1),new Point(2,3,4).subtract(p1),"ERROR: Point - Point does not work correctly");
+        assertEquals(new Vector(1,1,1),new Point(2,3,4).subtract(p1),
+                "ERROR: Point - Point does not work correctly");
       }
 
     /**
@@ -27,7 +28,8 @@ class PointTest {
     void testAdd() {
         // ============ Equivalence Partitions Tests ==============
         // TC01: There is a simple single test here
-        assertEquals(new Point(2,3,4),p1.add(new Vector(1,1,1)),"Error: Point + Point does not work");
+        assertEquals(new Point(2,3,4),p1.add(new Vector(1,1,1)),
+                "Error: Point + Point does not work");
     }
 
     /**
@@ -52,6 +54,7 @@ class PointTest {
         // TC01: There is a simple single test here
         Point point3 = new Point(0.5, 0, -100);
         double distance = point3.distance(new Point(0, 0, -100));
-        assertEquals(0.5, distance, 0.0001, "Doesn't calculate correctly the distance");
+        assertEquals(0.5, distance, 0.0001,
+                "Doesn't calculate correctly the distance");
     }
 }
