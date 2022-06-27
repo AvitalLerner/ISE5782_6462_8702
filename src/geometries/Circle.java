@@ -10,8 +10,8 @@ import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
 public class Circle extends Plane{
-    private Point _center;
-    private double _radius;
+    private final Point _center;
+    private final double _radius;
 
     public Circle(Point p1, Vector normal, Point center, double radius) {
         super(p1, normal);
