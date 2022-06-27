@@ -62,6 +62,8 @@ public class Camera {
         _vUp = vUp.normalize();
         _vTo = vTo.normalize();
         _vRight = _vTo.crossProduct(_vUp);
+        Point focalPoint=new Point(p0.getX(),p0.getY(), p0.getZ()+_distance);
+       // setAperture(focalPoint);// ברירת מחדל של נקודה
     }
 
     public Camera(Point p0, Vector vTo, Vector vUp,Point focalPoint) {
@@ -72,14 +74,18 @@ public class Camera {
         _vUp = vUp.normalize();
         _vTo = vTo.normalize();
         _vRight = _vTo.crossProduct(_vUp);
-        setAperture(focalPoint);
+        //setAperture(focalPoint);
     }
 
-    private void setAperture(Point focal) {
+    public Camera setAperture(Point focal) {
         double width=_width/2;
         double height=_height/2;
-        double distance=_distance/(2/3);
+        double distance=_distance/2;
+        if (focal==null){
+            focal=new Point(_p0.getX(),_p0.getY(), _p0.getZ()-((_distance)/3)*2);
+        }
        this._aperture=new Aperture(distance,width,height,focal);
+       return this;
     }
 
     /**
@@ -154,10 +160,10 @@ public class Camera {
     public Ray constructRayThroughAperture(Ray ray){
         Point focalPoint=_aperture._focalPoint;
         Ray newRay=new Ray(new Point(0,0,0),new Vector(1,0,0));
-        Polygon focalPlane=new Polygon(new Point(focalPoint.getX()-(_width/2),focalPoint.getY()+(_height/2),focalPoint.getZ()-_aperture._distanceFromCamera),
-                new Point(focalPoint.getX()+(_width/2),focalPoint.getY()+(_height/2),focalPoint.getZ()-_aperture._distanceFromCamera),
-                new Point(focalPoint.getX()+(_width/2),focalPoint.getY()-(_height/2),focalPoint.getZ()-_aperture._distanceFromCamera),
-                new Point(focalPoint.getX()-(_width/2),focalPoint.getY()-(_height/2),focalPoint.getZ()-_aperture._distanceFromCamera));
+        Polygon focalPlane=new Polygon(new Point(focalPoint.getX()-(_width/10),focalPoint.getY()+(_height/10),_p0.getZ()-_aperture._distanceFromCamera),
+                new Point(focalPoint.getX()+(_width/10),focalPoint.getY()+(_height/10), _p0.getZ()-_aperture._distanceFromCamera),/// לא נכון הZ
+                new Point(focalPoint.getX()+(_width/10),focalPoint.getY()-(_height/10),_p0.getZ()-_aperture._distanceFromCamera),
+                new Point(focalPoint.getX()-(_width/10),focalPoint.getY()-(_height/10),_p0.getZ()-_aperture._distanceFromCamera));
         List<Intersectable.GeoPoint> intersection= focalPlane.findGeoIntersection(ray);
         if (intersection==null){
             return ray;
@@ -255,13 +261,54 @@ public class Camera {
         for (int iColumn = i*9; iColumn < i*9+9; iColumn++) {
             for (int jRow = j*9; jRow < j*9+9; jRow++) {
                 Ray ray = constructRayThroughPixel(bigNx, bigNy, jRow, iColumn);// לא דרך הוי פליין אלה דרך הצמצם
-                ray=constructRayThroughAperture(ray);// sending to check if it goes through focal plane
-                pixelColor =pixelColor.add(_rayTracer.traceRay(ray)) ;
+                Ray newRay=constructRayThroughAperture(ray);// sending to check if it goes through focal plane
+                if (newRay!=ray){
+                 pixelColor=pixelColor.add(helpFocalArea(pixelColor,bigNx,bigNy,jRow,iColumn));
+              }else
+                {
+                  pixelColor=pixelColor.add(_rayTracer.traceRay(ray)) ;}
             }
         }
         pixelColor=pixelColor.reduce(81);
         _writer.writePixel(j, i, pixelColor);
     }
+
+    private Color helpFocalArea(Color pixelColor,int bigNx, int bigNy, int jRow, int iColumn) {
+        int y=2*bigNy;
+        int x =2*bigNx;
+        for (int i = iColumn*2; i < iColumn*2+2; i++) {
+            for (int j= jRow*2; j < jRow*2+2; j++) {
+                Ray ray = constructRayThroughPixelFocus(x, y, j, i);// לא דרך הוי פליין אלה דרך הצמצם
+                pixelColor =pixelColor.add(_rayTracer.traceRay(ray)) ;
+            }
+        }
+        pixelColor=pixelColor.reduce(4);
+        return pixelColor;
+    }
+
+    private Ray constructRayThroughPixelFocus(int nX, int nY, int j, int i) {
+        double Rx = _width / nX;
+        double Ry = _height / nY;
+        Point p=new Point(_aperture._focalPoint.getX(),_aperture._focalPoint.getY(),_p0.getZ()-_distance);
+        Vector vTo=p.subtract(_aperture._focalPoint).normalize();
+        Point Pc = _aperture._focalPoint.add(vTo.scale(_distance-_aperture._distanceFromCamera));
+        Point pIJ = Pc;
+
+        double xJ = (j - (nX - 1) / 2d) * Rx;
+        double yI = -(i - (nY - 1) / 2d) * Ry;
+
+        if (isZero(xJ) && isZero(yI)) {
+            return new Ray(_aperture._focalPoint, pIJ.subtract(_aperture._focalPoint));
+        } else {
+            if (!isZero(xJ))
+                pIJ = pIJ.add(_vRight.scale(xJ));
+            if (!isZero(yI))
+                pIJ = pIJ.add(_vUp.scale(yI));
+
+        }
+        return new Ray(_aperture._focalPoint, pIJ.subtract(_aperture._focalPoint));
+    }
+
     /**
      * function that print grid of line in the scene
      * @param interval the size of the grid
@@ -286,7 +333,7 @@ public class Camera {
     }
 
     private class Aperture{
-        private double _distanceFromCamera;
+        private double _distanceFromCamera=_distance/2;
         /**
          * the width of the Aperture
          */
