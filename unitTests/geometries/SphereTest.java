@@ -70,11 +70,14 @@ class SphereTest {
         // TC15: Ray starts inside (1 points)
         assertEquals(List.of(new Point(2,0,0)),
                 sphere.findIntersections(new Ray(new Point(0.5,0,0),new Vector(1,0,0))),"Line through O, ray from inside sphere");
+
         // TC16: Ray starts at the center (1 points)
         assertEquals(List.of(new Point(2,0,0)),
                 sphere.findIntersections(new Ray(new Point(1,0,0),new Vector(2,0,0))),"Line through O, ray from O");
+
         // TC17: Ray starts at sphere and goes outside (0 points)
         assertNull(sphere.findIntersections(new Ray(new Point(2,0,0),new Vector(3,0,0))),"Line through O, ray from sphere outside");
+
         // TC18: Ray starts after sphere (0 points)
         assertNull(sphere.findIntersections(new Ray(new Point(3,0,0),new Vector(4,0,0))),"Line through O, ray outside sphere");
 
