@@ -19,7 +19,13 @@ public class Cylinder extends Tube {
      */
     double _height;
 
+    /**
+     * first base of the cylinder
+     */
     Circle _base1;
+    /**
+     * second base of the cylinder
+     */
     Circle _base2;
 
 
@@ -62,7 +68,6 @@ public class Cylinder extends Tube {
         Point bace1Center = _base1.getCenter();
         Point bace2Center = _base2.getCenter();
 
-
         double Pythagoras= (Math.pow(_radius,2)+Math.pow(_height,2));
 
         GeoPoint intersection1=null;
@@ -73,15 +78,15 @@ public class Cylinder extends Tube {
         //Check if the intersection points is too far from the bases
         if(intersections.size()>0){
             intersection1=intersections.get(0);
-            if((Pythagoras<Math.pow(bace1Center.distance(intersection1.point),2))
-                    ||Pythagoras<Math.pow(bace2Center.distance(intersection1.point),2))
+            if((Pythagoras<Math.sqrt(bace1Center.distance(intersection1.point)))
+                    ||Pythagoras<Math.sqrt(bace2Center.distance(intersection1.point)))
                 intersection1=null;
 
         }
         if(intersections.size()>1) {
             intersection2 = intersections.get(1);
-            if ((Pythagoras < Math.pow(bace1Center.distance(intersection2.point), 2))
-                    || Pythagoras < Math.pow(bace2Center.distance(intersection2.point), 2))
+            if ((Pythagoras < Math.sqrt(bace1Center.distance(intersection2.point)))
+                    || Pythagoras < Math.sqrt(bace2Center.distance(intersection2.point)))
                 intersection2=null;
         }
 
@@ -96,6 +101,7 @@ public class Cylinder extends Tube {
             intersection4=intersectionBase2.get(0);
 
 
+        // add all the intersections to result
         List<GeoPoint> result =null;
         if(intersection1!=null)
             result.add(intersection1);

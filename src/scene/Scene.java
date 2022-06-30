@@ -30,7 +30,7 @@ public class Scene {
      */
     public Geometries geometries;
     /**
-     *
+     * all the light source in the scene
      */
     public List<LightSource> lights ;
 
@@ -49,7 +49,7 @@ public class Scene {
 
     /**
      * setter of ambientLight
-     * @param ambientLight
+     * @param ambientLight of type AmbientLight
      * @return this
      */
     public Scene setAmbientLight(AmbientLight ambientLight) {

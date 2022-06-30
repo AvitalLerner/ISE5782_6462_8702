@@ -70,13 +70,13 @@ public class Sphere extends Geometry {
         Vector v = r.getDir();
         Vector u;
 
-        if (_center.equals(p0)) {
+        if (_center.equals(p0)) {  // p0 == _center
             if(alignZero(_radius - distance) > 0)
                 return  null;
             return List.of(new GeoPoint(this, _center.add(v.scale(_radius))));
         }
 
-        u = _center.subtract(p0);   // p0 == _center
+        u = _center.subtract(p0);
         double tm = alignZero(v.dotProduct(u));
         double d = Math.sqrt(u.lengthSquared() - tm * tm);
         if(d >= _radius)

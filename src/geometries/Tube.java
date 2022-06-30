@@ -10,10 +10,17 @@ import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
 /**
- * class
+ * class tube to describe tube in the scene.
+ * the tube have ray of the center of the tube and radius around the center
  */
 public class Tube extends Geometry {
+    /**
+     * the ray of the center of the tube
+     */
     Ray _axisRay;
+    /**
+     * the radius of the tube
+     */
     Double _radius;
 
     /**
@@ -28,13 +35,15 @@ public class Tube extends Geometry {
     }
 
     /**
-     * @return axis
+     * getter of axisRay
+     * @return axisRay
      */
     public Ray getAxisRay() {
         return _axisRay;
     }
 
     /**
+     * getter of radius
      * @return radius
      */
     public Double getRadius() {
