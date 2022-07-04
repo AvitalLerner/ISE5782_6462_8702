@@ -11,7 +11,7 @@ import static primitives.Util.isZero;
 
 /**
  * class of cylinder extends Tube.
- * The cylinder have height
+ * The cylinder have height and 2 bases
  */
 public class Cylinder extends Tube {
     /**

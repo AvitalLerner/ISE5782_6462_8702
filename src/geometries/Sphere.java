@@ -8,8 +8,18 @@ import java.util.List;
 
 import static primitives.Util.alignZero;
 
+/**
+ * class Sphere extends Geometry
+ * the sphere have center and radius
+ */
 public class Sphere extends Geometry {
+    /**
+     * the center of the sphere
+     */
     final private Point _center;
+    /**
+     * the radius of the sphere
+     */
     final private double _radius;
 
     /**
@@ -112,6 +122,5 @@ public class Sphere extends Geometry {
         }
 
         return null;
-
     }
 }
