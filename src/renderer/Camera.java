@@ -157,23 +157,28 @@ public class Camera {
         _height = height;
         return this;
     }
-    public Ray constructRayThroughAperture(Ray ray){
-        Point focalPoint=_aperture._focalPoint;
+    public Color constructRayThroughAperture(Ray ray){
+        Point focalPlaneMid=_aperture._focalPlane;
+        Color pixelColor=_rayTracer.traceRay(ray);
+        Plane viewPlane=new Plane(new Point(_p0.getX(),_p0.getY(),_p0.getZ()-_distance),_vTo);
+        Intersectable.GeoPoint focalPoint=viewPlane.findGeoIntersection(ray).get(0);
         Ray newRay=new Ray(new Point(0,0,0),new Vector(1,0,0));
-        Polygon focalPlane=new Polygon(new Point(focalPoint.getX()-(_width/10),focalPoint.getY()+(_height/10),_p0.getZ()-_aperture._distanceFromCamera),
-                new Point(focalPoint.getX()+(_width/10),focalPoint.getY()+(_height/10), _p0.getZ()-_aperture._distanceFromCamera),/// לא נכון הZ
-                new Point(focalPoint.getX()+(_width/10),focalPoint.getY()-(_height/10),_p0.getZ()-_aperture._distanceFromCamera),
-                new Point(focalPoint.getX()-(_width/10),focalPoint.getY()-(_height/10),_p0.getZ()-_aperture._distanceFromCamera));
+        Polygon focalPlane=new Polygon(new Point(focalPlaneMid.getX()-(_width/10),focalPlaneMid.getY()+(_height/10),_p0.getZ()-_aperture._distanceFromCamera),
+                new Point(focalPlaneMid.getX()+(_width/10),focalPlaneMid.getY()+(_height/10), _p0.getZ()-_aperture._distanceFromCamera),/// לא נכון הZ
+                new Point(focalPlaneMid.getX()+(_width/10),focalPlaneMid.getY()-(_height/10),_p0.getZ()-_aperture._distanceFromCamera),
+                new Point(focalPlaneMid.getX()-(_width/10),focalPlaneMid.getY()-(_height/10),_p0.getZ()-_aperture._distanceFromCamera));
         List<Intersectable.GeoPoint> intersection= focalPlane.findGeoIntersection(ray);
-        if (intersection==null){
-            return ray;
-        }
-        for(Intersectable.GeoPoint geo:intersection){
-            newRay=new Ray(focalPoint,focalPoint.subtract(geo.point));
+//        if (intersection==null){
+//            return pixelColor;
+//        }
+        for(Point point:focalPlane._vertices){
+            Vector v=focalPoint.point.subtract(point);
+            ray=new Ray(focalPoint.point,v);
+            pixelColor.add(_rayTracer.traceRay(ray));
         }
         //לבדוק האם הקרניים עוברות דרך הריבוע שניצור של הפוקל פליין אם לא עובר אז להחזיר רגיל ואם כן לעשות את השינויים הנצרכים
         // הפוקל פוינט נמצאת על הפליין
-        return newRay;
+        return pixelColor;
     }
     /**
      * calculate the ray between the camera and pixel
@@ -261,12 +266,8 @@ public class Camera {
         for (int iColumn = i*9; iColumn < i*9+9; iColumn++) {
             for (int jRow = j*9; jRow < j*9+9; jRow++) {
                 Ray ray = constructRayThroughPixel(bigNx, bigNy, jRow, iColumn);// לא דרך הוי פליין אלה דרך הצמצם
-                Ray newRay=constructRayThroughAperture(ray);// sending to check if it goes through focal plane
-                if (newRay!=ray){
-                 pixelColor=pixelColor.add(helpFocalArea(pixelColor,bigNx,bigNy,jRow,iColumn));
-              }else
-                {
-                  pixelColor=pixelColor.add(_rayTracer.traceRay(ray)) ;}
+                Color newColor=constructRayThroughAperture(ray);// sending to check if it goes through focal plane
+                pixelColor=pixelColor.add(newColor) ;
             }
         }
         pixelColor=pixelColor.reduce(81);
@@ -276,29 +277,30 @@ public class Camera {
     private Color helpFocalArea(Color pixelColor,int bigNx, int bigNy, int jRow, int iColumn) {
         int y=2*bigNy;
         int x =2*bigNx;
+        Color pixelColor1=new Color(java.awt.Color.BLACK);
         for (int i = iColumn*2; i < iColumn*2+2; i++) {
             for (int j= jRow*2; j < jRow*2+2; j++) {
-                Ray ray = constructRayThroughPixelFocus(x, y, j, i);// לא דרך הוי פליין אלה דרך הצמצם
-                pixelColor =pixelColor.add(_rayTracer.traceRay(ray)) ;
+                Ray ray = constructRayThroughPixel(x, y, j, i);// לא דרך הוי פליין אלה דרך הצמצם
+                pixelColor1 =pixelColor1.add(_rayTracer.traceRay(ray)) ;
             }
         }
-        pixelColor=pixelColor.reduce(4);
-        return pixelColor;
+        pixelColor1=pixelColor1.reduce(4);
+        return pixelColor1;
     }
 
     private Ray constructRayThroughPixelFocus(int nX, int nY, int j, int i) {
         double Rx = _width / nX;
         double Ry = _height / nY;
-        Point p=new Point(_aperture._focalPoint.getX(),_aperture._focalPoint.getY(),_p0.getZ()-_distance);
-        Vector vTo=p.subtract(_aperture._focalPoint).normalize();
-        Point Pc = _aperture._focalPoint.add(vTo.scale(_distance-_aperture._distanceFromCamera));
+        Point p=new Point(_aperture._focalPlane.getX(),_aperture._focalPlane.getY(),_p0.getZ()-_distance);
+        Vector vTo=p.subtract(_aperture._focalPlane).normalize();
+        Point Pc = _aperture._focalPlane.add(vTo.scale(_distance-_aperture._distanceFromCamera));
         Point pIJ = Pc;
 
         double xJ = (j - (nX - 1) / 2d) * Rx;
         double yI = -(i - (nY - 1) / 2d) * Ry;
 
         if (isZero(xJ) && isZero(yI)) {
-            return new Ray(_aperture._focalPoint, pIJ.subtract(_aperture._focalPoint));
+            return new Ray(_aperture._focalPlane, pIJ.subtract(_aperture._focalPlane));
         } else {
             if (!isZero(xJ))
                 pIJ = pIJ.add(_vRight.scale(xJ));
@@ -306,7 +308,7 @@ public class Camera {
                 pIJ = pIJ.add(_vUp.scale(yI));
 
         }
-        return new Ray(_aperture._focalPoint, pIJ.subtract(_aperture._focalPoint));
+        return new Ray(_aperture._focalPlane, pIJ.subtract(_aperture._focalPlane));
     }
 
     /**
@@ -343,13 +345,13 @@ public class Camera {
          */
         private double _height;
 
-        private Point _focalPoint;
+        private Point _focalPlane;
 
-        public Aperture(double distance,double width,double height,Point focalPoint){
+        public Aperture(double distance,double width,double height,Point focalPlane){
             this._distanceFromCamera=distance;
             this._height=height;
             this._width=width;
-            this._focalPoint=focalPoint;// ברירת מחדל לפוקל פוינט
+            this._focalPlane =focalPlane;// ברירת מחדל לפוקל פוינט
 
         }
     }

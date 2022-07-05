@@ -15,7 +15,7 @@ public class Polygon extends Geometry {
 	/**
 	 * List of polygon's vertices
 	 */
-	protected List<Point> _vertices;
+	public List<Point> _vertices;
 	/**
 	 * Associated plane in which the polygon lays
 	 */

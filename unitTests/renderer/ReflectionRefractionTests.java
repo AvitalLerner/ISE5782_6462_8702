@@ -215,7 +215,7 @@ public class ReflectionRefractionTests {
                                 .setKd(0.25)
                                 .setKs(0.25)
                                 .setShininess(20)),
-                new Sphere(new Point(-90, 0, -500), 30d)//The top ball of the snowman
+                new Sphere(new Point(-90, 0, -500), 22d)//The top ball of the snowman
                         .setEmission(new Color(200,200,200))
                         .setMaterial(new Material()
                                 .setKd(0.25)
