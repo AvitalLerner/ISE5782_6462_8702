@@ -62,8 +62,8 @@ public class Camera {
         _vUp = vUp.normalize();
         _vTo = vTo.normalize();
         _vRight = _vTo.crossProduct(_vUp);
-        Point focalPoint=new Point(p0.getX(),p0.getY(), p0.getZ()+_distance);
-       // setAperture(focalPoint);// ברירת מחדל של נקודה
+        Point focalPlane=null;
+        setAperture(focalPlane);// ברירת מחדל של נקודה
     }
 
     public Camera(Point p0, Vector vTo, Vector vUp,Point focalPoint) {
