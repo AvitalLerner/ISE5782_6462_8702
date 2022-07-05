@@ -25,7 +25,7 @@ class VectorTest {
                 IllegalArgumentException.class,
                 () -> {new Vector(0,0,0);},
                 "ERROR: zero vector should have thrown an exception"  );
-        }
+    }
 
     /**
      * Test method for{@link Vector#lengthSquared()}

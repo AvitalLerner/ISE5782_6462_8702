@@ -1,5 +1,9 @@
 package primitives;
 
+/**
+ * class Vector extends Point.
+ * the vector have 3 coordinates to describe direction
+ */
 public class Vector extends Point {
     /**
      * constructor receives 3 double values

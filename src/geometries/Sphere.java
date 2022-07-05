@@ -8,8 +8,18 @@ import java.util.List;
 
 import static primitives.Util.alignZero;
 
+/**
+ * class Sphere extends Geometry
+ * the sphere have center and radius
+ */
 public class Sphere extends Geometry {
+    /**
+     * the center of the sphere
+     */
     final private Point _center;
+    /**
+     * the radius of the sphere
+     */
     final private double _radius;
 
     /**
@@ -49,34 +59,26 @@ public class Sphere extends Geometry {
         return _radius;
     }
 
-    /**
-     * @param p1 point to calculate the normal
-     * @return normal
-     */
+
     @Override
     public Vector getNormal(Point p1) {
         return p1.subtract(_center).normalize();
     }
 
-    /**
-     * find the intersection of GeoPoint with ray "r"
-     * @param r ray
-     * @param distance
-     * @return
-     */
+
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray r, double distance) {
         Point p0 = r.getP0();
         Vector v = r.getDir();
         Vector u;
 
-        if (_center.equals(p0)) {
+        if (_center.equals(p0)) {  // p0 == _center
             if(alignZero(_radius - distance) > 0)
                 return  null;
             return List.of(new GeoPoint(this, _center.add(v.scale(_radius))));
         }
 
-        u = _center.subtract(p0);   // p0 == _center
+        u = _center.subtract(p0);
         double tm = alignZero(v.dotProduct(u));
         double d = Math.sqrt(u.lengthSquared() - tm * tm);
         if(d >= _radius)
@@ -112,6 +114,5 @@ public class Sphere extends Geometry {
         }
 
         return null;
-
     }
 }

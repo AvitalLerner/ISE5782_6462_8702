@@ -78,11 +78,7 @@ public class Plane extends Geometry {
         return _q0;
     }
 
-    /**
-     * @param r Ray pointing towards the graphic object
-     * @param distance
-     * @return intersections between the ray and the plane
-     */
+
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray r, double distance) {
         Vector vectorp0Q;

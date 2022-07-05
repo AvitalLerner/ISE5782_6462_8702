@@ -14,6 +14,7 @@ public class SpotLight extends PointLight {
      * direction of the spotLight
      */
     private Vector _direction;
+
     /**
      * constructor of spotLight
      * @param intensity the color of the light
@@ -37,6 +38,7 @@ public class SpotLight extends PointLight {
         double dirL = Math.max( 0,_direction.dotProduct(getL(p)));
         return  pointLight.scale(dirL);
     }
+
     @Override
     public String getType() {
         return "SpotLight";

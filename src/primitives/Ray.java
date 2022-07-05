@@ -9,7 +9,7 @@ import static primitives.Util.isZero;
 
 /**
  * class for show ray
- * the ray have
+ * the ray have start point and vector
  */
 public class Ray {
     /**
@@ -21,7 +21,6 @@ public class Ray {
      * point of the start of the ray
      */
     Point _p0;
-
     /**
      * vector of the direction ray
      */

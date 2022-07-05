@@ -80,7 +80,6 @@ public class RayTracerBasic extends RayTracer {
      * @param geopoint point to check if it's shading
      * @return
      */
-
     private boolean unshaded(LightSource light, Vector l, Vector n, GeoPoint geopoint) {
         Vector lightDirection = l.scale(-1); // from point to light source
         double nl = n.dotProduct(lightDirection);
@@ -211,9 +210,10 @@ public class RayTracerBasic extends RayTracer {
     }
 
     /**
-     * @param material
-     * @param nl
-     * @return
+     * calculate the diffuse of the light
+     * @param material the material of what in the pixel
+     * @param nl distance
+     * @return the level of the light in the pixel
      */
     private Double3 calcDiffusive(Material material, double nl) {
         double abs_nl = Math.abs(nl);

@@ -4,7 +4,7 @@ import primitives.Color;
 import primitives.Double3;
 
 /**
- * class AmbientLight extends of light to show ambient light of the scene
+ * class AmbientLight extends of light to show the ambient light of the scene
  * the light have color
  */
 public class AmbientLight extends Light {
