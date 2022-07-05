@@ -5,11 +5,20 @@ import primitives.Material;
 import primitives.Point;
 import primitives.Vector;
 
+/**
+ * abstract class Geometry extends Intersectable
+ * the class describe geometry body.
+ * the geometry have material and color
+ *
+ */
 public abstract class Geometry extends Intersectable {
     /**
      * the material of the geometry
      */
     private Material _material = new Material();
+    /**
+     * the color of the geometry
+     */
     protected Color _emission = Color.BLACK;
 
     /**
@@ -29,7 +38,7 @@ public abstract class Geometry extends Intersectable {
 
     /**
      * setter for material
-     * @param material
+     * @param material of type Material
      * @return this
      */
     public Geometry setMaterial(Material material) {

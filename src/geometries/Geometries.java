@@ -50,13 +50,7 @@ public class Geometries extends Intersectable {
 //        return result;
 //    }
 
-    /**
-     * find the intersection of point on geometry with ray "r"
-     *
-     * @param ray
-     * @param distance
-     * @return list of intersection groPoint
-     */
+
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double distance) {
         List<GeoPoint> result = null;
@@ -81,8 +75,4 @@ public class Geometries extends Intersectable {
     public void add(Intersectable... _intersectable) {
         Collections.addAll(_intersectables, _intersectable);
     }
-
-
-
-
 }

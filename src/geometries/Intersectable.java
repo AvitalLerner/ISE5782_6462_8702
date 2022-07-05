@@ -13,7 +13,7 @@ abstract public class Intersectable {
      * find the closest intersection with the ray
      * @param r ray
      * @param distance
-     * @return
+     * @return intersection between ray and the geometry
      */
     protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray r,double distance);
 
@@ -40,6 +40,12 @@ abstract public class Intersectable {
         return findGeoIntersections(r,Double.POSITIVE_INFINITY);
     }
 
+    /**
+     * find the closest intersection with the ray
+     * @param r ray
+     * @param distance
+     * @return intersection between ray and the geometry
+     */
     public final List<GeoPoint> findGeoIntersections(Ray r, double distance)
     {
         return findGeoIntersectionsHelper(r,distance);

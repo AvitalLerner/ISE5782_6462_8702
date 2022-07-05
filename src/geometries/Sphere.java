@@ -59,21 +59,13 @@ public class Sphere extends Geometry {
         return _radius;
     }
 
-    /**
-     * @param p1 point to calculate the normal
-     * @return normal
-     */
+
     @Override
     public Vector getNormal(Point p1) {
         return p1.subtract(_center).normalize();
     }
 
-    /**
-     * find the intersection of GeoPoint with ray "r"
-     * @param r ray
-     * @param distance
-     * @return
-     */
+
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray r, double distance) {
         Point p0 = r.getP0();
