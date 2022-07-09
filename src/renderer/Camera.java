@@ -10,7 +10,10 @@ import primitives.Vector;
 
 import java.util.List;
 import java.util.MissingResourceException;
+import java.util.stream.IntStream;
+
 import static primitives.Util.isZero;
+import static renderer.Pixel.*;
 
 
 public class Camera {
@@ -43,6 +46,10 @@ public class Camera {
      * the height of the view plane
      */
     private double _height;
+    /**
+     * determines if the image uses antialiasing
+     */
+    private boolean _antialiasing=true;
 
     private ImageWriter _writer;
     private RayTracer _rayTracer;
@@ -219,7 +226,7 @@ public class Camera {
      * A function that colors the image
      * @return this
      */
-    public Camera renderImage() {
+    public Camera renderImage1() {
         if (_p0 == null || _vUp == null || _vTo == null || _vRight == null ||
                 _distance == 0.0 || _width == 0.0 || _height == 0.0) {
             throw new MissingResourceException("ERROR: some of the parameters don't correct", null, null);
@@ -236,6 +243,63 @@ public class Camera {
         _writer.writeToImage();
         return this;
     }
+    // for multithreading
+    public Camera renderImage() {
+        if (_p0 == null || _vUp == null || _vTo == null || _vRight == null ||
+                _distance == 0.0 || _width == 0.0 || _height == 0.0) {
+            throw new MissingResourceException("ERROR: some of the parameters don't correct", null, null);
+        }
+        int Ny = _writer.getNy();
+        int Nx = _writer.getNx();
+        Pixel.initialize(Ny,Nx,printInterval);
+        IntStream.range(0,Ny).parallel().forEach(i->{
+            IntStream.range(0,Nx).parallel().forEach(j->{
+                if(_antialiasing){
+                    antialiasing(Ny,Nx,i,j);
+                }else{
+                castRay(Nx,Ny,i,j);
+                }
+                pixelDone();
+                printPixel();
+            });
+        });
+        _writer.writeToImage();
+        return this;
+    }
+
+    private void antialiasing(int ny, int nx, int i, int j) {
+        Color averagePixelColor=averageColor(nx, ny, j, i);
+        Ray ray = constructRayThroughPixel(nx, ny, j, i);// לא דרך הוי פליין אלה דרך הצמצם
+        Color newColor=constructRayThroughAperture(ray);// sending to check if it goes through focal plane
+        if(averagePixelColor.rgb.equals(newColor.rgb)){
+             castRay(nx, ny, i,j);
+        }else{
+            castRayForAntialiasing(ny,nx,i,j);
+        }
+    }
+
+    /**
+     * average of each pixel vertices color
+     * @param bigNx
+     * @param bigNy
+     * @param j
+     * @param i
+     * @return
+     */
+    private Color averageColor(int bigNx, int bigNy, int j, int i) {
+        int nY = 2*bigNy;
+        int nX=2*bigNx;
+        Color pixelColor=new Color(java.awt.Color.BLACK);
+        for (int iColumn = i*2; iColumn < i*2+2; iColumn++) {
+            for (int jRow = j*2; jRow < j*2+2; jRow++) {
+                Ray ray = constructRayThroughPixel(nX, nY, jRow, iColumn);// לא דרך הוי פליין אלה דרך הצמצם
+                Color newColor=constructRayThroughAperture(ray);
+                pixelColor=pixelColor.add(newColor) ;
+            }
+        }
+        return pixelColor.scale(0.25);
+    }
+
 
     /**
      * write pixel with the true color
@@ -245,12 +309,12 @@ public class Camera {
      * @param j the location of the pixel on the width of the view plane
      * @param i the location of the pixel on the height of the view plane
      */
- //    private void castRay(int nx, int ny, int i, int j)
-//    {
-//        Ray ray = constructRayThroughPixel(nx, ny, j, i);
-//        Color pixelColor = _rayTracer.traceRay(ray);
-//        _writer.writePixel(j, i, pixelColor);
-//    }
+     private void castRay(int nx, int ny, int i, int j)
+    {
+        Ray ray = constructRayThroughPixel(nx, ny, j, i);
+        Color pixelColor = constructRayThroughAperture(ray);
+        _writer.writePixel(j, i, pixelColor);
+    }
 
     /**
      * cast ray with super sampling 9*9 rays per pixel
@@ -259,19 +323,42 @@ public class Camera {
      * @param j the location of the pixel on the width of the view plane
      * @param i the location of the pixel on the height of the view plane
      */
-    private void castRay(int nx, int ny, int i, int j){
-        int bigNy = 9*ny;
-        int bigNx = 9*nx;
+    private void castRayForAntialiasing(int nx, int ny, int i, int j){
+        int bigNy = 2*ny;
+        int bigNx = 2*nx;
         Color pixelColor=new Color(java.awt.Color.BLACK);
-        for (int iColumn = i*9; iColumn < i*9+9; iColumn++) {
-            for (int jRow = j*9; jRow < j*9+9; jRow++) {
+        for (int iColumn = i*2; iColumn < i*2+2; iColumn++) {
+            for (int jRow = j*2; jRow < j*2+2; jRow++) {
                 Ray ray = constructRayThroughPixel(bigNx, bigNy, jRow, iColumn);// לא דרך הוי פליין אלה דרך הצמצם
-                Color newColor=constructRayThroughAperture(ray);// sending to check if it goes through focal plane
-                pixelColor=pixelColor.add(newColor) ;
+                Color newColor=constructRayThroughAperture(ray);
+                Color averageColor=averageColor(bigNx,bigNy,j,i);
+                if(!averageColor.rgb.equals(newColor.rgb)){
+                    pixelColor=pixelColor.add(castRayHelper(bigNx,bigNy,j,i,newColor,1));
+                }else{
+                pixelColor=pixelColor.add(newColor) ;}
             }
         }
-        pixelColor=pixelColor.reduce(81);
+        pixelColor=pixelColor.reduce(5);
         _writer.writePixel(j, i, pixelColor);
+    }
+
+    private Color castRayHelper(int bigNx, int bigNy, int j, int i, Color newColor, int counter) {
+        int Ny = 2*bigNy;
+        int Nx = 2*bigNx;
+        for (int iColumn = i*2; iColumn < i*2+2; iColumn++) {
+            for (int jRow = j*2; jRow < j*2+2; jRow++) {
+                Ray ray=constructRayThroughPixel(Nx,Ny,jRow,iColumn);
+                Color averageColor=averageColor(Nx,Ny,jRow,iColumn);
+                Color middleRayColor=_rayTracer.traceRay(ray);
+                if(!averageColor.rgb.equals(middleRayColor.rgb)&&counter<4)
+                    newColor=newColor.add(castRayHelper(bigNx,bigNy,j,i,middleRayColor,counter++));
+                else
+                    newColor =newColor.add(_rayTracer.traceRay(ray)) ;
+            }
+        }
+        newColor=newColor.reduce(5);
+        return newColor;
+
     }
 
     private Color helpFocalArea(Color pixelColor,int bigNx, int bigNy, int jRow, int iColumn) {
