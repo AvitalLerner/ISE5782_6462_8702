@@ -326,77 +326,43 @@ public class Camera {
     private void castRayForAntialiasing(int nx, int ny, int i, int j){
         int bigNy = 2*ny;
         int bigNx = 2*nx;
+        Ray middleRay = constructRayThroughPixel(nx, ny, j, i);
         Color pixelColor=new Color(java.awt.Color.BLACK);
+        java.awt.Color middleColor=constructRayThroughAperture(middleRay).getColor();
+        pixelColor =pixelColor.add(constructRayThroughAperture(middleRay)) ;
         for (int iColumn = i*2; iColumn < i*2+2; iColumn++) {
             for (int jRow = j*2; jRow < j*2+2; jRow++) {
-                Ray ray = constructRayThroughPixel(bigNx, bigNy, jRow, iColumn);// לא דרך הוי פליין אלה דרך הצמצם
-                Color newColor=constructRayThroughAperture(ray);
-                Color averageColor=averageColor(bigNx,bigNy,j,i);
-                if(!averageColor.rgb.equals(newColor.rgb)){
-                    pixelColor=pixelColor.add(castRayHelper(bigNx,bigNy,j,i,newColor,1));
-                }else{
-                pixelColor=pixelColor.add(newColor) ;}
+                Ray ray = constructRayThroughPixel(bigNx, bigNy, jRow, iColumn);
+                java.awt.Color newColor=constructRayThroughAperture(ray).getColor();
+                if(Math.abs(middleColor.getBlue()-newColor.getBlue())>10 || Math.abs(middleColor.getGreen()-newColor.getGreen())>10||Math.abs(middleColor.getRed()-newColor.getRed())>10)
+                    pixelColor =pixelColor.add(castRayHelper( nx, ny, iColumn, jRow,_rayTracer.traceRay(ray)));
+                else
+                    pixelColor =pixelColor.add(_rayTracer.traceRay(ray)) ;
             }
         }
         pixelColor=pixelColor.reduce(5);
         _writer.writePixel(j, i, pixelColor);
     }
 
-    private Color castRayHelper(int bigNx, int bigNy, int j, int i, Color newColor, int counter) {
+    private Color castRayHelper(int bigNx, int bigNy, int j, int i, Color pixelColor) {
         int Ny = 2*bigNy;
         int Nx = 2*bigNx;
+        Ray middleRay = constructRayThroughPixel(bigNx, bigNy, j, i);
+        java.awt.Color middleColor=constructRayThroughAperture(middleRay).getColor();
         for (int iColumn = i*2; iColumn < i*2+2; iColumn++) {
             for (int jRow = j*2; jRow < j*2+2; jRow++) {
-                Ray ray=constructRayThroughPixel(Nx,Ny,jRow,iColumn);
-                Color averageColor=averageColor(Nx,Ny,jRow,iColumn);
-                Color middleRayColor=_rayTracer.traceRay(ray);
-                if(!averageColor.rgb.equals(middleRayColor.rgb)&&counter<4)
-                    newColor=newColor.add(castRayHelper(bigNx,bigNy,j,i,middleRayColor,counter++));
+                Ray ray = constructRayThroughPixel(Nx, Ny, jRow, iColumn);
+                java.awt.Color newColor=constructRayThroughAperture(ray).getColor();
+                if((Math.abs(middleColor.getBlue()-newColor.getBlue())>10 || Math.abs(middleColor.getGreen()-newColor.getGreen())>10||Math.abs(middleColor.getRed()-newColor.getRed())>10))
+                    pixelColor =pixelColor.add(castRayHelper( Nx, Ny, iColumn, jRow,_rayTracer.traceRay(ray)));
                 else
-                    newColor =newColor.add(_rayTracer.traceRay(ray)) ;
+                    pixelColor =pixelColor.add(_rayTracer.traceRay(ray)) ;
             }
         }
-        newColor=newColor.reduce(5);
-        return newColor;
-
+        pixelColor=pixelColor.reduce(5);
+        return pixelColor;
     }
 
-    private Color helpFocalArea(Color pixelColor,int bigNx, int bigNy, int jRow, int iColumn) {
-        int y=2*bigNy;
-        int x =2*bigNx;
-        Color pixelColor1=new Color(java.awt.Color.BLACK);
-        for (int i = iColumn*2; i < iColumn*2+2; i++) {
-            for (int j= jRow*2; j < jRow*2+2; j++) {
-                Ray ray = constructRayThroughPixel(x, y, j, i);// לא דרך הוי פליין אלה דרך הצמצם
-                pixelColor1 =pixelColor1.add(_rayTracer.traceRay(ray)) ;
-            }
-        }
-        pixelColor1=pixelColor1.reduce(4);
-        return pixelColor1;
-    }
-
-    private Ray constructRayThroughPixelFocus(int nX, int nY, int j, int i) {
-        double Rx = _width / nX;
-        double Ry = _height / nY;
-        Point p=new Point(_aperture._focalPlane.getX(),_aperture._focalPlane.getY(),_p0.getZ()-_distance);
-        Vector vTo=p.subtract(_aperture._focalPlane).normalize();
-        Point Pc = _aperture._focalPlane.add(vTo.scale(_distance-_aperture._distanceFromCamera));
-        Point pIJ = Pc;
-
-        double xJ = (j - (nX - 1) / 2d) * Rx;
-        double yI = -(i - (nY - 1) / 2d) * Ry;
-
-        if (isZero(xJ) && isZero(yI)) {
-            return new Ray(_aperture._focalPlane, pIJ.subtract(_aperture._focalPlane));
-        } else {
-            if (!isZero(xJ))
-                pIJ = pIJ.add(_vRight.scale(xJ));
-            if (!isZero(yI))
-                pIJ = pIJ.add(_vUp.scale(yI));
-
-        }
-        return new Ray(_aperture._focalPlane, pIJ.subtract(_aperture._focalPlane));
-    }
 
     /**
      * function that print grid of line in the scene
