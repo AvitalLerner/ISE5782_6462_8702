@@ -71,21 +71,41 @@ public class Scene {
 
         //chaining methods
 
+        /**
+         * sets background color
+         * @param background
+         * @return
+         */
         public SceneBuilder setBackground(Color background) {
             this.background = background;
             return this;
         }
 
+        /**
+         * sets ambient color
+         * @param ambientLight
+         * @return
+         */
         public SceneBuilder setAmbientLight(AmbientLight ambientLight) {
             this.ambientLight = ambientLight;
             return this;
         }
 
+        /**
+         * sets all geometries in the scene
+         * @param geometries
+         * @return
+         */
         public SceneBuilder setGeometries(Geometries geometries) {
             this.geometries = geometries;
             return this;
         }
 
+        /**
+         * sets all lights in the scene
+         * @param lights
+         * @return
+         */
         public SceneBuilder setLights(List<LightSource> lights) {
             this.lights = lights;
             return this;

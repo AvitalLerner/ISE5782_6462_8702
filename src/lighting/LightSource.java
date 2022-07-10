@@ -31,6 +31,13 @@ public interface LightSource {
      * @return the distance
      */
     public double getDistance(Point p);
+
+    /**
+     * creates a circled beam of light rays
+     * @param p
+     * @param numRays
+     * @return
+     */
     public List<Vector> circleBeam(Point p,int numRays);
     
     public String getType();

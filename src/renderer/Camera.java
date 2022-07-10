@@ -53,6 +53,9 @@ public class Camera {
 
     private ImageWriter _writer;
     private RayTracer _rayTracer;
+    /**
+     * the aperture that will determine the depth of the field
+     */
     private Aperture _aperture;
 
     /**
@@ -69,10 +72,16 @@ public class Camera {
         _vUp = vUp.normalize();
         _vTo = vTo.normalize();
         _vRight = _vTo.crossProduct(_vUp);
-        Point focalPlane=null;
-        setAperture(focalPlane);// ברירת מחדל של נקודה
+        setAperture(null);// default for aperture
     }
 
+    /**
+     * camara constructor that includes focal point determined by user
+     * @param p0
+     * @param vTo
+     * @param vUp
+     * @param focalPoint
+     */
     public Camera(Point p0, Vector vTo, Vector vUp,Point focalPoint) {
         _p0 = p0;
         if (!isZero(vUp.dotProduct(vTo))) {
@@ -81,17 +90,20 @@ public class Camera {
         _vUp = vUp.normalize();
         _vTo = vTo.normalize();
         _vRight = _vTo.crossProduct(_vUp);
-        //setAperture(focalPoint);
+        setAperture(focalPoint);
     }
 
+    /**
+     * sets the aperture
+     * @param focal
+     * @return
+     */
     public Camera setAperture(Point focal) {
-        double width=_width/2;
-        double height=_height/2;
         double distance=_distance/2;
         if (focal==null){
             focal=new Point(_p0.getX(),_p0.getY(), _p0.getZ()-((_distance)/3)*2);
         }
-       this._aperture=new Aperture(distance,width,height,focal);
+       this._aperture=new Aperture(distance,focal);
        return this;
     }
 
@@ -164,27 +176,23 @@ public class Camera {
         _height = height;
         return this;
     }
+
+    // constructs all rays through with calculation of depth
     public Color constructRayThroughAperture(Ray ray){
         Point focalPlaneMid=_aperture._focalPlane;
         Color pixelColor=_rayTracer.traceRay(ray);
         Plane viewPlane=new Plane(new Point(_p0.getX(),_p0.getY(),_p0.getZ()-_distance),_vTo);
         Intersectable.GeoPoint focalPoint=viewPlane.findGeoIntersection(ray).get(0);
-        Ray newRay=new Ray(new Point(0,0,0),new Vector(1,0,0));
+    // creates an imaginary focal plane so that we can calculate the depth
         Polygon focalPlane=new Polygon(new Point(focalPlaneMid.getX()-(_width/10),focalPlaneMid.getY()+(_height/10),_p0.getZ()-_aperture._distanceFromCamera),
-                new Point(focalPlaneMid.getX()+(_width/10),focalPlaneMid.getY()+(_height/10), _p0.getZ()-_aperture._distanceFromCamera),/// לא נכון הZ
+                new Point(focalPlaneMid.getX()+(_width/10),focalPlaneMid.getY()+(_height/10), _p0.getZ()-_aperture._distanceFromCamera),
                 new Point(focalPlaneMid.getX()+(_width/10),focalPlaneMid.getY()-(_height/10),_p0.getZ()-_aperture._distanceFromCamera),
                 new Point(focalPlaneMid.getX()-(_width/10),focalPlaneMid.getY()-(_height/10),_p0.getZ()-_aperture._distanceFromCamera));
-        List<Intersectable.GeoPoint> intersection= focalPlane.findGeoIntersection(ray);
-//        if (intersection==null){
-//            return pixelColor;
-//        }
-        for(Point point:focalPlane._vertices){
+        for(Point point:focalPlane._vertices){ // a loop to calculate the point's color using the depth method
             Vector v=focalPoint.point.subtract(point);
             ray=new Ray(focalPoint.point,v);
             pixelColor.add(_rayTracer.traceRay(ray));
         }
-        //לבדוק האם הקרניים עוברות דרך הריבוע שניצור של הפוקל פליין אם לא עובר אז להחזיר רגיל ואם כן לעשות את השינויים הנצרכים
-        // הפוקל פוינט נמצאת על הפליין
         return pixelColor;
     }
     /**
@@ -223,7 +231,7 @@ public class Camera {
 
 
     /**
-     * A function that colors the image
+     * A function that colors the image without multithreading
      * @return this
      */
     public Camera renderImage1() {
@@ -243,7 +251,11 @@ public class Camera {
         _writer.writeToImage();
         return this;
     }
-    // for multithreading
+
+    /**
+     * renders the image using multithreading
+     * @return
+     */
     public Camera renderImage() {
         if (_p0 == null || _vUp == null || _vTo == null || _vRight == null ||
                 _distance == 0.0 || _width == 0.0 || _height == 0.0) {
@@ -254,7 +266,7 @@ public class Camera {
         Pixel.initialize(Ny,Nx,printInterval);
         IntStream.range(0,Ny).parallel().forEach(i->{
             IntStream.range(0,Nx).parallel().forEach(j->{
-                if(_antialiasing){
+                if(_antialiasing){ //when we want to use the super sampling method
                     antialiasing(Ny,Nx,i,j);
                 }else{
                 castRay(Nx,Ny,i,j);
@@ -267,11 +279,18 @@ public class Camera {
         return this;
     }
 
+    /**
+     * first check on the pixel to see if the method is needed
+     * @param ny
+     * @param nx
+     * @param i
+     * @param j
+     */
     private void antialiasing(int ny, int nx, int i, int j) {
         Color averagePixelColor=averageColor(nx, ny, j, i);
-        Ray ray = constructRayThroughPixel(nx, ny, j, i);// לא דרך הוי פליין אלה דרך הצמצם
-        Color newColor=constructRayThroughAperture(ray);// sending to check if it goes through focal plane
-        if(averagePixelColor.rgb.equals(newColor.rgb)){
+        Ray ray = constructRayThroughPixel(nx, ny, j, i);
+        Color newColor=constructRayThroughAperture(ray);
+        if(averagePixelColor.rgb.equals(newColor.rgb)){ // if the middle is equal to the average of the vertices
              castRay(nx, ny, i,j);
         }else{
             castRayForAntialiasing(ny,nx,i,j);
@@ -317,7 +336,7 @@ public class Camera {
     }
 
     /**
-     * cast ray with super sampling 9*9 rays per pixel
+     * cast ray with super sampling 2*2 rays per pixel
      * @param nx num of pixels of the width of the view plane
      * @param ny num of pixels of the height of the view plane
      * @param j the location of the pixel on the width of the view plane
@@ -344,6 +363,15 @@ public class Camera {
         _writer.writePixel(j, i, pixelColor);
     }
 
+    /**
+     * a recursive function that helps with the antialiasing
+     * @param bigNx
+     * @param bigNy
+     * @param j
+     * @param i
+     * @param pixelColor
+     * @return
+     */
     private Color castRayHelper(int bigNx, int bigNy, int j, int i, Color pixelColor) {
         int Ny = 2*bigNy;
         int Nx = 2*bigNx;
@@ -388,22 +416,22 @@ public class Camera {
     }
 
     private class Aperture{
-        private double _distanceFromCamera=_distance/2;
         /**
-         * the width of the Aperture
+         * distance of the focal plane from the camera
          */
-        private double _width;
+        private double _distanceFromCamera;
         /**
-         * the height of the Aperture
+         * middle point of the focal plane
          */
-        private double _height;
-
         private Point _focalPlane;
 
-        public Aperture(double distance,double width,double height,Point focalPlane){
+        /**
+         * constructor of the aperture
+         * @param distance
+         * @param focalPlane
+         */
+        public Aperture(double distance,Point focalPlane){
             this._distanceFromCamera=distance;
-            this._height=height;
-            this._width=width;
             this._focalPlane =focalPlane;// ברירת מחדל לפוקל פוינט
 
         }

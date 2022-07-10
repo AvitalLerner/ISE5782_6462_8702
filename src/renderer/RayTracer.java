@@ -23,7 +23,7 @@ public abstract class RayTracer {
     }
 
     /**
-     * function that calculate the color where the ray
+     * function that calculate the color where the ray hits
      * @param ray
      * @return color of pixel
      */
