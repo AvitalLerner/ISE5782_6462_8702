@@ -38,8 +38,8 @@ public class Cylinder extends Tube {
     {
         super(ray,radius);
         this._height =h;
-        _base1=new Circle(ray.getP0(),ray.getDir(),ray.getP0(),radius);
-        _base2=new Circle(ray.getP0(),ray.getDir(),ray.getPoint(_height),radius);
+        _base1=new Circle(ray.getP0(),ray.getDir(),radius);
+        _base2=new Circle(ray.getPoint(_height),ray.getDir(),radius);
     }
 
     /**
@@ -78,16 +78,14 @@ public class Cylinder extends Tube {
             intersection1=intersections.get(0);
             if(intersections.size()>1)
                 intersection2 = intersections.get(1);
-            double temp3=bace1Center.distanceSquared(intersection1.point);
-            double temp4 = bace2Center.distanceSquared(intersection1.point);
-            if((Pythagoras<temp3)
-                    ||Pythagoras<temp4)
+            double temp1=bace1Center.distanceSquared(intersection1.point);
+            double temp2 = bace2Center.distanceSquared(intersection1.point);
+            if((Pythagoras<temp1)
+                    ||Pythagoras<temp2)
                 intersections.remove(intersection1);
 
-            double temp1=bace1Center.distanceSquared(intersection2.point);
-            double temp2 = bace2Center.distanceSquared(intersection2.point);
-            if (intersection2!=null && ((Pythagoras < temp1)
-                    || Pythagoras < temp2) )
+            if (intersection2!=null && ((Pythagoras < bace1Center.distanceSquared(intersection2.point))
+                    || Pythagoras < bace2Center.distanceSquared(intersection2.point)) )
                 intersections.remove(intersection2);
 
             if(intersections!=null&&intersections.size()==2)
