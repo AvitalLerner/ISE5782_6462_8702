@@ -72,47 +72,45 @@ public class Cylinder extends Tube {
 
         GeoPoint intersection1=null;
         GeoPoint intersection2=null;
-        GeoPoint intersection3=null;
-        GeoPoint intersection4=null;
 
         //Check if the intersection points is too far from the bases
-        if(intersections.size()>0){
+        if(intersections!=null){
             intersection1=intersections.get(0);
             if((Pythagoras<Math.sqrt(bace1Center.distance(intersection1.point)))
                     ||Pythagoras<Math.sqrt(bace2Center.distance(intersection1.point)))
-                intersection1=null;
+                intersections.remove(intersection1);
 
+            if( intersections.size()>1) {
+                intersection2 = intersections.get(1);
+                if ((Pythagoras < Math.sqrt(bace1Center.distance(intersection2.point)))
+                        || Pythagoras < Math.sqrt(bace2Center.distance(intersection2.point)))
+                    intersections.remove(intersection2);
+            }
+            if(intersections!=null&&intersections.size()==2)
+                return intersections;
         }
-        if(intersections.size()>1) {
-            intersection2 = intersections.get(1);
-            if ((Pythagoras < Math.sqrt(bace1Center.distance(intersection2.point)))
-                    || Pythagoras < Math.sqrt(bace2Center.distance(intersection2.point)))
-                intersection2=null;
+
+        //calculate the intersection with bases
+        List<GeoPoint> intersectionBase1 = _base1.findGeoIntersectionsHelper(r, distance);
+        List<GeoPoint> intersectionBase2 = _base2.findGeoIntersectionsHelper(r, distance);
+
+        if (intersectionBase1 != null && intersectionBase2 != null)
+            return List.of(intersectionBase1.get(0),intersectionBase2.get(0));
+
+        if (intersectionBase1 != null) {
+            if (intersections == null)
+                intersections = List.of(intersectionBase1.get(0));
+            else
+                intersections.add(intersectionBase1.get(0));
         }
 
-        //calculate the intersection with base1
-        List<GeoPoint> intersectionBase1=_base1.findGeoIntersectionsHelper(r, distance);
-        if(intersectionBase1.size()==1)
-            intersection3=intersectionBase1.get(0);
-
-        //calculate the intersection with base2
-        List<GeoPoint> intersectionBase2=_base2.findGeoIntersectionsHelper(r, distance);
-        if(intersectionBase2.size()==1)
-            intersection4=intersectionBase2.get(0);
-
-
-        // add all the intersections to result
-        List<GeoPoint> result =null;
-        if(intersection1!=null)
-            result.add(intersection1);
-        if(intersection2!=null)
-            result.add(intersection2);
-        if(intersection3!=null)
-            result.add(intersection3);
-        if(intersection4!=null)
-            result.add(intersection4);
-
-        return result;
+        if (intersectionBase2 != null) {
+            if (intersections == null)
+                intersections = List.of(intersectionBase2.get(0));
+            else
+                intersections.add(intersectionBase2.get(0));
+        }
+        return intersections;
     }
 
 

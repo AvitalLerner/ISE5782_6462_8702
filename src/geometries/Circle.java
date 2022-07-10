@@ -49,7 +49,7 @@ public class Circle extends Plane{
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray r, double distance) {
         List<GeoPoint> intersection= super.findGeoIntersectionsHelper(r, distance);
         //check if there is intersection with the plane of the circle
-        if(isZero(intersection.size()))
+        if(intersection==null)
             return null;
 
         // check if the intersection is in the circle

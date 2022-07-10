@@ -30,11 +30,7 @@ public class RayTracerBasic extends RayTracer {
         super(scene);
     }
 
-    /**
-     * traces the ray
-     * @param ray
-     * @return color of the pixel intersected by the ray
-     */
+
     @Override
     public Color traceRay(Ray ray) {
         Color result = scene._background;
@@ -61,11 +57,11 @@ public class RayTracerBasic extends RayTracer {
 
     /**
      * calculate the color in point with using recursive function
-     * @param intersection
-     * @param ray
-     * @param level for recursion
-     * @param k
-     * @return
+     * @param intersection the point to calculation the color
+     * @param ray from the camera
+     * @param level  Maximum recursion depth.
+     * @param k Scalar coefficient.
+     * @return the color in the point
      */
     private Color calcColor(GeoPoint intersection, Ray ray, int level, Double3 k) {
         Color color = intersection.geometry.getEmission()
@@ -75,10 +71,10 @@ public class RayTracerBasic extends RayTracer {
 
     /**
      * calculates the secondary rays that occur from reflection and refraction
-     * @param ray
-     * @param level
-     * @param k
-     * @return
+     * @param ray from the camera
+     * @param level  Maximum recursion depth.
+     * @param k  Scalar coefficient.
+     * @return the color of the second ray
      */
     private Color calcSecondaryRayColor(Ray ray, int level, Double3 k) {
         GeoPoint geoPoint = findClosestIntersection(ray);
@@ -125,7 +121,8 @@ public class RayTracerBasic extends RayTracer {
         if (intersections.isEmpty())
             return true;
 
-        return false;
+        else
+            return false;
     }
 
 
@@ -134,7 +131,7 @@ public class RayTracerBasic extends RayTracer {
      *like diffusive and specular
      * @param gp   GeoPoint
      * @param ray- ray from the camera
-     * @return
+     * @return the color on the point
      */
     private Color calcLocalEffects(GeoPoint gp, Ray ray, Double3 k) {
         Color color = Color.BLACK;
@@ -197,14 +194,14 @@ public class RayTracerBasic extends RayTracer {
     }
 
     /**
-     * calculate specular
+     *  calc the specular light effect on the specific point
      *
-     * @param material
-     * @param n
-     * @param l
-     * @param nl
-     * @param v
-     * @return
+     * @param material the material of the point
+     * @param n vector normal
+     * @param l vector normal
+     * @param nl dot-product n*l
+     * @param v  vector from point of view to point
+     * @return level of the scapular factor
      */
     private Double3 calcSpecular(Material material, Vector n, Vector l, double nl, Vector v) {
         // nl is the dot product among the vector from the specular light to the point and the normal vector of the point
@@ -233,10 +230,10 @@ public class RayTracerBasic extends RayTracer {
 
     /**
      * when needed calculates the rays that reflect from surface
-     * @param pointGeo
-     * @param ray
-     * @param n
-     * @return
+     * @param pointGeo GeoPoint to calculate the ray
+     * @param ray direction
+     * @param n vector normal
+     * @return reflected ray.
      */
     private Ray constructReflectedRay(Point pointGeo, Ray ray, Vector n) {
         Vector v = ray.getDir();
@@ -252,9 +249,11 @@ public class RayTracerBasic extends RayTracer {
 
     /**
      * a function that calculates the global effects on the geo point
-     * @param intersection
-     * @param ray
-     * @return
+     * @param intersection GeoPoint to calculate the color
+     * @param ray The ray of the point
+     * @param level  Maximum recursion depth.
+     * @param k  Scalar coefficient.
+     * @return the color on GeoPoint intersection
      */
     private Color calcGlobalEffects(GeoPoint intersection, Ray ray, int level, Double3 k) {
         Color color = Color.BLACK;
@@ -281,10 +280,10 @@ public class RayTracerBasic extends RayTracer {
 
     /**
      * returns the ray that refracts from mirrored material
-     * @param point
-     * @param ray
-     * @param v
-     * @return
+     * @param point The point to calculate the effect.
+     * @param ray ray normal
+     * @param v vector normal
+     * @return refracted ray
      */
     private Ray constructRefractedRay(Point point, Ray ray, Vector v) {
         return new Ray(point, ray.getDir(), v);
@@ -307,10 +306,10 @@ public class RayTracerBasic extends RayTracer {
 
     /**
      * change of soft shadow
-     * @param geoPoint
+     * @param geoPoint The point to calculate the transparencyBeam.
      * @param lightSource the light of the scene
-     * @param n
-     * @return
+     * @param n vector normal
+     * @return the level of the transparency
      */
     private Double3 transparencyBeam( GeoPoint geoPoint , LightSource lightSource, Vector n) {
         Double3 ktr;
