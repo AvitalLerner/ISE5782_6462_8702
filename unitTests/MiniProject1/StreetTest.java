@@ -55,7 +55,17 @@ public class StreetTest {
                                 .setKd(0.25)
                                 .setKs(0.25)
                                 .setShininess(20)),
+                // water puddle
 
+                new Circle(new Point(-40,-65,201),new Vector(0,-5,2),7).setEmission(new Color(30,30,30))
+                        .setMaterial(new Material()
+                                .setKr(0.9)),
+                new Circle(new Point(-35,-65,201),new Vector(0,-5,2),10).setEmission(new Color(30,30,30))
+                        .setMaterial(new Material()
+                                .setKr(0.9)),
+                new Circle(new Point(-20,-65,201),new Vector(0,-5,2),15).setEmission(new Color(30,30,30))
+                        .setMaterial(new Material()
+                                .setKr(0.9)),
 
                 //house
 
@@ -72,7 +82,13 @@ public class StreetTest {
                                 .setKd(0.25)
                                 .setKs(0.25)
                                 .setShininess(20)),
-                // door
+                // door closed
+
+                new Polygon(new Point(20,-80,-99)
+                        ,new Point(20,-10,-99)
+                        ,new Point(-20,-10,-99)
+                        ,new Point(-20,-80,-99)).setEmission(new Color(150, 75, 0)),
+
 
 
 //               // window
@@ -160,8 +176,8 @@ public class StreetTest {
 
         );
 
-//               scene.lights.add(new PointLight(new Color(yellow),new Point(-60,1,120)).setKl(4E-5).setKq(2E-7));
-//                scene.lights.add(new SpotLight(new Color(800, 500, 250),new Point(35,25,105),new Vector(0,-1,0)).setKl(0.001).setKl(0.0001));
+               scene.lights.add(new PointLight(new Color(yellow),new Point(-60,1,120)).setKl(4E-5).setKq(2E-7));
+                scene.lights.add(new SpotLight(new Color(800, 500, 250),new Point(35,25,105),new Vector(0,-1,0)).setKl(0.001).setKl(0.0001));
                scene.lights.add(new PointLight(new Color(yellow),new Point(-120,110,-200)).setKl(4E-5).setKq(2E-7));
 
                 ImageWriter imageWriter = new ImageWriter("MiniProject1", 800, 800);
