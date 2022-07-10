@@ -34,19 +34,25 @@ public class StreetTest {
                         new Point(-100,-80,200),new Point(100,-80,200)),
 
                 //house
-                new Polygon(new Point(90,-80,100),new Point(-90,-80,100)
-                        ,new Point(-90,80,100),new Point(90,80,100))
+//                new Polygon(new Point(-90,-80,100)
+//                        ,new Point(-90,80,100)
+//                        ,new Point(90,80,100)
+//                        ,new Point(90,-80,100)
+//                        ,new Point(20,-80,100)
+//                        ,new Point(20,-10,100)
+//                        ,new Point(-20,-10,100)
+//                        ,new Point(-20,-80,100))
 
 
-                        .setEmission(new Color(ORANGE)),
+//                        .setEmission(new Color(ORANGE)),
 
                 //window
                 // new Polygon(new Point(50,0,100),new Point(50,10,100),
                 //       new Point(40,10,100),new Point(40,0,100)),
 
 //                //amood
-                new Cylinder(80,new Ray(new Point(-60,-80,100),new Vector(0,1,0)),1d)
-                       .setEmission(new Color(BLUE)),
+       //         new Cylinder(80,new Ray(new Point(-60,-80,100),new Vector(0,1,0)),1d)
+         //              .setEmission(new Color(BLUE)),
 //                //menora
                 new Sphere(new Point(-60,1,120),3d).setEmission(new Color(WHITE)),
                 new Circle(new Point(60,0,110),new Vector(0,0,-1),3).setEmission(new Color(blue))
