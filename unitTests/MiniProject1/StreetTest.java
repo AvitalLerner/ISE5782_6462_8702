@@ -42,7 +42,7 @@ public class StreetTest {
 //                                        .setKd(0.25)
 //                                        .setKs(0.25)
 //                                        .setShininess(20)),
-                //midracha
+                //sidewalk
                 new Polygon(new Point(100,-80,-100),new Point(-100,-80,-100),
                         new Point(-100,-80,200),new Point(100,-80,200))
                         .setEmission(new Color(84,1,16)).setMaterial(new Material()
@@ -394,7 +394,7 @@ public class StreetTest {
 //                                        .setKd(0.25)
 //                                        .setKs(0.25)
 //                                        .setShininess(20)),
-                //midracha
+                //sidewalk
                 new Polygon(new Point(100,-80,-100),new Point(-100,-80,-100),
                         new Point(-100,-80,200),new Point(100,-80,200))
                         .setEmission(new Color(84,1,16)).setMaterial(new Material()
@@ -742,7 +742,7 @@ public class StreetTest {
 //                                        .setKd(0.25)
 //                                        .setKs(0.25)
 //                                        .setShininess(20)),
-                //midracha
+                //sidewalk
                 new Polygon(new Point(100,-80,-100),new Point(-100,-80,-100),
                         new Point(-100,-80,200),new Point(100,-80,200))
                         .setEmission(new Color(84,1,16)).setMaterial(new Material()
