@@ -70,22 +70,26 @@ public class Cylinder extends Tube {
 
         double Pythagoras= (Math.pow(_radius,2)+Math.pow(_height,2));
 
-        GeoPoint intersection1=null;
+        GeoPoint intersection1;
         GeoPoint intersection2=null;
 
         //Check if the intersection points is too far from the bases
         if(intersections!=null){
             intersection1=intersections.get(0);
-            if((Pythagoras<Math.sqrt(bace1Center.distance(intersection1.point)))
-                    ||Pythagoras<Math.sqrt(bace2Center.distance(intersection1.point)))
+            if(intersections.size()>1)
+                intersection2 = intersections.get(1);
+            double temp3=bace1Center.distanceSquared(intersection1.point);
+            double temp4 = bace2Center.distanceSquared(intersection1.point);
+            if((Pythagoras<temp3)
+                    ||Pythagoras<temp4)
                 intersections.remove(intersection1);
 
-            if( intersections.size()>1) {
-                intersection2 = intersections.get(1);
-                if ((Pythagoras < Math.sqrt(bace1Center.distance(intersection2.point)))
-                        || Pythagoras < Math.sqrt(bace2Center.distance(intersection2.point)))
-                    intersections.remove(intersection2);
-            }
+            double temp1=bace1Center.distanceSquared(intersection2.point);
+            double temp2 = bace2Center.distanceSquared(intersection2.point);
+            if (intersection2!=null && ((Pythagoras < temp1)
+                    || Pythagoras < temp2) )
+                intersections.remove(intersection2);
+
             if(intersections!=null&&intersections.size()==2)
                 return intersections;
         }

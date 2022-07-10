@@ -22,8 +22,8 @@ public class Circle extends Plane{
      */
     private final double _radius;
 
-    public Circle(Point p1, Vector normal, Point center, double radius) {
-        super(p1, normal);
+    public Circle(Point center, Vector normal, double radius) {
+        super(center, normal);
         _center =center;
         _radius=radius;
     }
