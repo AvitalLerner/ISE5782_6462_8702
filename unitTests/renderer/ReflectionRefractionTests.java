@@ -204,8 +204,7 @@ public class ReflectionRefractionTests {
 
     Camera camera = new Camera(new Point(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0))
             .setVPSize(200, 200)
-            .setVPDistance(900)
-            .setAperture(null);
+            .setVPDistance(900);
 
 
         scene.geometries.add(

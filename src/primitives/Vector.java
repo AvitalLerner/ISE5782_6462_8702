@@ -30,7 +30,11 @@ public class Vector extends Point {
         }
     }
 
-
+    /**
+     * checks if two vectors are equals
+     * @param o object to check if is equal to this
+     * @return
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

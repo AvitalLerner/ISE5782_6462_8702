@@ -21,17 +21,28 @@ public class SpotLight extends PointLight {
      * @param position the place of the light
      * @param direction the direction of the light
      */
-    public SpotLight(Color intensity, Point position, Vector direction,double angle) {
-        super(intensity, position);
-        this._direction = direction.normalize();
-        this._angle=angle;
-    }
     public SpotLight(Color intensity, Point position, Vector direction) {
         super(intensity, position);
         this._direction = direction.normalize();
         this._angle=60;
     }
+    /**
+     * constructor of spotLight with the choice of angle for radius of spotlight
+     * @param intensity the color of the light
+     * @param position the place of the light
+     * @param direction the direction of the light
+     */
+    public SpotLight(Color intensity, Point position, Vector direction,double angle) {
+        super(intensity, position);
+        this._direction = direction.normalize();
+        this._angle=angle;
+    }
 
+    /**
+     * gets the intensity of the light
+     * @param p
+     * @return
+     */
     @Override
     public Color getIntensity(Point p) {
         Color pointLight = super.getIntensity(p);
@@ -39,6 +50,10 @@ public class SpotLight extends PointLight {
         return  pointLight.scale(dirL);
     }
 
+    /**
+     * returns wat type of light it is
+     * @return
+     */
     @Override
     public String getType() {
         return "SpotLight";

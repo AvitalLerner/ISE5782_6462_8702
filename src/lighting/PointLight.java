@@ -68,62 +68,6 @@ public class PointLight extends Light implements LightSource {
         return p.distance(_position);
     }
 
-//    @Override
-//    public List<Vector> circleBeam(Point p, double radius, int numRays) {
-//        double x,y,cos,sin;
-//        Random rand=new Random();
-//        Point randPoint;
-//        Vector v=getL(p);
-//        List<Vector> beam=new LinkedList<>();
-//        if(_position.equals(p)){
-//            return null;
-//        }
-//        beam.add(p.subtract(_position).normalize());
-//        if(numRays<=1) {
-//            return beam;
-//        }
-//        Vector normalX;
-//
-//        // if v = (0,0,z) then the normal of x is (-z,0,0)
-//        // else the normal of x is (-y,x,0)
-//        if (v.getX()== 0 && v.getY() == 0) {
-//            normalX = new Vector(v.getZ() * -1, 0, 0).normalize();
-//        }
-//        else {
-//            normalX = new Vector(v.getY() * -1, v.getX(), 0).normalize();
-//        }
-//
-//        // the normal for y will be the cross product between v and the normal of x
-//        Vector normalY = v.crossProduct(normalX).normalize();
-//
-//        for(int i=0;i<numRays;i++){
-//            randPoint=_position;
-//            cos=2*rand.nextDouble()-1;
-//            sin=Math.sqrt(1d-cos*cos);
-//            double circleRange=radius*(2*rand.nextDouble()-1);
-//            //if point is original point light intersection then skip
-//            if (circleRange==0){
-//                i--;
-//                continue;
-//            }
-//            x=circleRange*cos;
-//            y=circleRange*sin;
-//
-//
-//            if (x != 0) {
-//                randPoint = randPoint.add(normalX.scale(x));
-//            }
-//
-//            if (y != 0) {
-//                randPoint = randPoint.add(normalY.scale(y));
-//            }
-//
-//            beam.add(p.subtract(randPoint).normalize());
-//
-//        }
-//        return beam;
-//    }
-
     @Override
     public List<Vector> circleBeam(Point p, int numRays) {
     Random r = new Random();
