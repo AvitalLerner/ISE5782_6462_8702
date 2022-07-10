@@ -38,8 +38,8 @@ public class Cylinder extends Tube {
     {
         super(ray,radius);
         this._height =h;
-        _base1=new Circle(ray.getP0(),ray.getDir(),ray.getP0(),radius);
-        _base2=new Circle(ray.getP0(),ray.getDir(),ray.getPoint(_height),radius);
+        _base1=new Circle(ray.getP0(),ray.getDir(),radius);
+        _base2=new Circle(ray.getP0(),ray.getDir(),radius);
     }
 
     /**
