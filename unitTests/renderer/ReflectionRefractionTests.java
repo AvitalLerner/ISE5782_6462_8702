@@ -160,7 +160,7 @@ public class ReflectionRefractionTests {
                                 .setKd(0.25)
                                 .setKs(0.25)
                                 .setShininess(20)),
-                new Sphere(new Point(-45, 105, -40), 3d)//The left eyes of the snowman
+                new Sphere(new Point(-45, 105, -45), 3d)//The left eyes of the snowman
                         .setEmission(new Color(BLACK))
                         .setMaterial(new Material()
                                 .setKd(0.25)
