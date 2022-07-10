@@ -181,7 +181,11 @@ public class Camera {
     public Color constructRayThroughAperture(Ray ray){
         Point focalPlaneMid=_aperture._focalPlane;
         Color pixelColor=_rayTracer.traceRay(ray);
-        Plane viewPlane=new Plane(new Point(_p0.getX(),_p0.getY(),_p0.getZ()-_distance),_vTo);
+        double dis=_distance;
+        if(_vTo.getZ()<0){
+            dis=-dis;
+        }
+        Plane viewPlane=new Plane(new Point(_p0.getX(),_p0.getY(),_p0.getZ()+dis),_vTo);
         Intersectable.GeoPoint focalPoint=viewPlane.findGeoIntersection(ray).get(0);
     // creates an imaginary focal plane so that we can calculate the depth
         Polygon focalPlane=new Polygon(new Point(focalPlaneMid.getX()-(_width/10),focalPlaneMid.getY()+(_height/10),_p0.getZ()-_aperture._distanceFromCamera),
