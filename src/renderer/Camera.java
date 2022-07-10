@@ -49,7 +49,7 @@ public class Camera {
     /**
      * determines if the image uses antialiasing
      */
-    private boolean _antialiasing=true;
+    private boolean _antialiasing=false;
 
     private ImageWriter _writer;
     private RayTracer _rayTracer;
@@ -181,17 +181,19 @@ public class Camera {
     public Color constructRayThroughAperture(Ray ray){
         Point focalPlaneMid=_aperture._focalPlane;
         Color pixelColor=_rayTracer.traceRay(ray);
-        double dis=_distance;
+        double disToViewPlane=_distance;
+        double disFromCameraToFocal=_aperture._distanceFromCamera;
         if(_vTo.getZ()<0){
-            dis=-dis;
+            disToViewPlane=-disToViewPlane;
+            disFromCameraToFocal=-disFromCameraToFocal;
         }
-        Plane viewPlane=new Plane(new Point(_p0.getX(),_p0.getY(),_p0.getZ()+dis),_vTo);
+        Plane viewPlane=new Plane(new Point(_p0.getX(),_p0.getY(),_p0.getZ()+disToViewPlane),_vTo);
         Intersectable.GeoPoint focalPoint=viewPlane.findGeoIntersection(ray).get(0);
     // creates an imaginary focal plane so that we can calculate the depth
-        Polygon focalPlane=new Polygon(new Point(focalPlaneMid.getX()-(_width/10),focalPlaneMid.getY()+(_height/10),_p0.getZ()-_aperture._distanceFromCamera),
-                new Point(focalPlaneMid.getX()+(_width/10),focalPlaneMid.getY()+(_height/10), _p0.getZ()-_aperture._distanceFromCamera),
-                new Point(focalPlaneMid.getX()+(_width/10),focalPlaneMid.getY()-(_height/10),_p0.getZ()-_aperture._distanceFromCamera),
-                new Point(focalPlaneMid.getX()-(_width/10),focalPlaneMid.getY()-(_height/10),_p0.getZ()-_aperture._distanceFromCamera));
+        Polygon focalPlane=new Polygon(new Point(focalPlaneMid.getX()-(_width/10),focalPlaneMid.getY()+(_height/10),_p0.getZ()+disFromCameraToFocal),
+                new Point(focalPlaneMid.getX()+(_width/10),focalPlaneMid.getY()+(_height/10), _p0.getZ()+disFromCameraToFocal),
+                new Point(focalPlaneMid.getX()+(_width/10),focalPlaneMid.getY()-(_height/10),_p0.getZ()+disFromCameraToFocal),
+                new Point(focalPlaneMid.getX()-(_width/10),focalPlaneMid.getY()-(_height/10),_p0.getZ()+disFromCameraToFocal));
         for(Point point:focalPlane._vertices){ // a loop to calculate the point's color using the depth method
             Vector v=focalPoint.point.subtract(point);
             ray=new Ray(focalPoint.point,v);
