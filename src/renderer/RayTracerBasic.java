@@ -76,9 +76,9 @@ public class RayTracerBasic extends RayTracer {
      *
      * @param light    the lightSource
      * @param l        vector of light Direction
-     * @param n        vector of
+     * @param n        vector of normal to GeoPoint
      * @param geopoint point to check if it's shading
-     * @return
+     * @return if the geometry shaded or not
      */
     private boolean unshaded(LightSource light, Vector l, Vector n, GeoPoint geopoint) {
         Vector lightDirection = l.scale(-1); // from point to light source
@@ -150,7 +150,7 @@ public class RayTracerBasic extends RayTracer {
      * @param ls the light in the scene
      * @param l vector from the light
      * @param n normal to geoPoint
-     * @return
+     * @return the level of the shadow on the geometry
      */
     private Double3 transparency(GeoPoint geoPoint, LightSource ls, Vector l, Vector n) {
         Vector lightDirection = l.scale(-1); // from point to light source
