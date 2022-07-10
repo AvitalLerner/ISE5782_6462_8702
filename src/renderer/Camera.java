@@ -15,7 +15,12 @@ import java.util.stream.IntStream;
 import static primitives.Util.isZero;
 import static renderer.Pixel.*;
 
-
+/**
+ * class to describe camera.
+ * the camera have place p0, 3 vectors to engle, distance from the view plane,
+ * width and height of the view plane.
+ * Improving depth field and antialiasing
+ */
 public class Camera {
 
     /**
@@ -77,10 +82,10 @@ public class Camera {
 
     /**
      * camara constructor that includes focal point determined by user
-     * @param p0
-     * @param vTo
-     * @param vUp
-     * @param focalPoint
+     * @param p0 the point of the camera
+     * @param vTo vector to the view plane
+     * @param vUp vector up of the view plane
+     * @param focalPoint the focal point to focus the camera
      */
     public Camera(Point p0, Vector vTo, Vector vUp,Point focalPoint) {
         _p0 = p0;
@@ -95,8 +100,8 @@ public class Camera {
 
     /**
      * sets the aperture
-     * @param focal
-     * @return
+     * @param focal point to focus the camera
+     * @return this
      */
     public Camera setAperture(Point focal) {
         double distance=_distance/2;
@@ -157,7 +162,7 @@ public class Camera {
     }
     /**
      * setter of tracerBase
-     * @param tracerBase
+     * @param tracerBase of type RayTracerBasic
      * @return this
      */
     public Camera setRayTracer(RayTracerBasic tracerBase) {
@@ -260,7 +265,7 @@ public class Camera {
 
     /**
      * renders the image using multithreading
-     * @return
+     * @return this
      */
     public Camera renderImage() {
         if (_p0 == null || _vUp == null || _vTo == null || _vRight == null ||
@@ -287,10 +292,10 @@ public class Camera {
 
     /**
      * first check on the pixel to see if the method is needed
-     * @param ny
-     * @param nx
-     * @param i
-     * @param j
+     * @param ny num of pixels of the height of the view plane
+     * @param nx num of pixels of the width of the view plane
+     * @param i the location of the pixel on the width of the view plane
+     * @param j the location of the pixel on the height of the view plane
      */
     private void antialiasing(int ny, int nx, int i, int j) {
         Color averagePixelColor=averageColor(nx, ny, j, i);
@@ -305,11 +310,12 @@ public class Camera {
 
     /**
      * average of each pixel vertices color
-     * @param bigNx
-     * @param bigNy
-     * @param j
-     * @param i
-     * @return
+     * calculate the color with depth field
+     * @param bigNx num of pixels of the width of the view plane
+     * @param bigNy num of pixels of the height of the view plane
+     * @param j the location of the pixel on the height of the view plane
+     * @param i the location of the pixel on the width of the view plane
+     * @return the correct color according depth field
      */
     private Color averageColor(int bigNx, int bigNy, int j, int i) {
         int nY = 2*bigNy;
@@ -317,7 +323,7 @@ public class Camera {
         Color pixelColor=new Color(java.awt.Color.BLACK);
         for (int iColumn = i*2; iColumn < i*2+2; iColumn++) {
             for (int jRow = j*2; jRow < j*2+2; jRow++) {
-                Ray ray = constructRayThroughPixel(nX, nY, jRow, iColumn);// לא דרך הוי פליין אלה דרך הצמצם
+                Ray ray = constructRayThroughPixel(nX, nY, jRow, iColumn);
                 Color newColor=constructRayThroughAperture(ray);
                 pixelColor=pixelColor.add(newColor) ;
             }
@@ -371,12 +377,12 @@ public class Camera {
 
     /**
      * a recursive function that helps with the antialiasing
-     * @param bigNx
-     * @param bigNy
-     * @param j
-     * @param i
-     * @param pixelColor
-     * @return
+     * @param bigNx num of pixels of the width of the view plane
+     * @param bigNy num of pixels of the height of the view plane
+     * @param j the location of the pixel on the height of the view plane
+     * @param i the location of the pixel on the width of the view plane
+     * @param pixelColor the color on the pixel
+     * @return the correct color on the pixel according antialiasing
      */
     private Color castRayHelper(int bigNx, int bigNy, int j, int i, Color pixelColor) {
         int Ny = 2*bigNy;
@@ -421,6 +427,9 @@ public class Camera {
         return this;
     }
 
+    /**
+     * class to describe the apeture of the camera to depth field
+     */
     private class Aperture{
         /**
          * distance of the focal plane from the camera
@@ -433,12 +442,12 @@ public class Camera {
 
         /**
          * constructor of the aperture
-         * @param distance
-         * @param focalPlane
+         * @param distance between the camera and the focal plane
+         * @param focalPlane point to focus the camera
          */
         public Aperture(double distance,Point focalPlane){
             this._distanceFromCamera=distance;
-            this._focalPlane =focalPlane;// ברירת מחדל לפוקל פוינט
+            this._focalPlane =focalPlane;
 
         }
     }
