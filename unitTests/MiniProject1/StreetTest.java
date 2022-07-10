@@ -91,7 +91,7 @@ public class StreetTest {
 
 
 
-//               // window
+               // window
                 new Circle(new Point(35,30,90),new Vector(0,0,-1),15)
                         .setEmission(new Color(64,1,12)).setMaterial(new Material()
                                 .setKd(0.25)
@@ -150,17 +150,14 @@ public class StreetTest {
                                 .setKs(0.25)
                                 .setShininess(20)),
 
-                //amood
-//                new Cylinder(80,new Ray(new Point(-60,-80,120),new Vector(0,1,0)),1d)
-//                        .setEmission(new Color(BLUE)),
-                //light lamp
+                 //light lamp
                 new Sphere(new Point(-60,1,50),10d)
-                .setEmission(new Color(30,30,30))
-                .setMaterial(new Material()
-                .setKd(0.25)
-                .setKs(0.25)
-                .setShininess(20)
-                .setKt(0.9)),
+                        .setEmission(new Color(30,30,30))
+                        .setMaterial(new Material()
+                                .setKd(0.25)
+                                .setKs(0.25)
+                                .setShininess(20)
+                                .setKt(0.9)),
                 new Polygon(new Point(-63,-9,60),new Point(-57,-9,60)
                         ,new Point(-57,-80,60),new Point(-63,-80,60))
                         .setEmission(new Color(3,13,84))
