@@ -99,28 +99,31 @@ public class Polygon extends Geometry {
 
 	@Override
 	protected List<GeoPoint> findGeoIntersectionsHelper(Ray r, double  distance) {
-		List<GeoPoint> planeIntersections = _plane.findGeoIntersectionsHelper(r,distance);
-		if (planeIntersections == null) return null;
+		List<GeoPoint> planeIntersections = _plane.findGeoIntersections(r, distance);
+		if (planeIntersections == null)
+			return null;
 
 		Point p0 = r.getP0();
 		Vector v = r.getDir();
 
-		//checking if the point inside the polygon
-		Vector v1 = _vertices.get(0).subtract(p0);
-		Vector v2 = _vertices.get(1).subtract(p0);
-		Vector v3 = _vertices.get(2).subtract(p0);
-		double s1 = v.dotProduct(v1.crossProduct(v2));
-		if (isZero(s1)) return null;
-		double s2 = v.dotProduct(v2.crossProduct(v3));
-		if (isZero(s2)) return null;
-		double s3 = v.dotProduct(v3.crossProduct(v1));
-		if (isZero(s3)) return null;
+		Vector v1 = _vertices.get(1).subtract(p0);
+		Vector v2 = _vertices.get(0).subtract(p0);
+		double sign = v.dotProduct(v1.crossProduct(v2));
+		if (isZero(sign))
+			return null;
 
-		if ((s1 > 0 && s2 > 0 && s3 > 0) || (s1 < 0 && s2 < 0 && s3 < 0)) {
-			planeIntersections.get(0).geometry = this;
-			return planeIntersections;}
+		boolean positive = sign > 0;
 
-        return null;
+		for (int i = _vertices.size() - 1; i > 0; --i) {
+			v1 = v2;
+			v2 = _vertices.get(i).subtract(p0);
+			sign = alignZero(v.dotProduct(v1.crossProduct(v2)));
+			if (isZero(sign)) return null;
+			if (positive != (sign > 0)) return null;
+		}
+
+		planeIntersections.get(0).geometry = this;
+		return planeIntersections;
 
 	}
 }

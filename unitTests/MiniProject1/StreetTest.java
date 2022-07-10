@@ -34,9 +34,10 @@ public class StreetTest {
 //                        new Point(-100,-80,200),new Point(100,-80,200)),
 
                 //house
-                new Polygon(new Point(200,-80,-100),new Point(-200,-80,-100)
-                ,new Point(-200,80,-100),new Point(200,80,-100))
-                .setEmission(new Color(89,4,19)).setMaterial(new Material()
+
+                new Polygon(new Point(90,-80,100),new Point(-90,-80,100)
+                        ,new Point(-90,80,100),new Point(90,80,100))
+                        .setEmission(new Color(ORANGE)).setMaterial(new Material()
                 .setKd(0.25)
                 .setKs(0.25)
                 .setShininess(20)
